@@ -1,0 +1,1 @@
+imread('/home/sphere/gait_cnn/datasets/staircase/video_training/Subject1_Normal1/Subject1_Normal1_quickFill/meanBG3channelDepth/depth_102.png');

@@ -1,0 +1,7 @@
+CC=gcc
+CFLAGS=-I/space/data_to_backup/Libraries/opencv-2.4.11/include 
+LIBS=-L/space/data_to_backup/Libraries/opencv-2.4.11/lib
+
+hellomake: gaitBGS.o 
+     $(CC) -o gaitBGS gaitBGS.cpp $(CFLAGS) $(LIBS)
+

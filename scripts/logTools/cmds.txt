@@ -1,0 +1,41 @@
+cp /tmp/caffe.WP2.sphere.log.INFO.20150807-174712.10368/home/sphere/gait_cnn/Caffe/caffe/gait/models/homemade/6/withCoherentManifold/info.log
+./parse_log.sh /home/sphere/gait_cnn/Caffe/caffe/gait/models/homemade/6/withCoherentManifold/info.log
+
+#in gnuplot:LOG SCALE
+reset
+set terminal png
+set output "testLoss.png"
+set style data lines
+set key bottom
+
+###### Fields in the data file your_log_name.log.train are
+###### Iters Seconds TrainingLoss LearningRate
+
+# Training loss vs. training iterations
+set title "Training/Validation Loss vs. training iterations"
+set xlabel "Training iterations"
+set ylabel "Loss (l2Norm)"
+set yrange [0.000001:100]
+set logscale y
+plot "info.log.train" using 1:3 title "trainingLoss" with lines,"info.log.test" using 1:3 title "testLoss" with lines,"info.log.train" using 1:4 title "learningRate" with lines
+
+
+#or non logscale
+
+#in gnuplot:LOG SCALE
+reset
+set terminal png
+set output "testLoss.png"
+set style data lines
+set key top
+
+###### Fields in the data file your_log_name.log.train are
+###### Iters Seconds TrainingLoss LearningRate
+
+# Training loss vs. training iterations
+set title "Training/Validation Loss vs. training iterations"
+set xlabel "Training iterations"
+set ylabel "Loss (l2Norm)"
+set yrange [0:0.9]
+
+plot "info.log.train" using 1:3 title "trainingLoss" with lines,"info.log.test" using 1:3 title "testLoss" with lines

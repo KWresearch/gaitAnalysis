@@ -1,0 +1,7 @@
+CC=gcc
+CFLAGS=-I/space/data_to_backup/Libraries/opencv-2.4.11/include 
+LIBS=-L/space/data_to_backup/Libraries/opencv-2.4.11/lib
+
+hellomake: hellomake.o hellofunc.o
+     $(CC) -o hellomake hellomake.o hellofunc.o $(CFLAGS) $(LIBS)
+
