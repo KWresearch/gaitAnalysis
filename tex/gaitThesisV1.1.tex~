@@ -14,6 +14,39 @@ Feature Descriptors for Gait Analysis From Depth Sensors}
 \usepackage[page]{appendix}
 \usepackage{gensymb}
 \usepackage{color}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{6}{\parindent}%
+  {3.25ex \@plus1ex \@minus .2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\def\toclevel@subsubsubsection{4}
+\def\toclevel@paragraph{5}
+\def\toclevel@paragraph{6}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\def\l@paragraph{\@dottedtocline{5}{10em}{5em}}
+\def\l@subparagraph{\@dottedtocline{6}{14em}{6em}}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 
 
 \usepackage{microtype}
@@ -32,7 +65,7 @@ Feature Descriptors for Gait Analysis From Depth Sensors}
 
 \newcommand{\comment}[1]{}
 \begin{document}
-
+\tableofcontents
 \comment{
 
 A statement of the aims and objectives of the project.
@@ -97,7 +130,7 @@ Since this system uses data driven, machine learning methods to learn both the m
 One issue currently limiting the effectiveness of this system is the fragility of the skeleton tracking software. Shotton et al's algorithm was designed for controlling entertainment/gaming systems with the user viewed frontally, within a range of 1-4m and at a pitch angle near 0$\degree$. Outside of these conditions skeletons become noisy and unreliable. Typically only a small fraction of data recorded from say a camera attached to the ceiling above the stairs is fit for use with the system. Increasing amount of usable data requires more intrusive camera placement which is to be avoided. The skeleton trackers also perform poorly when props are involved in the scene, for example grasping a banister or a ball often leads to erroneous joint positions for that arm. It also struggles to accurately record sitting/standing motions.
 %Aims
 
-The aim of this project is to develop a tailor made system for determining the reduced pose vector directly from RGB-D footage. To enable the flexibility of the rest of the system we require this new component to exibit the same flexibility as the rest of the system by being able to record a wide range of motions. It should also work with an effective accuracy under the kinds of viewing angles produced by practical, unobtrusive, in home camera placements. This requires a data driven approach since the pose representation we wish to infer is not fixed, differing based on the body configurations presented in training data. %Simply we require a system that can be trained to regress from RGB-D image data to a point in a continuous 3d space.
+The aim of this project is to develop a tailor made system for determining the reduced pose vector directly from RGB-D footage. To enable the flexibility of the rest of the system we require this new component to exhibit the same flexibility as the rest of the system by being able to record a wide range of motions. It should also work with an effective accuracy under the kinds of viewing angles produced by practical, unobtrusive, in home camera placements. This requires a data driven approach since the pose representation we wish to infer is not fixed, differing based on the body configurations presented in training data. %Simply we require a system that can be trained to regress from RGB-D image data to a point in a continuous 3d space.
 
 The methodology we find most suited to this task is a convolutional neural network (CNN). CNN's are a supervised learning method for extracting features, e.g. the pose vector, from images. Given training images labelled with the expected output the network extracts progressively higher level features representations leading to the final pose vector. Following training the network is then able to generalise to unseen data, producing an output inferred from the examples it has seen. 
 
@@ -118,7 +151,51 @@ To the best of our knowledge this project will be the first time that CNNs will 
 
 
 
-\section{Background & Related Work}
+\section{Background and Related Work}
+
+\subsection{Depth Imaging}
+\label{sec:Depth}
+
+
+In depth images each pixel value represents the distance of that point from the camera. Depth images are unaffected by changes in lighting or human appearance. They provide a 3D map of the scene making background-foreground separation far easier which can often simplify computer vision tasks.\cite{Chen2013}
+
+
+There are three main technologies used to produce depth images: Time~of~flight~(ToF) cameras, Stereo~imaging cameras and Structured~light cameras. It was not until the last~5~years that affordable good~quality RGB-D sensors came on the market, since then there has been an explosion in their use in the computer vision community~\cite{Han2013}. The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Live. 
+ 
+
+This sensor uses structured light technology. It consists of an infrared laser emitter, an infrared camera, which together make up the depth sensor, and an RGB camera. An infrared laser is passed through a diffraction grating to produce a known pattern of dots that is projected onto the scene then reflected back and captured by the infrared camera. The measured pattern is compared to a reference pattern produced at a known distance of reflection, which has been stored during the calibration process. The surface of reflection being farther or nearer than the reference surface produces a shift in the pattern which is used to determine the depth value~\cite{Zhang2012a,Khoshelham2012a}.
+\begin{figure}
+\centering
+\subfloat[The Microsoft Kinect v1. From \cite{Zhang2012a}		\label{fig:kinectCam} ]{{
+\includegraphics*[width=0.45\linewidth,clip]{kinectCamera} }}%
+\qquad
+\subfloat[Shows the process by which the Kinect v1 computes depth from triangulation of structured light. From \cite{Han2013}		\label{fig:kinectMeasure} ]{{
+\includegraphics*[width=0.45\linewidth,clip]{kinectMeasure} }}%
+\caption{}
+\label{fig:kinect}
+\end{figure}
+
+\subsubsection{Sensor Performance}
+\label{sec:senPerf}
+
+The RGB camera has 8bit channels and operates at a range of resolutions from 640~$\times$~480 up to~1280~$\times$~1024 with a trade-off in frames-per-second, decreasing from~30 to~10. The range of the depth sensor is~0.8-3.5m with increasingly noisy or incomplete readings up to 8m. It has a~43$\degree$~vertical by~57$\degree$~horizontal field~of~view and a motorised vertical tilt of~27$\degree$.\cite{Han2013}
+ \begin{figure}
+\includegraphics*[width=1\linewidth,clip]{kinectHoles4}
+\caption{Shows the holes in Kinect depth data due to the different perspectives of IR projector and senor (regions~1~and~3) and due to the surface of reflection being roughly~5m away and at a large angle(region~2) From~\cite{Feng2013}		\label{fig:kinectHoles4}  } 
+\end{figure}
+ \begin{figure}
+\includegraphics*[width=1\linewidth,clip]{kinectHoles3}
+\caption{Shows the holes in Kinect depth data due abnormal reflections from certain glossy surfaces like the TV monitor and the subjects hair.  From~\cite{Feng2013}			\label{fig:kinectHoles3}  } 
+\end{figure}
+
+Stoyanov et al.~\cite{StoyanovTodorandLouloudiAthanasiaandAndreassonHenrikandLilienthal2011a} compare the performance of the Kinect with that of two other ToF depth imaging cameras (SwissRanger~SR-4000 and Fotonic~B70~ToF) assessing them against a ground truth of expensive and low fps laser depth scanner measurements. They find that within a range of 3.5m the Kinect outperforms that of the ToF sensors and is comparable to the laser scanner, and that outside of this range the accuracy falls considerably.
+
+Both Khoshelham~\&~Elberink~\cite{Khoshelham2012a} and Smisek~et~al.~\cite{Smisek2011} have measured this effect experimentally comparing Kinect measurements with those from high performance laser scanners. They find temporally fluctuating noise in the depth measurements increases quadratically with distance from the sensor so the depth precision decreases from about~±0.5cm~at~1m to~±7cm at~7m. Nguyen~et~al. shows there to also be linearly increasing noise with lateral distance, and greatly increased noise on surfaces at greater than 70$\degree$~angles~\cite{Nguyen2012}. This last effect can lead to increased levels of noise around edges of humans. 
+
+As well as noise, the structured light sensors often return 'unknown' depth value pixels, known as holes, when the IR receiver cannot read the reflected pattern properly. This can occur around the sides of foreground objects due to the slightly different viewing angles between the projector and camera as in regions 2~and~3 of figure~\ref{fig:kinectHoles4}, or when certain surface materials, such as human hair, interfere with the IR pattern's reflection as in region~4 in figure~\ref{fig:kinectHoles3}. 
+
+
+It should be noted that each of these studies mentioned above~\cite{Khoshelham2012a,Smisek2011,Nguyen2012} fail to consider the environmental factors in the quality of the measurement. Fiedler~\&~Muller \cite{Fiedler2013} show that air draft can cause changes of the depth values up to~21mm at a distance of~1.5m, and temperature variations cause changes up to~1.88mm~per~1$\degree$~C. They also find a temperature dependant drift in the position of objects captured by the RGB camera.
 
 \subsection{Human Pose Estimation}
 
@@ -126,44 +203,44 @@ Human pose estimation (HPE) is generally considered the task of measuring in 2D 
 
  %Whilst this is somewhat different to our task, each element of pose vector we measure can be presumed to be correlated to all of the 3D joint positions. Therefore our network must in some sense 'see' the position of each joint. 
 
+This is a difficult task for a number of reasons. Firstly the human body has around 20 degrees of freedom~\cite{Forsyth2005}, producing a huge space of possible body configurations, many of which will cause some joints to be occluded when viewed from a single camera. Additional difficulties arise from the variety in human appearance and clothing, and from left right ambiguities. Traditional motion capture methods (MoCap) methods rely on markers attached to the subject and multiple cameras to overcome these issues. Whilst such systems can provide highly accurate pose data, their use is restricted to controlled environments using expensive and calibrated recording equipment which renders them unsuitable in many applications.
 
-This is a difficult task for a number of reasons. Firstly the human body has around 20 degrees of freedom~\cite{Forsyth2005}, producing a huge space of possible body cog = im2doublenfigurations, many of which will cause some joints to be occluded when viewed from a single camera. Additional difficulties arise from the variety in human appearance and clothing, and from left right ambiguities. Traditional motion capture methods (MoCap) methods rely on markers atached to the subject and multiple cameras to overcome these issues. Whilst such systems can provide highly accurate pose data, their use is restricted to controlled environments using expensive and calibrated recording equipment which renders them unsuitable in many applications.
-
-
-
-Monocular visual pose estimation methods (reviewed in \cite{Moeslund2006, Hen2009,Poppe2007,Sminchisescu2006,Liu2015}) are generally divided into two approaches (e.g. by \cite{Poppe2007}); model based (or generative) and model-free (or discriminative) approaches. Model based approachs use prior knowledge of human shape and kinematics such as fixed limb lengths and defined joint angle limits to cast the image to pose transformation as a nonlinear optimisation problem or probalistically in terms of a likelihood function, i.e. given this image data (and sometimes previous frames pose knowledge) what is the most likely valid pose. Model-free approaches instead learn a direct mapping from image data to pose, generally requiring learning/example based methods to acheive this. Some 'hybrid' approaches combine the two using model-free methods as an initialiser to model based methods. 
+Monocular visual pose estimation methods (reviewed in \cite{Moeslund2006, Hen2009,Poppe2007,Sminchisescu2006,Liu2015}) are generally divided into two approaches (e.g. by \cite{Poppe2007}); model based (or generative) and model-free (or discriminative) approaches. Model based approaches use prior knowledge of human shape and kinematics such as fixed limb lengths and defined joint angle limits to cast the image to pose transformation as a nonlinear optimisation problem or probabilistically in terms of a likelihood function, i.e. given this image data (and sometimes previous frames pose knowledge) what is the most likely valid pose. Model-free approaches instead learn a direct mapping from image data to pose, generally requiring learning/example based methods to achieve this. Some 'hybrid' approaches combine the two using model-free methods as an initialiser to model based methods. 
 
 
-\subsection{Human Pose Estimation Using Dimensionality Reduction}
+\subsubsection{Human Pose Estimation Using Dimensionality Reduction}
 
-With both of the above approaches there are significant issues posed by the high dimesionality of pose data. In model based approaches likelihood functions, which are usually multi-modal and non-Gaussian, require a randomised search~\cite{Sminchisescu2003}. Such searches in ~20 dimensions are computationally expensive and often lead to super real time frame rates~\cite{Hen2009}. In model free approaches training data must account for the highly non-linear mapping between image and pose, which means that the pose space must be densely sampled in the training set. Densely sampling a 20 dimensional space, even only the parts that correspond to valid human motion, whilst also modelling all the invariant aspects such as body shapes, viewing angle etc requires an inordinate ammount of data~\cite{Hen2009,Agarwal2006}.%Agarwal2006Recovering 3D human pose from monocular images
+With both of the above approaches there are significant issues posed by the high dimensionality of pose data. In model based approaches likelihood functions, which are usually multi-modal and non-Gaussian, require a randomised search~\cite{Sminchisescu2003}. Such searches in ~20 dimensions are computationally expensive and often lead to super real time frame rates~\cite{Hen2009}. In model free approaches training data must account for the highly non-linear mapping between image and pose, which means that the pose space must be densely sampled in the training set. Densely sampling a 20 dimensional space, even only the parts that correspond to valid human motion, whilst also modelling all the invariant aspects such as body shapes, viewing angle etc requires an inordinate amount of data~\cite{Hen2009,Agarwal2006}.%Agarwal2006Recovering 3D human pose from monocular images
 
-Although the full pose space is very large and high dimensional it has been shown e.g. in \cite{Brand1999,Elgammal2004} that if considering only the movements in a well defined activity e.g. walking then the pose data can be well represented by a low dimensional latent manifold.  In a work closely related to our own Elgammal et al. \cite{Elgammal2004} use a Local Linear Embedding method to generate a 1D manifold representation (embeded within a 3D space)$^{(FIGURE?)}$ of a walking motion from single sequences of silhouette images. They use a Generalized Radial Basis Function interpolation framework~\cite{Poggio1990} (a form of neural network) to learn the nonlinear mappings from the manifold to silhouette image space and from the manifold to full 3D joint positions, which they then invert to extract points on the manifold from silhouettes and 3D pose from points on the manifold. In contrast, our work builds the manifold representation from 3D joint position data, this has the benefit that the same manifold representation applies naturally to multiple subjects, which is not the case in~\cite{Elgammal2004} (although they do introduce an adpaption for this problem in~\cite{Elgammal2004b}). It is also unlikely that this method could be used to capture abnormallity in gait since defining an image to manifold transformation explicitly from the inverse constrains all input images to the poses contained in the original sequence.$^{(agree? )}$ Conversly Elgammal et al. argue that learning a smooth mapping from examples is an ill-posed problem unless the mapping is constrained since the mapping will be undefined in other parts of the space.$^{(response?)}$
+Although the full pose space is very large and high dimensional it has been shown e.g. in \cite{Brand1999,Elgammal2004} that if considering only the movements in a well defined activity e.g. walking then the pose data can be well represented by a low dimensional latent manifold.  In a work closely related to our own Elgammal et al. \cite{Elgammal2004} use a Local Linear Embedding method to generate a 1D manifold representation (embedded within a 3D space)$^{(FIGURE?)}$ of a walking motion from single sequences of silhouette images. They use a Generalised Radial Basis Function interpolation framework~\cite{Poggio1990} (a form of neural network) to learn the nonlinear mappings from the manifold to silhouette image space and from the manifold to full 3D joint positions. They then invert these mappings to extract points on the manifold from silhouettes and 3D joint positions from the points on the manifold. In contrast, our work builds the manifold representation from 3D joint position data, this has the benefit that the same manifold representation is not tied to subject appearance, generalising naturally to multiple subjects, which is not the case in~\cite{Elgammal2004} (although they do introduce an solution for this problem in~\cite{Elgammal2004b}). It is also unlikely that this method could be used to capture abnormality in gait since defining an image to manifold transformation explicitly from the inverse constrains all input images to the poses contained in the original sequence.  Elgammal et al. argue that learning a smooth mapping from examples is an ill-posed problem unless the mapping is constrained since the mapping will be undefined in other parts of the space. However we show that having unseen (in the training set) poses mapped to points away from the manifold, which is precisely what an undefined mapping causes, is the a good indication of ab $^{Sort this later}$
 
-Brand \cite{Brand1999}, also inferred 3D pose from silhouettes using an intermediate manifold representation. He uses a maximum a posteriori estimation for mapping between the image and manifold space. This uses information across the whole input sequence to find the most likely  and consistant solutions in order resolve the ambiguities in the many to many silhouette to pose mapping. A solution of this form is unacceptable in our case as on of the key features of the SPHERE system is online measurement.
+Brand \cite{Brand1999}, also inferred 3D pose from silhouettes using an intermediate manifold representation. He uses a maximum a posteriori estimation for mapping between the image and manifold space. This uses information across the whole input sequence to find the most likely  and consistent solutions in order resolve the ambiguities in the many to many silhouette to pose mapping. A solution of this form is unacceptable in our case as on of the key features of the SPHERE system is online measurement.
 
-Similarly Urtasan et al. \cite{Urtasun2005} used Scaled Gaussian Process Latent Variable Models (SGPLVM) \cite{Lawrence2004} on single training sequences (walking and a golf swing) labelled with 2D joint postions. These models build a low dimensional manifold, and simultaneously, a continuous mapping between this and the 2D joint positions. They use the low dimensional representation to facilitate efficient maximum a posteriori based tracking in this space. Again, this is only suitable as an offline solution. 
-
-Tangkuampien and Suter \cite{Tangkuampien2006} used Kernel Principle Component Anaylsis (KPCA) to learn low dimensional respresentations of 3D joint positions, and seperately using the same method, a low dimensional representation of silhouette images. They then learn a mapping between these spaces using Locally Linear Embedding (LLE) reconstruction. This has some similarity with using a CNN, where the image is transformed in to progressively more consise feature representations, before the regression takes place. The disadvantage of using LLE to perform the final transfromation is that it is contrained to within the manifold space contained in pose training data. As discussed above, our method has the benefit that it naturally maps unseen poses away from the manifold of the training data. This reduces the number of poses we must capture in our training data.
-
-Rosales et al \cite{Rosales2000,Rosales2001} used 3D joint position data from a MoCap system to render synthetic training data from multiple angles. Hu moments were used to extract visual features from these(and real) images. Unsupervised learning was used to cluster 3D joint position data into areas of similar pose and a neural network was trained seperatly on each cluster to learn the mapping from visual features to pose. Using the developments in training of deep neural networks since this work we show that it is feasible to have a single CNN both learn the features best suited and the mapping to all poses. This removes the need for clustering and seperate networks leading to a simpler easily adaptable solution. Although their use of MoCap data as oposed to Kinect Skeletons for ground truth is a change we could expect to improve performance in our system. Simlarly rendering sythetic training data from multiple angles would be a smart way of improving our viewing angle tolerance.
-
-\subsection{Human Pose Estimation From Depth Images}
-
-With the advent low cost commodity depth sensors challenging aspects of RGB HPE such as the variablity in human appearance and scene lighting were greatly simplified. RGB-D also provides richer data for infering 3D structure; human poses which could be appear identical when projected onto the 2D image plane can be distinguished. Full body HPE methods from single depth images are review in \cite{Helten2013}. With the Kinect sensor and its bundled software packages (Kinect SDK or alternatively the open source OpenNI) low cost, flexible and reasonably accurate HPE is now availible and has been employed in a huge variety of scientific applications~\cite{Han2013,Giovanni}.
-
-The Kinect SDK and OpenNI skeleton trackers apply some inter-frame tracking algorithms to the single frame pose measurements of~\cite{Shotton2011}. In this work Shotton et al. leveraged a large mocap 3D joint position dataset which they re-targetted onto a variety of synthetic body models before rendering as if captured from a Kinect, simulating sensor noise, camera pose, and crop position. Producing synthetic depth images data is far simpiler than in RGB since depth is far more invarient to subject clothing and appearance changes. Using these generated depth images and a ground truth labeling of each pixel as one of 31 body parts they trained a randomised regression forrest to perform this body part classification at each pixel using simple and computationally efficient pixel wise features. They then use these classifications to infer actual joint position through a simple averaging and mean shift proceedure. The whole algorithm operates in real time on the computational resources allowed to them on the Xbox gaming consoles GPU. \cite{Shotton2013a} adapts this work by allowing pixel classifications of a number of surrounding joints to be used when estimating the joint position, rather than the single corresponding body part pixels as in~\cite{Shotton2011}. This is shown to improve the quality of the prediction for occluded joints. A similar use of mocap joint postion data for rendering synthetic images from multiple views is suggested as an ideal way for increasing the view angle and subject invarience of our system.
-
-Other methods e.g.~\cite{Ye2011,Wei2011,Baak2011} have used point cloud matching thave focused on improving temporal smoothness of the measured pose by combining joint detecting model-free approachs similar to \cite{Shotton2011,Shotton2013a} with model based temporal tracking methods. These would enforce an offline measurement and are therefore unsuitable for our system.
+Similarly Urtasan et al. \cite{Urtasun2005} used Scaled Gaussian Process Latent Variable Models (SGPLVM) \cite{Lawrence2004} on single training sequences (walking and a golf swing) labelled with 2D joint positions. These models build a low dimensional manifold, and simultaneously, a continuous mapping between this and the 2D joint positions. They use the low dimensional representation to facilitate efficient maximum a posteriori based tracking in this space. Again, this is only suitable as an offline solution. 
 
 
+Tangkuampien and Suter \cite{Tangkuampien2006} used Kernel Principle Component Analysis (KPCA) to learn low dimensional representations of 3D joint positions, and separately using the same method, a low dimensional representation of silhouette images. They then learn a mapping between these spaces using Locally Linear Embedding (LLE) reconstruction. This has some similarity with using a CNN, where the image is transformed in to progressively more concise feature representations, before the regression takes place. The disadvantage of using LLE to perform the final transformation is that it is contained to within the manifold space contained in pose training data. As discussed above, our method has the benefit that it naturally maps unseen poses away from the manifold of the training data. This reduces the number of poses we must capture in our training data.
+
+Rosales et al \cite{Rosales2000,Rosales2001} used 3D joint position data from a MoCap system to render synthetic training data from multiple angles. Hu moments were used to extract visual features from these(and real) images. Unsupervised learning was used to cluster 3D joint position data into areas of similar pose and a neural network was trained separately on each cluster to learn the mapping from visual features to pose. Using the developments in training of deep neural networks since this work we show that it is feasible to have a single CNN both learn the features best suited and the mapping to all poses. This removes the need for clustering and separate networks leading to a simpler easily adaptable solution. Although their use of MoCap data as opposed to Kinect Skeletons for ground truth is a change we could expect to improve performance in our system. Similarly rendering synthetic training data from multiple angles would be a smart way of improving our viewing angle tolerance.
+
+\subsubsection{Human Pose Estimation From Depth Images}
+
+With the advent low cost commodity depth sensors challenging aspects of RGB HPE such as the variability in human appearance and scene lighting were greatly simplified. RGB-D also provides richer data for inferring 3D structure; human poses which could be appear identical when projected onto the 2D image plane can be distinguished. Full body HPE methods from single depth images are review in \cite{Helten2013}. With the Kinect sensor and its bundled software packages (Kinect SDK or alternatively the open source OpenNI) low cost, flexible and reasonably accurate HPE is now available and has been employed in a huge variety of scientific applications~\cite{Han2013,Giovanni}.
+
+The Kinect SDK and OpenNI skeleton trackers apply some inter-frame tracking algorithms to the single frame pose measurements of~\cite{Shotton2011}. In this work Shotton et al. leveraged a large mocap 3D joint position dataset which they re-targetted onto a variety of synthetic body models before rendering as if captured from a Kinect, simulating sensor noise, camera pose, and crop position. Producing synthetic depth images data is far simpler than in RGB since depth is far more invariant to subject clothing and appearance changes. Using these generated depth images and a ground truth labelling of each pixel as one of 31 body parts they trained a randomised regression forrest to perform this body part classification at each pixel using simple and computationally efficient pixel wise features. They then use these classifications to infer actual joint position through a simple averaging and mean shift procedure. The whole algorithm operates in real time on the computational resources allowed to them on the Xbox gaming consoles GPU. \cite{Shotton2013a} adapts this work by allowing pixel classifications of a number of surrounding joints to be used when estimating the joint position, rather than the single corresponding body part pixels as in~\cite{Shotton2011}. This is shown to improve the quality of the prediction for occluded joints. A similar use of mocap joint position data for rendering synthetic images from multiple views is suggested as an ideal way for increasing the view angle and subject invariance of our system.
+
+Another discrimitive method is \cite{Plagemann2010} where they find geodesic extrema (which are expected to correspond to the feet, hands and head) from  Dijkstra’s algorithm on a graph produced by connecting all depth pixels in the image into a map. These points are identified (as hands feet or head) by applying local shape descriptors around the area. 
+
+Other methods e.g.~\cite{Ye2011,Wei2011,Baak2011,Zhu2008} have focused on improving temporal smoothness of the measured pose by combining such discrimitive methods with model based temporal model based tracking methods. 
+
+In a recent attempt Chan et al \cite{Chan2014} use 3D point cloud information and propose a viewpoint and shape histogram feature based off these point clouds. This feature is then used to categorise the pose based on the action being performed using an introduced action mixed model. Each action is prescribed its own low dimensional manifold which allows a human pose database containing a limited ammount of data to probalistically infer the full pose.
 
 
 
 %multiframe input not possible bcause skeletons noise
 
 
-
+\subsection{Convolutional Neural Networks}
 
 
 
