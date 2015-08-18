@@ -65,6 +65,7 @@ Feature Descriptors for Gait Analysis From Depth Sensors}
 
 \newcommand{\comment}[1]{}
 \begin{document}
+\maketitle
 \tableofcontents
 \comment{
 
@@ -106,7 +107,7 @@ Suggestions on possible improvements and/or further work.
 
 
 
-\maketitle
+
 
 \section{Introduction}
 
@@ -136,7 +137,7 @@ The methodology we find most suited to this task is a convolutional neural netwo
 
 CNNs have been effectively applied to 2D~human~pose estimation from RGB images~\cite{Toshev,Pfister,Li2014,Jain2013a,Jain2014,Tompson,Tompson2014} where the positions of joints in the image plane were inferred. In~\cite{Accv2014} they were also applied to 3D joint position estimation from RGB, where they were shown to have reasonable accuracy from a range of viewing angles when trained with data captured by 4 cameras placed around the subjects. They have also been shown to benefit from depth depth data in the tasks of object detection~\cite{Gupta2014}, object pose estimation~\cite{Schwarz2015} and object recognition~\cite{Alexandre2013}. %However this will be the first work, to our knowledge, that attempts a form of human pose estimation using depth data. 
 
-For assessing the effectiveness of our solution we will focus on the staircase ascent motion, as this is the motion for which we possess the largest dataset. Refered to as the SPHERE staircase 2014 dataset~\cite{Paiement}, this includes 48 sequences of 12 individuals walking up stairs, captured by a Kinect v1 camera placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking.
+For assessing the effectiveness of our solution we focus on the staircase ascent motion, as this is the motion for which we possess the largest dataset. Refered to as the SPHERE staircase 2014 dataset~\cite{Paiement}, this includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion camera placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking.
 
 The accuracy of our predicted pose vectors are measured by computing the mean squared error (MSE) of the produced pose vectors against the label values. We also measure the change in overall system performance (how well the measured gait quality score matches the score labelled by a trained physiotherapist). 
 
@@ -146,7 +147,7 @@ The accuracy of our predicted pose vectors are measured by computing the mean sq
 %Generally the project can be seen as type I since it 
 
 %Explain the main novelty and added value.
-To the best of our knowledge this project will be the first time that CNNs will be applied to a 3D human pose estimation task on RGB-D images. It will also be a novel combination of CNNs and manifold learning methods since what we are doing is simplifying the difficult task of human pose estimation through the dimensionality reduction stage. We find that this makes the CNN easier to train and more effective overall since it has far less outputs to specify. If this is proved to be the case it could potentially be applied to other tasks that have been attempted with CNNs such as human action recognition.
+To the best of our knowledge this project will be the first time that CNNs will be applied to a 3D human pose estimation task on RGB-D images. It will also be a novel combination of CNNs and manifold learning methods. We find that this makes the CNN easier to train and more effective overall since it has far less outputs to specify. If this is proved to be the case it could potentially be applied to other tasks that have been attempted with CNNs such as human action recognition.
 
 
 
@@ -159,41 +160,41 @@ To the best of our knowledge this project will be the first time that CNNs will 
 
 In depth images each pixel value represents the distance of that point from the camera. Depth images are unaffected by changes in lighting or human appearance. They provide a 3D map of the scene making background-foreground separation far easier which can often simplify computer vision tasks.\cite{Chen2013}
 
+There are three main technologies used to produce depth images: Time~of~flight~(ToF) cameras, Stereo~imaging cameras and Structured~light cameras. It was not until the last~5~years that affordable good~quality RGB-D sensors came on the market, since then there has been an explosion in their use in the computer vision community~\cite{Han2013}.
 
-There are three main technologies used to produce depth images: Time~of~flight~(ToF) cameras, Stereo~imaging cameras and Structured~light cameras. It was not until the last~5~years that affordable good~quality RGB-D sensors came on the market, since then there has been an explosion in their use in the computer vision community~\cite{Han2013}. The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Live. 
- 
+ The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Live which uses the structured light technology developed by Primesense (same as the Microsoft Kinect). It consists of an infrared laser emitter, an infrared camera, which together make up the depth sensor, and an RGB camera. An infrared laser is passed through a diffraction grating to produce a known pattern of dots that is projected onto the scene then reflected back and captured by the infrared camera. The measured pattern is compared to a reference pattern produced at a known distance of reflection, which has been stored during the calibration process. The surface of reflection being farther or nearer than the reference surface produces a shift in the pattern which is used to determine the depth value~\cite{Zhang2012a,Khoshelham2012a}.
 
-This sensor uses structured light technology. It consists of an infrared laser emitter, an infrared camera, which together make up the depth sensor, and an RGB camera. An infrared laser is passed through a diffraction grating to produce a known pattern of dots that is projected onto the scene then reflected back and captured by the infrared camera. The measured pattern is compared to a reference pattern produced at a known distance of reflection, which has been stored during the calibration process. The surface of reflection being farther or nearer than the reference surface produces a shift in the pattern which is used to determine the depth value~\cite{Zhang2012a,Khoshelham2012a}.
-\begin{figure}
-\centering
-\subfloat[The Microsoft Kinect v1. From \cite{Zhang2012a}		\label{fig:kinectCam} ]{{
-\includegraphics*[width=0.45\linewidth,clip]{kinectCamera} }}%
-\qquad
-\subfloat[Shows the process by which the Kinect v1 computes depth from triangulation of structured light. From \cite{Han2013}		\label{fig:kinectMeasure} ]{{
-\includegraphics*[width=0.45\linewidth,clip]{kinectMeasure} }}%
-\caption{}
-\label{fig:kinect}
-\end{figure}
+%\begin{figure}
+%\centering
+%\subfloat[The Microsoft Kinect v1. From \cite{Zhang2012a}		\label{fig:kinectCam} ]{{
+%\includegraphics*[width=0.45\linewidth,clip]{kinectCamera} }}%
+%\qquad
+%\subfloat[Shows the process by which the Kinect v1 computes depth from triangulation of structured light. From \cite{Han2013}		\label{fig:kinectMeasure} ]{{
+%\includegraphics*[width=0.45\linewidth,clip]{kinectMeasure} }}%
+%\caption{}
+%\label{fig:kinect}
+%\end{figure}
 
 \subsubsection{Sensor Performance}
 \label{sec:senPerf}
 
-The RGB camera has 8bit channels and operates at a range of resolutions from 640~$\times$~480 up to~1280~$\times$~1024 with a trade-off in frames-per-second, decreasing from~30 to~10. The range of the depth sensor is~0.8-3.5m with increasingly noisy or incomplete readings up to 8m. It has a~43$\degree$~vertical by~57$\degree$~horizontal field~of~view and a motorised vertical tilt of~27$\degree$.\cite{Han2013}
- \begin{figure}
-\includegraphics*[width=1\linewidth,clip]{kinectHoles4}
-\caption{Shows the holes in Kinect depth data due to the different perspectives of IR projector and senor (regions~1~and~3) and due to the surface of reflection being roughly~5m away and at a large angle(region~2) From~\cite{Feng2013}		\label{fig:kinectHoles4}  } 
-\end{figure}
- \begin{figure}
-\includegraphics*[width=1\linewidth,clip]{kinectHoles3}
-\caption{Shows the holes in Kinect depth data due abnormal reflections from certain glossy surfaces like the TV monitor and the subjects hair.  From~\cite{Feng2013}			\label{fig:kinectHoles3}  } 
-\end{figure}
+Most of the studies reported below have focused on the Microsoft Kinect however both sensor contain the same depth sensing system and have been shown to perform equivalently when compared~\cite{Gonzalez-Jorge2013}, hence we report the findings based off of the Kinect performance.
+
+The range of the depth sensor is~0.8-3.5m with increasingly noisy or incomplete readings up to 8m. It has a~43$\degree$~vertical by~57$\degree$~horizontal field~of~view~\cite{Han2013}.
+ %\begin{figure}
+%\includegraphics*[width=1\linewidth,clip]{kinectHoles4}
+%\caption{Shows the holes in Kinect depth data due to the different perspectives of IR projector and senor (regions~1~and~3) and due to the surface of reflection being roughly~5m away and at a large angle(region~2) From~\cite{Feng2013}		\label{fig:kinectHoles4}  } 
+%\end{figure}
+ %\begin{figure}
+%\includegraphics*[width=1\linewidth,clip]{kinectHoles3}
+%\caption{Shows the holes in Kinect depth data due abnormal reflections from certain glossy surfaces like the TV monitor and the subjects hair.  From~\cite{Feng2013}			%\label{fig:kinectHoles3}  } 
+%\end{figure}
 
 Stoyanov et al.~\cite{StoyanovTodorandLouloudiAthanasiaandAndreassonHenrikandLilienthal2011a} compare the performance of the Kinect with that of two other ToF depth imaging cameras (SwissRanger~SR-4000 and Fotonic~B70~ToF) assessing them against a ground truth of expensive and low fps laser depth scanner measurements. They find that within a range of 3.5m the Kinect outperforms that of the ToF sensors and is comparable to the laser scanner, and that outside of this range the accuracy falls considerably.
 
 Both Khoshelham~\&~Elberink~\cite{Khoshelham2012a} and Smisek~et~al.~\cite{Smisek2011} have measured this effect experimentally comparing Kinect measurements with those from high performance laser scanners. They find temporally fluctuating noise in the depth measurements increases quadratically with distance from the sensor so the depth precision decreases from about~±0.5cm~at~1m to~±7cm at~7m. Nguyen~et~al. shows there to also be linearly increasing noise with lateral distance, and greatly increased noise on surfaces at greater than 70$\degree$~angles~\cite{Nguyen2012}. This last effect can lead to increased levels of noise around edges of humans. 
 
-As well as noise, the structured light sensors often return 'unknown' depth value pixels, known as holes, when the IR receiver cannot read the reflected pattern properly. This can occur around the sides of foreground objects due to the slightly different viewing angles between the projector and camera as in regions 2~and~3 of figure~\ref{fig:kinectHoles4}, or when certain surface materials, such as human hair, interfere with the IR pattern's reflection as in region~4 in figure~\ref{fig:kinectHoles3}. 
-
+As well as noise, the structured light sensors often return 'unknown' depth value pixels, known as holes, when the infrared receiver cannot read the reflected pattern properly. This can occur around the sides of foreground objects due to the slightly different viewing angles between the projector and camera as in regions 2~and~3 of figure~\ref{fig:kinectHoles4}, or when certain surface materials, such as human hair, interfere with the infrared pattern's reflection as in region~4 in figure~\ref{fig:kinectHoles3}. 
 
 It should be noted that each of these studies mentioned above~\cite{Khoshelham2012a,Smisek2011,Nguyen2012} fail to consider the environmental factors in the quality of the measurement. Fiedler~\&~Muller \cite{Fiedler2013} show that air draft can cause changes of the depth values up to~21mm at a distance of~1.5m, and temperature variations cause changes up to~1.88mm~per~1$\degree$~C. They also find a temperature dependant drift in the position of objects captured by the RGB camera.
 
@@ -244,7 +245,38 @@ In a recent attempt Chan et al \cite{Chan2014} use 3D point cloud information an
 
 
 
+\section{System Overview}
 
+
+\subsection{Pre-existing SPHERE System For Movement Quality Analysis}
+
+\label{sec:exSys}
+
+In this section we will cover the existing system (as originally described in~\cite{Paiement} and~\cite{Tao}) highlighting the points to be considered for our work.
+\begin{figure}
+\includegraphics*[width=1\linewidth,clip]{exsysData}
+\caption{Shows a typical sequence from the SPHERE-staircase2014 dataset.  Incorrectly labelled joint positions can be observed in the right hand side of figures c) d) and e) From \cite{Tao}		\label{fig:exsysData}  } 
+\end{figure}
+
+As mentioned in section~\ref{sec:intro} the aim of the system is to quantify the quality of movement. This is achieved through comparing the recorded motion to a taught reference model of perfect motion. Although it has been evaluated specifically for gait measurements, the system aims to be widely applicable. Provided with suitable training data demonstrating perfect motion it could be applied to physiotherapy exercises, or in a sports movement optimisation application with little adaptation. This has been demonstrated with the system being applied to boxing and sitting-standing motions presented on the SPHERE web page\footnote{www.irc-sphere.ac.uk/work-package-2/movement-quality}.
+
+
+The gait analysis system has been trained using the SPHERE-staircase2014 dataset~\cite{Paiement}. This dataset includes~48 sequences of~12 individuals walking up stairs, captured by a Kinect camera placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. 17 sequences of normal walking from~6 individuals were used for training purposes and~31 sequences from the remaining~6 subjects with both normal and abnormal walking were kept for testing. An example with the skeleton overlaid is shown in~\ref{fig:exsysData}.
+
+
+The system can be considered as a pipeline, as represented in~\ref{fig:sysPipe}. First, it takes the captured RGB-D scene and uses one of the skeleton tracking packages from section~\ref{sec:sofTools} to extract the joint positions of a body in the frame. The skeletons are averaged over a temporal window to smooth noise before being scaled, rotated and translated to normalise the pose (these steps will be detailed further in section$^{insert reference later}$).  
+\begin{figure}
+\includegraphics*[width=1\linewidth,clip]{sysPipeline}
+\caption{Shows the stages in the pipeline for gait quality analysis of the existing system. From~\cite{Tao}		\label{fig:sysPipe}  }
+\end{figure}
+
+Next the low-level feature extraction stage builds a feature vector out of the skeleton data to encode the pose. Tao et al. tests and compares a number of viable feature representations for the skeleton data. They find that using a vector of the each joint coordinate concatenated performs best overall~\cite{Tao}. 
+
+This joint position vector is then processed using the non-linear dimensionality reduction method Diffusion Maps~\cite{Coifman2006}. The stage is first trained offline, building the manifold representation from the training subset of the data. The characteristic of manifolds produced by Diffusion Maps is that the data retain the relative euclidean distances between point in the reduced space. This representation is then extended to new data in the testing phase by projecting new skeletons onto the existing manifold. 
+
+Next the reduced pose vectors~\textbf{Y} of the training data is used to learn two probabilistic continuous HMM (Hidden Markov Model) models, one of instantaneous pose, and one of dynamics. The normality of a pose is then the likelihood of the of~\textbf{Y} being described by the trained pose model. Similarly the dynamical model computes a quality based on the likelihood of~\textbf{Y} given the proceeding frames and the model of normal dynamics. Thresholds on these two normality scores are used to classify each frame normal or abnormal.
+
+The system is 'online' in that it measures abnormality on a frame-by-frame basis, rather than processing a recorded sequence offline and measuring across the full sequence. This enables it produce more detailed data on the parts of the motion that are deviating from normality, which is a benefit.
 
 \section{Preprocessing}
 \label{sec:intro}
