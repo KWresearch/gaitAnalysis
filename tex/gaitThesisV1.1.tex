@@ -16,7 +16,7 @@ Feature Descriptors for Gait Analysis From Depth Sensors}
 \usepackage{color}
 \usepackage{titlesec}
 \usepackage{hyperref}
-
+\usepackage[toc,page]{appendix}
 \titleclass{\subsubsubsection}{straight}[\subsection]
 
 \newcounter{subsubsubsection}[subsubsection]
@@ -128,7 +128,7 @@ Currently this system uses joint position information captured by the OpenNI ske
 Since this system uses data driven, machine learning methods to learn both the manifold representation of pose and the model of normal motion, it can be applied to other types of movement quality assessment such a sports movement optimisation or physiotherapy exercise coaching. The system has been applied to a sitting-standing motion, to punching motions in boxing$^{how to site http://www.irc-sphere.ac.uk/work-package-2/movement-quality ?}$ and to people walking upstairs. 
 %Limitation - doesn't work well in realisitic senarios
 
-One issue currently limiting the effectiveness of this system is the fragility of the skeleton tracking software. Shotton et al's algorithm was designed for controlling entertainment/gaming systems with the user viewed frontally, within a range of 1-4m and at a pitch angle near 0$\degree$. Outside of these conditions skeletons become noisy and unreliable. Typically only a small fraction of data recorded from say a camera attached to the ceiling above the stairs is fit for use with the system. Increasing amount of usable data requires more intrusive camera placement which is to be avoided. The skeleton trackers also perform poorly when props are involved in the scene, for example grasping a banister or a ball often leads to erroneous joint positions for that arm. It also struggles to accurately record sitting/standing motions.
+One issue currently limiting the effectiveness of this system is the fragility of the skeleton tracking software. Shotton et al's algorithm was designed for controlling entertainment/gaming systems with the user viewed frontally, within a range of 1-4m and at a pitch angle near 0$\degree$. Outside of these conditions skeletons become noisy and unreliable. Typically only a small fraction of data recorded from a camera attached to the ceiling above the stairs is fit for use with the system. Increasing amount of usable data requires more intrusive camera placement which is to be avoided. The skeleton trackers also perform poorly when props are involved in the scene, for example grasping a banister or a ball often leads to erroneous joint positions for that arm. It also struggles to accurately record sitting/standing motions.
 %Aims
 
 The aim of this project is to develop a tailor made system for determining the reduced pose vector directly from RGB-D footage. To enable the flexibility of the rest of the system we require this new component to exhibit the same flexibility as the rest of the system by being able to record a wide range of motions. It should also work with an effective accuracy under the kinds of viewing angles produced by practical, unobtrusive, in home camera placements. This requires a data driven approach since the pose representation we wish to infer is not fixed, differing based on the body configurations presented in training data. %Simply we require a system that can be trained to regress from RGB-D image data to a point in a continuous 3d space.
@@ -137,9 +137,7 @@ The methodology we find most suited to this task is a convolutional neural netwo
 
 CNNs have been effectively applied to 2D~human~pose estimation from RGB images~\cite{Toshev,Pfister,Li2014,Jain2013a,Jain2014,Tompson,Tompson2014} where the positions of joints in the image plane were inferred. In~\cite{Accv2014} they were also applied to 3D joint position estimation from RGB, where they were shown to have reasonable accuracy from a range of viewing angles when trained with data captured by 4 cameras placed around the subjects. They have also been shown to benefit from depth depth data in the tasks of object detection~\cite{Gupta2014}, object pose estimation~\cite{Schwarz2015} and object recognition~\cite{Alexandre2013}. %However this will be the first work, to our knowledge, that attempts a form of human pose estimation using depth data. 
 
-For assessing the effectiveness of our solution we focus on the staircase ascent motion, as this is the motion for which we possess the largest dataset. Refered to as the SPHERE staircase 2014 dataset~\cite{Paiement}, this includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion camera placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking.
-
-The accuracy of our predicted pose vectors are measured by computing the mean squared error (MSE) of the produced pose vectors against the label values. We also measure the change in overall system performance (how well the measured gait quality score matches the score labelled by a trained physiotherapist). 
+For assessing the effectiveness of our solution we focus on the staircase ascent motion, as this is the motion for which we possess the largest dataset. Refered to as the SPHERE staircase 2014 dataset~\cite{Paiement}, this includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position. Each Frame provides RGB, depth and 3D joint position data. The accuracy of our predicted pose vectors are measured by computing the mean squared error (MSE) of the networks predicted pose vectors against the label values. We also measure the change in overall system performance (how well the measured gait quality score matches the score labelled by a trained physiotherapist). 
 
 
 
@@ -230,12 +228,12 @@ With the advent low cost commodity depth sensors challenging aspects of RGB HPE 
 
 The Kinect SDK and OpenNI skeleton trackers apply some inter-frame tracking algorithms to the single frame pose measurements of~\cite{Shotton2011}. In this work Shotton et al. leveraged a large mocap 3D joint position dataset which they re-targetted onto a variety of synthetic body models before rendering as if captured from a Kinect, simulating sensor noise, camera pose, and crop position. Producing synthetic depth images data is far simpler than in RGB since depth is far more invariant to subject clothing and appearance changes. Using these generated depth images and a ground truth labelling of each pixel as one of 31 body parts they trained a randomised regression forrest to perform this body part classification at each pixel using simple and computationally efficient pixel wise features. They then use these classifications to infer actual joint position through a simple averaging and mean shift procedure. The whole algorithm operates in real time on the computational resources allowed to them on the Xbox gaming consoles GPU. \cite{Shotton2013a} adapts this work by allowing pixel classifications of a number of surrounding joints to be used when estimating the joint position, rather than the single corresponding body part pixels as in~\cite{Shotton2011}. This is shown to improve the quality of the prediction for occluded joints. A similar use of mocap joint position data for rendering synthetic images from multiple views is suggested as an ideal way for increasing the view angle and subject invariance of our system.
 
-Another discrimitive method is \cite{Plagemann2010} where they find geodesic extrema (which are expected to correspond to the feet, hands and head) from  Dijkstra’s algorithm on a graph produced by connecting all depth pixels in the image into a map. These points are identified (as hands feet or head) by applying local shape descriptors around the area. 
+Another discriminative method is \cite{Plagemann2010} where they find geodesic extrema (which are expected to correspond to the feet, hands and head) from Dijkstra’s algorithm on a graph produced by connecting all depth pixels in the image into a map. These points are identified (as hands feet or head) by applying local shape descriptors around the area. 
 
-Other methods e.g.~\cite{Ye2011,Wei2011,Baak2011,Zhu2008} have focused on improving temporal smoothness of the measured pose by combining such discrimitive methods with model based temporal model based tracking methods. 
+Other methods e.g.~\cite{Ye2011,Wei2011,Baak2011,Zhu2008} have focused on improving temporal smoothness of the measured pose by combining such discriminative methods with model based temporal model based tracking methods. 
 
-In a recent attempt Chan et al \cite{Chan2014} use 3D point cloud information and propose a viewpoint and shape histogram feature based off these point clouds. This feature is then used to categorise the pose based on the action being performed using an introduced action mixed model. Each action is prescribed its own low dimensional manifold which allows a human pose database containing a limited ammount of data to probalistically infer the full pose.
-
+In a recent attempt Chan et al \cite{Chan2014} use 3D point cloud information and propose a viewpoint and shape histogram feature based off these point clouds. This feature is then used to categorise the pose based on the action being performed using an introduced action mixed model. Each action is prescribed its own low dimensional manifold which allows a human pose database containing a limited amount of data to probabilistically infer the full pose.
+%look at He2015
 
 
 %multiframe input not possible bcause skeletons noise
@@ -243,52 +241,86 @@ In a recent attempt Chan et al \cite{Chan2014} use 3D point cloud information an
 
 \subsection{Convolutional Neural Networks}
 
+Convolutional Neural Networks (CNNs) are biologically inspired supervised learning systems for extracting features from images. Essentially their goal is to learn an approximation of the function
+\begin{equation}
+\boldsymbol{Y} = F(\boldsymbol{Z},\boldsymbol{W})
+\label{eq:networkF}
+\end{equation}
+where~$\boldsymbol{Z}$ is an input image, the output~$\boldsymbol{Y}$ is the inferred pose vector for this image, and~$\boldsymbol{W}$ are the trainable parameters of the network. 
+ 
+They consist of a set of filter maps, essentially matrices (or tensors if applying to multiple channels), which are applied repeatedly across the whole of the input. Each application of these filters produces an activation value which is the sum of each filter element multiplied by its corresponding input pixel value plus a shift term known as a bias. The filter is applied iteratively across the whole image, typically with some overlap. This builds up an 'activation map' for that filter. With such a layer being comprised of a number of filters. The activations of each filter are stacked together, becoming the new 'image' which is passed onto the next layer. This process is illustrated in figure \ref{fig:convnet}. This type of layer, known as Convolution layers, are typically followed by a non-linear function which is what enables the CNN to learn non-linear transformations such as the image to pose transformation we require. Although it is possible to stack convolutional layers on top of each other they are often followed by a pooling layer (also called subsampling). The idea of pooling is to reduce the spatial size from the previous layer as seen in figure~\ref{fig:pool}. Operating on each depth slice individually, i.e. each filters activation, the pooling window moves across the image taking the values of the elements in the input, conglomerating them using some operation, typically taking the max value as seen in the right hand side of figure~\ref{fig:pool}. CNNs also typically contain one or more fully connected layers at the end. Being fully connected means that rather than having a small filter applied repeatedly across the input, a number of filters of the same dimensions as the input are applied to the whole volume. This then outputs a~$1\times 1 \times K$ volume where~$K$ is the number of filters. This is then identical to regular neural networks where each unit in a layer is connected to every unit in the next. In our case, fully connected layers take the final high level feature representation from the rest of the network and perform the final regression. 
 
-
-\section{System Overview}
-
-
-\subsection{Pre-existing SPHERE System For Movement Quality Analysis}
-
-\label{sec:exSys}
-
-In this section we will cover the existing system (as originally described in~\cite{Paiement} and~\cite{Tao}) highlighting the points to be considered for our work.
 \begin{figure}
-\includegraphics*[width=1\linewidth,clip]{exsysData}
-\caption{Shows a typical sequence from the SPHERE-staircase2014 dataset.  Incorrectly labelled joint positions can be observed in the right hand side of figures c) d) and e) From \cite{Tao}		\label{fig:exsysData}  } 
+\includegraphics*[width=1\linewidth,clip]{convnet}
+\caption{Shows a representation of the activations produced following a number of convolution layers, non-linearities (Rectified Linear Units, or ReLUs, are the function $max(0,x)$ and pooling layers. The network, an online demo from \cite{KarLects}, is classifying images from the CIFAR-10 dataset using the ConvnetJS library\protect\footnotemark. ) \label{fig:convnet}  }
 \end{figure}
+\footnotetext{http://cs.stanford.edu/people/karpathy/convnetjs/}
+%\begin{figure}
+%\includegraphics*[width=1\linewidth,clip]{pooling}
+%\caption{Shows the effect of pooling layers in a CNN.  From~\cite{KarLects} \label{fig:pool}  } 
+%\end{figure}
 
-As mentioned in section~\ref{sec:intro} the aim of the system is to quantify the quality of movement. This is achieved through comparing the recorded motion to a taught reference model of perfect motion. Although it has been evaluated specifically for gait measurements, the system aims to be widely applicable. Provided with suitable training data demonstrating perfect motion it could be applied to physiotherapy exercises, or in a sports movement optimisation application with little adaptation. This has been demonstrated with the system being applied to boxing and sitting-standing motions presented on the SPHERE web page\footnote{www.irc-sphere.ac.uk/work-package-2/movement-quality}.
+CNNs are trained using backpropagation and gradient descent. During training an error function is defined which quantifies the difference between the networks output and the desired output. In our case, as is typical of regression tasks, we use the euclidean distance between the two. Using the backpropagation algorithm~\cite{Rumelhart1986} the derivative of this error with respect to each parameter is found.  Then the values of each parameter are adjusted a small amount in the direction which reduces the error. In this way, over many training examples, the network converges on a minima in the error surface across the space of all parameter values.  A derivation of backpropagation and further technical discussion of CNNs in general can be found in the preceding work on this project~\cite{Crabbe2015}.
+
+An advantage of CNNs over traditional computer vision methods is that rather than prescribing a hand-engineered feature such as the depth disparity feature in~\cite{Shotton2011} or the view point and shape feature of~\cite{Chan2014}, the network is responsible for learning features its self based off the data. This presents a significant advantage in our application since features which might be good for measuring pose for one type of motion may not be useful for other motions. %CNNs also have the capacity to learn many different visual representations 
+
+\subsubsection{Human Pose Estimation Using CNNs}
 
 
-The gait analysis system has been trained using the SPHERE-staircase2014 dataset~\cite{Paiement}. This dataset includes~48 sequences of~12 individuals walking up stairs, captured by a Kinect camera placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. 17 sequences of normal walking from~6 individuals were used for training purposes and~31 sequences from the remaining~6 subjects with both normal and abnormal walking were kept for testing. An example with the skeleton overlaid is shown in~\ref{fig:exsysData}.
-
-
-The system can be considered as a pipeline, as represented in~\ref{fig:sysPipe}. First, it takes the captured RGB-D scene and uses one of the skeleton tracking packages from section~\ref{sec:sofTools} to extract the joint positions of a body in the frame. The skeletons are averaged over a temporal window to smooth noise before being scaled, rotated and translated to normalise the pose (these steps will be detailed further in section$^{insert reference later}$).  
-\begin{figure}
-\includegraphics*[width=1\linewidth,clip]{sysPipeline}
-\caption{Shows the stages in the pipeline for gait quality analysis of the existing system. From~\cite{Tao}		\label{fig:sysPipe}  }
-\end{figure}
-
-Next the low-level feature extraction stage builds a feature vector out of the skeleton data to encode the pose. Tao et al. tests and compares a number of viable feature representations for the skeleton data. They find that using a vector of the each joint coordinate concatenated performs best overall~\cite{Tao}. 
-
-This joint position vector is then processed using the non-linear dimensionality reduction method Diffusion Maps~\cite{Coifman2006}. The stage is first trained offline, building the manifold representation from the training subset of the data. The characteristic of manifolds produced by Diffusion Maps is that the data retain the relative euclidean distances between point in the reduced space. This representation is then extended to new data in the testing phase by projecting new skeletons onto the existing manifold. 
-
-Next the reduced pose vectors~\textbf{Y} of the training data is used to learn two probabilistic continuous HMM (Hidden Markov Model) models, one of instantaneous pose, and one of dynamics. The normality of a pose is then the likelihood of the of~\textbf{Y} being described by the trained pose model. Similarly the dynamical model computes a quality based on the likelihood of~\textbf{Y} given the proceeding frames and the model of normal dynamics. Thresholds on these two normality scores are used to classify each frame normal or abnormal.
-
-The system is 'online' in that it measures abnormality on a frame-by-frame basis, rather than processing a recorded sequence offline and measuring across the full sequence. This enables it produce more detailed data on the parts of the motion that are deviating from normality, which is a benefit.
 
 \section{Preprocessing}
-\label{sec:intro}
-All data used in this project SPHERE-staircase2014~dataset~\cite{Paiement}) 
+\label{sec:preprocessing}
+
+All data used in this project SPHERE-staircase2014~dataset~\cite{Paiement}) this includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking.
+
+Each example consists of the RGB image, the depth image and 3D joint postion / skeleton data. Preprocessing is applied to each of these seperately.
+
+\subsection{Skeleton Data}
+
+These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large ammount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardized by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the begining and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisey periods in the middle.
 
 
 \bibliographystyle{plain}
 \bibliography{library,myLib}
 
+\begin{appendices}
+
+\section{Pre-existing SPHERE System For Movement Quality Analysis}
+
+\label{sec:exSys}
+
+In this section we will cover the existing system (as originally described in~\cite{Paiement} and~\cite{Tao}) highlighting the points to be considered for our work.
+%\begin{figure}
+%\includegraphics*[width=1\linewidth,clip]{exsysData}
+%\caption{Shows a typical sequence from the SPHERE-staircase2014 dataset.  Incorrectly labelled joint positions can be observed in the right hand side of figures c) d) and e) From \cite{Tao}		\label{fig:exsysData}  } 
+%\end{figure}
+
+As mentioned in section~\ref{sec:intro} the aim of the system is to quantify the quality of movement. This is achieved through comparing the recorded motion to a taught reference model of perfect motion. Although it has been evaluated specifically for gait measurements, the system aims to be widely applicable. Provided with suitable training data demonstrating perfect motion it could be applied to physiotherapy exercises, or in a sports movement optimisation application with little adaptation. This has been demonstrated with the system being applied to boxing and sitting-standing motions presented on the SPHERE web page\footnote{www.irc-sphere.ac.uk/work-package-2/movement-quality}.
+
+
+The gait analysis system has been trained using the SPHERE-staircase2014 dataset~\cite{Paiement}. This dataset includes~48 sequences of~12 individuals walking up stairs, captured by a Kinect camera placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. 17 sequences of normal walking from~6 individuals were used for training purposes and~31 sequences from the remaining~6 subjects with both normal and abnormal walking were kept for testing of the system. An example with the skeleton overlaid is shown in~\ref{fig:exsysData}.
+
+
+The system can be considered as a pipeline, as represented in~\ref{fig:sysPipe}. Once deployed in real home environments , another software component being developed in SPHERE will be responsible for human detection and recognition, hence we can presume input depth images similar to those contained in the dataset, and also knowledge of the person. The skeleton tracking packages from section~\ref{sec:sofTools} extract the joint positions of the body in the image. The skeletons are averaged over a temporal window to smooth noise before being scaled, rotated and translated to normalise the pose (these steps will be detailed further in section$^{insert reference later}$).  
+%\begin{figure}
+%\includegraphics*[width=1\linewidth,clip]{sysPipeline}
+%\caption{Shows the stages in the pipeline for gait quality analysis of the existing system. From~\cite{Tao}		\label{fig:sysPipe}  }
+%\end{figure}
+
+Next the low-level feature extraction stage builds a feature vector out of the skeleton data to encode the pose. Tao et al. tests and compares a number of viable feature representations for the skeleton data. They find that using a vector of the each joint coordinate concatenated performs best overall~\cite{Tao}. 
+
+This joint position vector is then processed using the non-linear dimensionality reduction method Diffusion Maps~\cite{Coifman2006}. The stage is first trained offline, building the manifold representation from the training subset of the data. The characteristic of manifolds produced by Diffusion Maps is that the data retain the relative euclidean distances between point in the reduced space. This representation is then extended to new data in the testing phase by projecting new skeletons onto the existing manifold. 
+
+Next the reduced pose vectors~\textbf{Y} of the training data is used to learn two probabilistic continuous HMM (Hidden Markov Model) models, one of instantaneous pose, and one of dynamics. The normality of a pose is then the likelihood of the of~\textbf{Y} being described by the pose model. Similarly the dynamical model computes a quality based on the likelihood of~\textbf{Y} given the proceeding frames and the model of normal dynamics. Thresholds on these two normality scores are used to classify each frame normal or abnormal.
+
+The system is 'online' in that it measures abnormality on a frame-by-frame basis, rather than processing a recorded sequence offline and measuring across the full sequence. This enables it produce more detailed data on the parts of the motion that are deviating from normality, which is a benefit.
+ 
+\end{appendices}
 
 
 \end{document}
+
+
 
 
 

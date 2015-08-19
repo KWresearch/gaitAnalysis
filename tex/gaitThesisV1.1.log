@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2015.6.9)  18 AUG 2015 16:32
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2015.6.9)  19 AUG 2015 16:47
 entering extended mode
  %&-line parsing enabled.
 **gaitThesisV1.1.tex
@@ -341,8 +341,17 @@ Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
 File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
 \Fld@listcount=\count128
 )
-\c@subsubsubsection=\count129
 
+! LaTeX Error: Option clash for package appendix.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.20 \titleclass
+                {\subsubsubsection}{straight}[\subsection]
+? 
+\c@subsubsubsection=\count129
 (/usr/share/texmf-texlive/tex/latex/microtype/microtype.sty
 Package: microtype 2009/03/27 v2.3d Micro-typography with pdfTeX (RS)
 \MT@toks=\toks24
@@ -567,14 +576,18 @@ LaTeX Warning: Citation `Paiement' on page 2 undefined on input line 140.
 LaTeX Warning: Citation `Chen2013' on page 3 undefined on input line 161.
 
 
-LaTeX Warning: Citation `Han2013' on page 3 undefined on input line 164.
+LaTeX Warning: Citation `Han2013' on page 3 undefined on input line 163.
 
 
-LaTeX Warning: Citation `Zhang2012a' on page 3 undefined on input line 167.
+LaTeX Warning: Citation `Zhang2012a' on page 3 undefined on input line 165.
 
 
-LaTeX Warning: Citation `Khoshelham2012a' on page 3 undefined on input line 167
+LaTeX Warning: Citation `Khoshelham2012a' on page 3 undefined on input line 165
 .
+
+
+LaTeX Warning: Citation `Gonzalez-Jorge2013' on page 3 undefined on input line 
+181.
 
 
 LaTeX Warning: Citation `Han2013' on page 3 undefined on input line 183.
@@ -607,140 +620,194 @@ LaTeX Warning: Reference `fig:kinectHoles3' on page 4 undefined on input line 1
 97.
 
 
-LaTeX Warning: Citation `Khoshelham2012a' on page 4 undefined on input line 200
+LaTeX Warning: Citation `Khoshelham2012a' on page 4 undefined on input line 199
 .
 
 
-LaTeX Warning: Citation `Smisek2011' on page 4 undefined on input line 200.
+LaTeX Warning: Citation `Smisek2011' on page 4 undefined on input line 199.
 
 
-LaTeX Warning: Citation `Nguyen2012' on page 4 undefined on input line 200.
+LaTeX Warning: Citation `Nguyen2012' on page 4 undefined on input line 199.
 
 
-LaTeX Warning: Citation `Fiedler2013' on page 4 undefined on input line 200.
+LaTeX Warning: Citation `Fiedler2013' on page 4 undefined on input line 199.
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
 
-LaTeX Warning: Citation `Forsyth2005' on page 4 undefined on input line 208.
+LaTeX Warning: Citation `Forsyth2005' on page 4 undefined on input line 207.
 
 
-LaTeX Warning: Citation `Moeslund2006' on page 4 undefined on input line 210.
+LaTeX Warning: Citation `Moeslund2006' on page 4 undefined on input line 209.
 
 
-LaTeX Warning: Citation `Hen2009' on page 4 undefined on input line 210.
+LaTeX Warning: Citation `Hen2009' on page 4 undefined on input line 209.
 
 
-LaTeX Warning: Citation `Poppe2007' on page 4 undefined on input line 210.
+LaTeX Warning: Citation `Poppe2007' on page 4 undefined on input line 209.
 
 
-LaTeX Warning: Citation `Sminchisescu2006' on page 4 undefined on input line 21
-0.
+LaTeX Warning: Citation `Sminchisescu2006' on page 4 undefined on input line 20
+9.
 
 
-LaTeX Warning: Citation `Liu2015' on page 4 undefined on input line 210.
+LaTeX Warning: Citation `Liu2015' on page 4 undefined on input line 209.
 
 
-LaTeX Warning: Citation `Poppe2007' on page 4 undefined on input line 210.
-
-
-LaTeX Warning: Citation `Sminchisescu2003' on page 4 undefined on input line 21
-5.
-
-
-LaTeX Warning: Citation `Hen2009' on page 4 undefined on input line 215.
-
-
-LaTeX Warning: Citation `Hen2009' on page 4 undefined on input line 215.
-
-
-LaTeX Warning: Citation `Agarwal2006' on page 4 undefined on input line 215.
+LaTeX Warning: Citation `Poppe2007' on page 4 undefined on input line 209.
 
 [4]
 
-LaTeX Warning: Citation `Brand1999' on page 5 undefined on input line 217.
+LaTeX Warning: Citation `Sminchisescu2003' on page 5 undefined on input line 21
+4.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 5 undefined on input line 217.
+LaTeX Warning: Citation `Hen2009' on page 5 undefined on input line 214.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 5 undefined on input line 217.
+LaTeX Warning: Citation `Hen2009' on page 5 undefined on input line 214.
 
 
-LaTeX Warning: Citation `Poggio1990' on page 5 undefined on input line 217.
+LaTeX Warning: Citation `Agarwal2006' on page 5 undefined on input line 214.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 5 undefined on input line 217.
+LaTeX Warning: Citation `Brand1999' on page 5 undefined on input line 216.
 
 
-LaTeX Warning: Citation `Elgammal2004b' on page 5 undefined on input line 217.
+LaTeX Warning: Citation `Elgammal2004' on page 5 undefined on input line 216.
 
 
-LaTeX Warning: Citation `Brand1999' on page 5 undefined on input line 219.
+LaTeX Warning: Citation `Elgammal2004' on page 5 undefined on input line 216.
 
 
-LaTeX Warning: Citation `Urtasun2005' on page 5 undefined on input line 221.
+LaTeX Warning: Citation `Poggio1990' on page 5 undefined on input line 216.
 
 
-LaTeX Warning: Citation `Lawrence2004' on page 5 undefined on input line 221.
+LaTeX Warning: Citation `Elgammal2004' on page 5 undefined on input line 216.
+
+
+LaTeX Warning: Citation `Elgammal2004b' on page 5 undefined on input line 216.
+
+
+LaTeX Warning: Citation `Brand1999' on page 5 undefined on input line 218.
+
+
+LaTeX Warning: Citation `Urtasun2005' on page 5 undefined on input line 220.
+
+
+LaTeX Warning: Citation `Lawrence2004' on page 5 undefined on input line 220.
 
 
 LaTeX Warning: Citation `Tangkuampien2006' on page 5 undefined on input line 22
-4.
+3.
 
 [5]
 
-LaTeX Warning: Citation `Rosales2000' on page 6 undefined on input line 226.
+LaTeX Warning: Citation `Rosales2000' on page 6 undefined on input line 225.
 
 
-LaTeX Warning: Citation `Rosales2001' on page 6 undefined on input line 226.
+LaTeX Warning: Citation `Rosales2001' on page 6 undefined on input line 225.
 
 
-LaTeX Warning: Citation `Helten2013' on page 6 undefined on input line 230.
+LaTeX Warning: Citation `Helten2013' on page 6 undefined on input line 229.
 
 
-LaTeX Warning: Citation `Han2013' on page 6 undefined on input line 230.
+LaTeX Warning: Citation `Han2013' on page 6 undefined on input line 229.
 
 
-LaTeX Warning: Citation `Giovanni' on page 6 undefined on input line 230.
+LaTeX Warning: Citation `Giovanni' on page 6 undefined on input line 229.
 
 
-LaTeX Warning: Citation `Shotton2011' on page 6 undefined on input line 232.
+LaTeX Warning: Citation `Shotton2011' on page 6 undefined on input line 231.
 
 
-LaTeX Warning: Citation `Shotton2013a' on page 6 undefined on input line 232.
+LaTeX Warning: Citation `Shotton2013a' on page 6 undefined on input line 231.
 
 
-LaTeX Warning: Citation `Shotton2011' on page 6 undefined on input line 232.
+LaTeX Warning: Citation `Shotton2011' on page 6 undefined on input line 231.
 
 
-LaTeX Warning: Citation `Plagemann2010' on page 6 undefined on input line 234.
+LaTeX Warning: Citation `Plagemann2010' on page 6 undefined on input line 233.
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
-
-LaTeX Warning: Citation `Ye2011' on page 6 undefined on input line 236.
-
-
-LaTeX Warning: Citation `Wei2011' on page 6 undefined on input line 236.
-
-
-LaTeX Warning: Citation `Baak2011' on page 6 undefined on input line 236.
-
-
-LaTeX Warning: Citation `Zhu2008' on page 6 undefined on input line 236.
-
 [6]
 
-LaTeX Warning: Citation `Chan2014' on page 7 undefined on input line 238.
+LaTeX Warning: Citation `Ye2011' on page 7 undefined on input line 235.
 
 
-LaTeX Warning: Citation `Paiement' on page 7 undefined on input line 253.
+LaTeX Warning: Citation `Wei2011' on page 7 undefined on input line 235.
+
+
+LaTeX Warning: Citation `Baak2011' on page 7 undefined on input line 235.
+
+
+LaTeX Warning: Citation `Zhu2008' on page 7 undefined on input line 235.
+
+
+LaTeX Warning: Citation `Chan2014' on page 7 undefined on input line 237.
+
+
+LaTeX Warning: Reference `fig:pool' on page 7 undefined on input line 253.
+
+
+LaTeX Warning: Reference `fig:pool' on page 7 undefined on input line 253.
+
+<convnet.jpeg, id=98, 1259.70625pt x 603.25375pt>
+File: convnet.jpeg Graphic file (type jpg)
+ <use convnet.jpeg>
+
+LaTeX Warning: Citation `KarLects' on page 7 undefined on input line 257.
+
+
+LaTeX Warning: Citation `KarLects' on page 7 undefined on input line 257.
+
+
+LaTeX Warning: Citation `Rumelhart1986' on page 7 undefined on input line 265.
+
+
+LaTeX Warning: Citation `Crabbe2015' on page 7 undefined on input line 265.
+
+[7]
+
+LaTeX Warning: Citation `Shotton2011' on page 8 undefined on input line 267.
+
+
+LaTeX Warning: Citation `Chan2014' on page 8 undefined on input line 267.
+
+
+LaTeX Warning: Citation `Paiement' on page 8 undefined on input line 278.
 
 No file gaitThesisV1.1.bbl.
-[7] (./gaitThesisV1.1.aux)
+
+LaTeX Warning: Citation `Paiement' on page 8 undefined on input line 290.
+
+
+LaTeX Warning: Citation `Tao' on page 8 undefined on input line 290.
+
+[8 <./convnet.jpeg>]
+
+LaTeX Warning: Citation `Paiement' on page 9 undefined on input line 299.
+
+
+LaTeX Warning: Reference `fig:exsysData' on page 9 undefined on input line 299.
+
+
+
+LaTeX Warning: Reference `fig:sysPipe' on page 9 undefined on input line 302.
+
+
+LaTeX Warning: Reference `sec:sofTools' on page 9 undefined on input line 302.
+
+
+LaTeX Warning: Citation `Tao' on page 9 undefined on input line 308.
+
+
+LaTeX Warning: Citation `Coifman2006' on page 9 undefined on input line 310.
+
+[9] [10] (./gaitThesisV1.1.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -749,27 +816,28 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 9587 strings out of 495061
- 144479 string characters out of 1182622
- 260683 words of memory out of 3000000
- 12502 multiletter control sequences out of 15000+50000
- 20643 words of font info for 111 fonts, out of 3000000 for 9000
+ 9627 strings out of 495061
+ 145005 string characters out of 1182622
+ 261681 words of memory out of 3000000
+ 12527 multiletter control sequences out of 15000+50000
+ 21249 words of font info for 113 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 44i,8n,42p,1956b,309s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,9n,42p,2151b,382s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
 re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
 xlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts
 /type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/
-fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
-nts/cm/cmsy8.pfb>
-Output written on gaitThesisV1.1.pdf (7 pages, 177150 bytes).
+c/amsfonts/cm/cmmib10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cms
+y8.pfb>
+Output written on gaitThesisV1.1.pdf (10 pages, 372546 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 18 named destinations out of 1000 (max. 500000)
- 12361 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 177 PDF objects out of 1000 (max. 8388607)
+ 28 named destinations out of 1000 (max. 500000)
+ 13412 words of extra memory for PDF output out of 14400 (max. 10000000)
 
