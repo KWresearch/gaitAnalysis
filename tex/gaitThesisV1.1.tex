@@ -5,13 +5,12 @@
 
 \documentclass[11pt]{article} % Try also "scrartcl" or "paper"
 \linespread{1.15}
- \usepackage[margin=2.3cm]{geometry}   % to change margins
+ \usepackage[margin=3cm]{geometry}   % to change margins
  \usepackage{titling,cite,subfig}             % Uncomment both to   
  \setlength{\droptitle}{0cm}     % change title position 
 \title{%\vspace{-1.5cm}            % Another way to do
 Feature Descriptors for Gait Analysis From Depth Sensors}
 \usepackage{graphicx,bm,subfig,amsmath,amsfonts,listings,url}
-\usepackage[page]{appendix}
 \usepackage{gensymb}
 \usepackage{color}
 \usepackage{titlesec}
@@ -125,7 +124,7 @@ This problem, and a range of other healthcare challenges, is being tackled throu
 
 Currently this system uses joint position information captured by the OpenNI skeleton tracking software, based on the algorithm of~\cite{Shotton2011}. This skeleton tracking software infers the 3D coordinates of each of the body's relevant joints producing a $n_{joints} \times 3$ dimensional vector. This data is then processed using a manifold learning method, Diffusion maps~\cite{Coifman2006}, to reduce the dimensionality of the data. This method builds up a 3D representation of the types of body configurations displayed in a training dataset containing footage of the motion being measured. New skeleton data is then projected onto this manifold. This effectively parameterises the motion, removing the redundant information contained in the skeleton data, and enabling simple comparison of poses. \footnote{We will refer to the projected points in this space as the pose vector, and to the skeleton data as the body configuration or joint position vector.} Finally, a statistical model of normal gait is built up from the training data using these pose vectors. New data is compared with this model producing a quality score for both pose and dynamics on a frame-by-frame basis.
 
-Since this system uses data driven, machine learning methods to learn both the manifold representation of pose and the model of normal motion, it can be applied to other types of movement quality assessment such a sports movement optimisation or physiotherapy exercise coaching. The system has been applied to a sitting-standing motion, to punching motions in boxing$^{how to site http://www.irc-sphere.ac.uk/work-package-2/movement-quality ?}$ and to people walking upstairs. 
+Since this system uses data driven, machine learning methods to learn both the manifold representation of pose and the model of normal motion, it can be applied to other types of movement quality assessment such a sports movement optimisation or physiotherapy exercise coaching. The system has been applied to a sitting-standing motion, to punching motions in boxing $^{how to site http://www.irc-sphere.ac.uk/work-package-2/movement-quality ?}$ and to people walking upstairs. 
 %Limitation - doesn't work well in realisitic senarios
 
 One issue currently limiting the effectiveness of this system is the fragility of the skeleton tracking software. Shotton et al's algorithm was designed for controlling entertainment/gaming systems with the user viewed frontally, within a range of 1-4m and at a pitch angle near 0$\degree$. Outside of these conditions skeletons become noisy and unreliable. Typically only a small fraction of data recorded from a camera attached to the ceiling above the stairs is fit for use with the system. Increasing amount of usable data requires more intrusive camera placement which is to be avoided. The skeleton trackers also perform poorly when props are involved in the scene, for example grasping a banister or a ball often leads to erroneous joint positions for that arm. It also struggles to accurately record sitting/standing motions.
@@ -271,13 +270,19 @@ An advantage of CNNs over traditional computer vision methods is that rather tha
 \section{Preprocessing}
 \label{sec:preprocessing}
 
-All data used in this project SPHERE-staircase2014~dataset~\cite{Paiement}) this includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking.
+The dataset used in this project (SPHERE-staircase2014~dataset~\cite{Paiement}) includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking.
 
 Each example consists of the RGB image, the depth image and 3D joint postion / skeleton data. Preprocessing is applied to each of these seperately.
 
 \subsection{Skeleton Data}
 
-These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large ammount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardized by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the begining and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisey periods in the middle.
+These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large ammount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardized by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the begining and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisey periods in the middle. 
+
+The dimensionality reduction method used is DIffusion Maps~\cite{Coifman2006} with an adaptation to better handle the remaining noise and outliers present in the skeleton data. We refer to the original publications ~\cite{Paiement} and~\cite{Tao} for a full technical description and to appendix~\ref{sec:exSys} for brief overview.  The manifold is built from all the remaining skeletons. %The appearence of the manifold is shown in figure
+
+\subsection{Image Data}
+
+
 
 
 \bibliographystyle{plain}
