@@ -216,7 +216,6 @@ Brand \cite{Brand1999}, also inferred 3D pose from silhouettes using an intermed
 
 Similarly Urtasan et al. \cite{Urtasun2005} used Scaled Gaussian Process Latent Variable Models (SGPLVM) \cite{Lawrence2004} on single training sequences (walking and a golf swing) labelled with 2D joint positions. These models build a low dimensional manifold, and simultaneously, a continuous mapping between this and the 2D joint positions. They use the low dimensional representation to facilitate efficient maximum a posteriori based tracking in this space. Again, this is only suitable as an offline solution. 
 
-
 Tangkuampien and Suter \cite{Tangkuampien2006} used Kernel Principle Component Analysis (KPCA) to learn low dimensional representations of 3D joint positions, and separately using the same method, a low dimensional representation of silhouette images. They then learn a mapping between these spaces using Locally Linear Embedding (LLE) reconstruction. This has some similarity with using a CNN, where the image is transformed in to progressively more concise feature representations, before the regression takes place. The disadvantage of using LLE to perform the final transformation is that it is contained to within the manifold space contained in pose training data. As discussed above, our method has the benefit that it naturally maps unseen poses away from the manifold of the training data. This reduces the number of poses we must capture in our training data.
 
 Rosales et al \cite{Rosales2000,Rosales2001} used 3D joint position data from a MoCap system to render synthetic training data from multiple angles. Hu moments were used to extract visual features from these(and real) images. Unsupervised learning was used to cluster 3D joint position data into areas of similar pose and a neural network was trained separately on each cluster to learn the mapping from visual features to pose. Using the developments in training of deep neural networks since this work we show that it is feasible to have a single CNN both learn the features best suited and the mapping to all poses. This removes the need for clustering and separate networks leading to a simpler easily adaptable solution. Although their use of MoCap data as opposed to Kinect Skeletons for ground truth is a change we could expect to improve performance in our system. Similarly rendering synthetic training data from multiple angles would be a smart way of improving our viewing angle tolerance.
@@ -274,19 +273,33 @@ The dataset used in this project (SPHERE-staircase2014~dataset~\cite{Paiement}) 
 
 Each example consists of the RGB image, the depth image and 3D joint postion / skeleton data. Preprocessing is applied to each of these seperately.
 
-\subsection{Skeleton Data}
+\subsection{Skeleton Preprocessing}
 
-These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large ammount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardized by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the begining and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisey periods in the middle. 
+These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large ammount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardised by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the begining and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisey periods in the middle. 
 
-The dimensionality reduction method used is DIffusion Maps~\cite{Coifman2006} with an adaptation to better handle the remaining noise and outliers present in the skeleton data. We refer to the original publications ~\cite{Paiement} and~\cite{Tao} for a full technical description and to appendix~\ref{sec:exSys} for brief overview.  The manifold is built from all the remaining skeletons. %The appearence of the manifold is shown in figure
+Specfically for this project we also take the mirror image of each skeleton. Combined with a mirror image of the depth image this doubles our data. 
 
-\subsection{Image Data}
+Now the collection of remaining skeletons is given to the manifold learning stage. The dimensionality reduction method used is DIffusion Maps~\cite{Coifman2006} with an adaptation to better handle the remaining noise and outliers present in the skeleton data. We refer to the original publications ~\cite{Paiement} and~\cite{Tao} for a full technical description. In essence Diffusion Maps retains the relative distances between data in the reduced space of the data. \cite{Tao} analysed the quality assement performance using 1,2,3,4, and 5 dimensional representations and concludes that a 3D representation is the most effective.
+
+2793 skeletons from the first 6 'normal' sequence subjects plus their horizontal flips are used to build the manifold. The skeletons of the 31 sequences from the other 6 subjects (and their flips) are then projected onto the manifold (again, see \cite{Paiement} and~\cite{Tao} for details). This gives a total of 8253*2 potential datapoints.
+
+%The manifold is built from all the remaining skeletons. %The appearence of the manifold is shown in figure %we also tried...
+
+\subsection{Image Preprocessing}
+
+As described in section \ref{sec:senPerf} depth images are generally incomplete and noisy. We first fill holes in the data using a simple method which iteratively paints in the maximum pixel values from the neighbouring cells. We initially experimented with using the method of \cite{Camplani2012a} which combines noise filtering and hole filling. However the version that we were provided did not use the motion detection and segmentation components. In practise we found that the quality of the filled and filtered depth maps produced by this version were inferior to those produced by the simple method.  \cite{Camplani2012a}'s method also required far longer processing times ~1 week for the full set as opposed to a few minutes for the simple method. 
+
+We then perform background subtraction on the filled depth images. We employed the C++ BGS library~\cite{bgslibrary} and tested each of the provided methods on our data. For all methods some initial set of background frames at the begining of the sequence were required to acheive satisfactory results. The best results were acheived using the dp/DPZivkovicAGMMBGS method which implements~\cite{Zivkovic2004}.
+
+We found that the foreground masks produced often mistook sensor noise for moving objects. To fix this problem we apply a simple cleaning proceedure to the masks which takes only the largest collection of positive pixels. This discards the small noise related blobs. We also apply a small errosion and dilation to get rid of noise effects connected to the largest blob.
+
+
 
 
 
 
 \bibliographystyle{plain}
-\bibliography{library,myLib}
+\bibliography{library,myLib,homemadeRefs}
 
 \begin{appendices}
 
