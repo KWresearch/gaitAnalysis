@@ -4,7 +4,7 @@
 %\documentclass[rmp,preprint]{revtex4-1}
 
 \documentclass[11pt]{article} % Try also "scrartcl" or "paper"
-\linespread{1.15}
+\linespread{1.5}
  \usepackage[margin=3cm]{geometry}   % to change margins
  \usepackage{titling,cite,subfig}             % Uncomment both to   
  \setlength{\droptitle}{0cm}     % change title position 
@@ -289,14 +289,51 @@ Now the collection of remaining skeletons is given to the manifold learning stag
 
 As described in section \ref{sec:senPerf} depth images are generally incomplete and noisy. We first fill holes in the data using a simple method which iteratively paints in the maximum pixel values from the neighbouring cells. We initially experimented with using the method of \cite{Camplani2012a} which combines noise filtering and hole filling. However the version that we were provided did not use the motion detection and segmentation components. In practise we found that the quality of the filled and filtered depth maps produced by this version were inferior to those produced by the simple method.  \cite{Camplani2012a}'s method also required far longer processing times ~1 week for the full set as opposed to a few minutes for the simple method. 
 
-We then perform background subtraction on the filled depth images. We employed the C++ BGS library~\cite{bgslibrary} and tested each of the provided methods on our data. For all methods some initial set of background frames at the begining of the sequence were required to acheive satisfactory results. The best results were acheived using the dp/DPZivkovicAGMMBGS method which implements~\cite{Zivkovic2004}.
+We then perform background subtraction on the filled depth images. We employed the C++ BGS library~\cite{bgslibrary} and tested each of the provided methods on our data. For all methods some initial set of background frames at the begining of the sequence were required to acheive satisfactory results. The best results were acheived using the dp/DPZivkovicAGMMBGS method which implements~\cite{Zivkovic2004}. 
 
-We found that the foreground masks produced often mistook sensor noise for moving objects. To fix this problem we apply a simple cleaning proceedure to the masks which takes only the largest collection of positive pixels. This discards the small noise related blobs. We also apply a small errosion and dilation to get rid of noise effects connected to the largest blob.
+We found that the foreground masks produced often mistook sensor noise for moving objects. To fix this problem we apply a simple cleaning proceedure to the masks which takes only the largest collection of positive pixels. This discards the small noise related blobs. We also apply a small errosion and dilation to get rid of noise effects connected to the largest blob. There is also problems correctly identifying the feet of the subjects since the floor is at approximately equal depth and therefore the same colour in the depth image. The masks generally only extend to around the mid point of the shin. For some subjects feet can appear mid stride when raised high enough from the ground to be distinguishable. We also attempted using the RGB images to improve assist in extracting the feet, however most subjects are wearing dark coloured shoes which did not differentiate well from the colour of the stairs, meaning the results we just as poor as for the depth, with additional issues in other parts of the images where clothing matched the colour of the walls. 
 
+We then take the cleaned mask and extract the foreground containing the human figure from the depth image. In some cases patches of background get included around the edges of the mask. We remove any pixels which have values greater than two standard deviations from the mean of the foreground. Due to the perspective of the camera the depth values of the of the forground increase towards the feet of the subject, therefore if this cut is too strict we begin to loose valid pixels near the feet. To avoid this whilst still removing all background pixels from the rest of the image we select only the top 75\% of the figure and apply a more stringent cut. 
 
+Since all skeleton data was scaled and transformed to a common point we do the same to the depth data. We normalise the mean depth values of the of each image by finding the mean depth value of a small region near the subjects waist. Using only this region gives an accurate indication of the distance of the subject from the camera rather than transient effects such as arm swing. This value is subtracted from all foreground pixels before all being scaled to 0.5. 
 
+Next we crop the backround area from each image so that each is left with the average width to height ratio of the full dataset which is 0.504.
 
+We then try to normalise the position of the figure within the image. There are two issues with the data which make this a necessary step, firstly the length of lower leg included in the masks varies from frame to frame, secondly there are a number of sequences in which the head of the subject leaves the camera's field of view during the middle of the ascent. Without fixing this problem the scale of the subjects in the images changes depending on how much of them was captured in the mask, which would mean the network would be required to learn an invariance to scale. In general we developed these preprocessing preceedures to reduce the ammount of invariance the network is required to learn. To fix this we try and identify the postition of the shoulders; the width of the mask as a function of height in the image was found across the full dataset, the point greatest curvature was determined to lie at a width of 0.65 of the full image width (after initial cropping). We therefore define the point at which the the width of the mask exceeds this value as the shoulders. From this we find the position of the shoulders in each image. We found the mean position of the shoulders in all non-headless images to be 0.22 of the full image height. Then each image is rescaled, adding additional pixels of background so that the position of the shoulders occurs at exactly 0.22. If the initial shoulder position was less than 0.22 then we assume the image is missing part of its head and rows are added to the top, 
+if it is greater than 0.22 we assume it misses more leg than usual and rows are added to the bottom. Whilst this doesn't recreate the actual foreground pixels of the legs or head, it does mean that the foreground pixels for each intact body part do occupy roughly the same position in the images. One limitation of this method is that it is difficult to handle images which lack both head and legs. We attempt to deal with this by storing the mean number of rows added to the bottom of the image in each frame. Then if we find on the next frame that we are missing rows from the top (i.e. part of the head is missing) then we continue to add the mean number of rows.
 
+Next we adjust the colour balance of the image. Initially we used the basic scaled depth values and a black background. Analysis of the activations produced by the first layer filters of an ImageNet pre-trained network on this type of input , shown in figure \ref{fig:blackBGactiv}, seemed to indicate that depth information was not being extracted effectively. ImageNet first layer filters, shown in figure \ref{fig:layer1filts}, generally respond to edges. It is clear that the very small differences in depth between parts of the body will produce far smaller activations than the huge difference between the figure and the black background. To encourage the network to focus on the smaller edges we tried setting the background of the images to the mean depth value around the waist of the subject, as shown in figure \ref{fig:meanBG}. However after training untill convergence the network seemed to have discarded most of the filters activations rather than adjusting to them as is seen in \ref{fig:meanBGactiv}. Finally we used histogram equalisation to increase the differences in depth values within the figure. We use a background value of 0.82 of the mean value at the subjects waist as this was slightly less than minimum value any valid foreground pixels seen in the dataset. This results in the largest spread possible in the foreground depth values without ever having a foreground value at a colour darker than the background. This scheme seems to achieve the desired result of allowing interior depth values and edges to be preserved through the first convolution layer as seen in figure \ref{adjustedNorm1}.
+
+\begin{figure}
+\centering
+\subfloat[Initial colouring scheme.		\label{fig:blackBG} ]{{
+\includegraphics*[width=0.2\linewidth,clip]{depth_156BlackBG} }}%
+\qquad
+\subfloat[Mean background method.	\label{fig:meanBG} ]{{
+\includegraphics*[width=0.2\linewidth,clip]{depth_156MeanBG} }}%
+\qquad
+\subfloat[Final scheme.   \label{fig:adjusted} ]{{
+\includegraphics*[width=0.2\linewidth,clip]{depth_156} }}%
+\caption{}
+\label{fig:colourschemes}
+\end{figure}
+
+\begin{figure}
+\centering
+\subfloat[The filters in conv1 of a imagenet pre-trained then finetuned AlexNet \cite{Krizhevsky2012}.	\label{fig:layer1filts} ]{{
+\includegraphics*[width=0.45\linewidth,clip]{filters} }}%
+\qquad
+\subfloat[Initial colouring scheme		\label{fig:blackBGactiv} ]{{
+\includegraphics*[width=0.45\linewidth,clip]{blackBGnorm1blob} }}%
+\qquad
+\subfloat[Mean background method	\label{fig:meanBGactiv} ]{{
+\includegraphics*[width=0.45\linewidth,clip]{meanBGnorm1} }}%
+\qquad
+\subfloat[Final scheme   \label{fig:adjustedActiv} ]{{
+\includegraphics*[width=0.45\linewidth,clip]{adjustedNorm1} }}%
+\caption{The activations produced by the first layer filters for each of the colour schemes of figure \ref{fig:colourschemes}.  }
+\label{fig:colourschemeActivations}
+\end{figure}
 
 \bibliographystyle{plain}
 \bibliography{library,myLib,homemadeRefs}
