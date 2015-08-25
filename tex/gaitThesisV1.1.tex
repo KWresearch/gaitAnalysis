@@ -246,7 +246,7 @@ Convolutional Neural Networks (CNNs) are biologically inspired supervised learni
 \end{equation}
 where~$\boldsymbol{Z}$ is an input image, the output~$\boldsymbol{Y}$ is the inferred pose vector for this image, and~$\boldsymbol{W}$ are the trainable parameters of the network. 
  
-They consist of a set of filter maps, essentially matrices (or tensors if applying to multiple channels), which are applied repeatedly across the whole of the input. Each application of these filters produces an activation value which is the sum of each filter element multiplied by its corresponding input pixel value plus a shift term known as a bias. The filter is applied iteratively across the whole image, typically with some overlap. This builds up an 'activation map' for that filter. With such a layer being comprised of a number of filters. The activations of each filter are stacked together, becoming the new 'image' which is passed onto the next layer. This process is illustrated in figure \ref{fig:convnet}. This type of layer, known as Convolution layers, are typically followed by a non-linear function which is what enables the CNN to learn non-linear transformations such as the image to pose transformation we require. Although it is possible to stack convolutional layers on top of each other they are often followed by a pooling layer (also called subsampling). The idea of pooling is to reduce the spatial size from the previous layer as seen in figure~\ref{fig:pool}. Operating on each depth slice individually, i.e. each filters activation, the pooling window moves across the image taking the values of the elements in the input, conglomerating them using some operation, typically taking the max value as seen in the right hand side of figure~\ref{fig:pool}. CNNs also typically contain one or more fully connected layers at the end. Being fully connected means that rather than having a small filter applied repeatedly across the input, a number of filters of the same dimensions as the input are applied to the whole volume. This then outputs a~$1\times 1 \times K$ volume where~$K$ is the number of filters. This is then identical to regular neural networks where each unit in a layer is connected to every unit in the next. In our case, fully connected layers take the final high level feature representation from the rest of the network and perform the final regression. 
+They consist of a set of filter maps, essentially matrices (or tensors if applying to multiple channels), which are applied repeatedly across the whole of the input. Each application of these filters produces an activation value which is the sum of each filter element multiplied by its corresponding input pixel value plus a shift term known as a bias. The filter is applied iteratively across the whole image, typically with some overlap. This builds up an 'activation map' for that filter. With such a layer being comprised of a number of filters. The activations of each filter are stacked together, becoming the new 'image' which is passed onto the next layer. This process is illustrated in figure \ref{fig:convnet}. This type of layer, known as Convolution layers, are typically followed by a non-linear function which is what enables the CNN to learn non-linear transformations such as the image to pose transformation we require. Although it is possible to stack convolutional layers on top of each other they are often followed by a pooling layer (also called subsampling). The idea of pooling is to reduce the spatial size from the previous layer as seen in figure~\ref{fig:pool}. Operating on each depth slice individually, i.e. each filters activation, the pooling window moves across the image taking the values of the elements in the input, conglomerating them using some operation, typically taking the max value as seen in the right hand side of figure~\ref{fig:pool}. CNNs also typically contain one or more fully connected layers at the end. Being fully connected means that rather than having a small filter applied repeatedly across the input, a number of filters of the same dimensions as the input are applied to the whole volume. This then outputs a~$1\times 1 \times K$ volume where~$K$ is the number of filters. This is then identical to regular neural networks where each unit in a layer is connected to every unit in the next. In our case, fully connected layers take the final high level feature representation from the rest of the network and perform the final regression to the pose vector. 
 
 \begin{figure}
 \includegraphics*[width=1\linewidth,clip]{convnet}
@@ -260,20 +260,39 @@ They consist of a set of filter maps, essentially matrices (or tensors if applyi
 
 CNNs are trained using backpropagation and gradient descent. During training an error function is defined which quantifies the difference between the networks output and the desired output. In our case, as is typical of regression tasks, we use the euclidean distance between the two. Using the backpropagation algorithm~\cite{Rumelhart1986} the derivative of this error with respect to each parameter is found.  Then the values of each parameter are adjusted a small amount in the direction which reduces the error. In this way, over many training examples, the network converges on a minima in the error surface across the space of all parameter values.  A derivation of backpropagation and further technical discussion of CNNs in general can be found in the preceding work on this project~\cite{Crabbe2015}.
 
-An advantage of CNNs over traditional computer vision methods is that rather than prescribing a hand-engineered feature such as the depth disparity feature in~\cite{Shotton2011} or the view point and shape feature of~\cite{Chan2014}, the network is responsible for learning features its self based off the data. This presents a significant advantage in our application since features which might be good for measuring pose for one type of motion may not be useful for other motions. %CNNs also have the capacity to learn many different visual representations 
+An advantage of CNNs over traditional computer vision methods is that rather than prescribing a hand-engineered feature such as the depth disparity feature in~\cite{Shotton2011} or the view point and shape feature of~\cite{Chan2014}, the network is responsible for learning features its self based off the data. This presents a significant advantage in our application since features which might be good for measuring pose for one type of motion may not be useful for other motions. %
+
+Deep CNNs have a proven capacity to learn a huge number of different visual representations. They have achieved great success in the International Large Scale Visual Recognition Challenge (ILSVRC, or ImageNet challenge) which is conducted each year and requires identification and localisation (seperately) of 1000 different types of object. The work of~\cite{Krizhevsky2012} showed how deep networks could be trained by using ReLU non-linearities in place of the previous staple of tanh or sigmoid functions, this over came the vanishing gradient problem that had previously made large network infeasible. Since then CNNs have achieved the best results in each task every year running, with every single participating team using them by 2014~\cite{Russakovsky}.
 
 \subsubsection{Human Pose Estimation Using CNNs}
 
+Following the sucess 
+
+Jain et al.~\cite{Jain2013a} were the first to apply CNNs to human pose estimation. They train multiple small three layer networks to act as joint detectors with a seperate network for each joint. Each network takes a small window of the full image as input. They are applied repeatedly with some overlap to produce probability map of the joint's estimated location. They then use a spatial model which enforces consistant and valid global pose estimates from the estimated joint locations. In \cite{Jain2014} they extend their system to use RGB plus motion feature images e.g. optical flow. 
+
+In a similar work Toshev and Szegedy~\cite{Toshev} used a single network, adopting the architecture of \cite{Krizhevsky2012}. They 
+Toshev
+et al.
+[24] learn a cascade of neural
+networks that regress to joint locations, with each successive layer refining the output of the last.
+At each stage, Toshev
+et al.
+augment data by randomly jittering input windows.  The authors show
+improvements on many joints for multiple datasets.  The gains mostly come in the low precision
+regime, indicating that the network does a good job of providing a rough location
 
 
-\section{Preprocessing}
+
+\section{Methods}
+
+\subsection{Preprocessing}
 \label{sec:preprocessing}
 
 The dataset used in this project (SPHERE-staircase2014~dataset~\cite{Paiement}) includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking.
 
 Each example consists of the RGB image, the depth image and 3D joint postion / skeleton data. Preprocessing is applied to each of these seperately.
 
-\subsection{Skeleton Preprocessing}
+\subsubsection{Skeleton Preprocessing}
 
 These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large ammount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardised by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the begining and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisey periods in the middle. 
 
@@ -285,7 +304,7 @@ Now the collection of remaining skeletons is given to the manifold learning stag
 
 %The manifold is built from all the remaining skeletons. %The appearence of the manifold is shown in figure %we also tried...
 
-\subsection{Image Preprocessing}
+\subsubsection{Image Preprocessing}
 
 As described in section \ref{sec:senPerf} depth images are generally incomplete and noisy. We first fill holes in the data using a simple method which iteratively paints in the maximum pixel values from the neighbouring cells. We initially experimented with using the method of \cite{Camplani2012a} which combines noise filtering and hole filling. However the version that we were provided did not use the motion detection and segmentation components. In practise we found that the quality of the filled and filtered depth maps produced by this version were inferior to those produced by the simple method.  \cite{Camplani2012a}'s method also required far longer processing times ~1 week for the full set as opposed to a few minutes for the simple method. 
 
@@ -300,7 +319,7 @@ Since all skeleton data was scaled and transformed to a common point we do the s
 Next we crop the backround area from each image so that each is left with the average width to height ratio of the full dataset which is 0.504.
 
 We then try to normalise the position of the figure within the image. There are two issues with the data which make this a necessary step, firstly the length of lower leg included in the masks varies from frame to frame, secondly there are a number of sequences in which the head of the subject leaves the camera's field of view during the middle of the ascent. Without fixing this problem the scale of the subjects in the images changes depending on how much of them was captured in the mask, which would mean the network would be required to learn an invariance to scale. In general we developed these preprocessing preceedures to reduce the ammount of invariance the network is required to learn. To fix this we try and identify the postition of the shoulders; the width of the mask as a function of height in the image was found across the full dataset, the point greatest curvature was determined to lie at a width of 0.65 of the full image width (after initial cropping). We therefore define the point at which the the width of the mask exceeds this value as the shoulders. From this we find the position of the shoulders in each image. We found the mean position of the shoulders in all non-headless images to be 0.22 of the full image height. Then each image is rescaled, adding additional pixels of background so that the position of the shoulders occurs at exactly 0.22. If the initial shoulder position was less than 0.22 then we assume the image is missing part of its head and rows are added to the top, 
-if it is greater than 0.22 we assume it misses more leg than usual and rows are added to the bottom. Whilst this doesn't recreate the actual foreground pixels of the legs or head, it does mean that the foreground pixels for each intact body part do occupy roughly the same position in the images. One limitation of this method is that it is difficult to handle images which lack both head and legs. We attempt to deal with this by storing the mean number of rows added to the bottom of the image in each frame. Then if we find on the next frame that we are missing rows from the top (i.e. part of the head is missing) then we continue to add the mean number of rows.
+if it is greater than 0.22 we assume it misses more leg than usual and rows are added to the bottom. Whilst this doesn't recreate the actual foreground pixels of the legs or head, it does mean that the foreground pixels for each intact body part do occupy roughly the same position in the images. One limitation of this method is that it is difficult to handle images which lack both head and legs. We attempt to deal with this by storing the mean number of rows added to the bottom of the image in each frame. Then if we find on the next frame that we are missing rows from the top (i.e. part of the head is missing) then we continue to add the meadjustedNorm1an number of rows.
 
 Next we adjust the colour balance of the image. Initially we used the basic scaled depth values and a black background. Analysis of the activations produced by the first layer filters of an ImageNet pre-trained network on this type of input , shown in figure \ref{fig:blackBGactiv}, seemed to indicate that depth information was not being extracted effectively. ImageNet first layer filters, shown in figure \ref{fig:layer1filts}, generally respond to edges. It is clear that the very small differences in depth between parts of the body will produce far smaller activations than the huge difference between the figure and the black background. To encourage the network to focus on the smaller edges we tried setting the background of the images to the mean depth value around the waist of the subject, as shown in figure \ref{fig:meanBG}. However after training untill convergence the network seemed to have discarded most of the filters activations rather than adjusting to them as is seen in \ref{fig:meanBGactiv}. Finally we used histogram equalisation to increase the differences in depth values within the figure. We use a background value of 0.82 of the mean value at the subjects waist as this was slightly less than minimum value any valid foreground pixels seen in the dataset. This results in the largest spread possible in the foreground depth values without ever having a foreground value at a colour darker than the background. This scheme seems to achieve the desired result of allowing interior depth values and edges to be preserved through the first convolution layer as seen in figure \ref{adjustedNorm1}.
 
@@ -335,6 +354,22 @@ Next we adjust the colour balance of the image. Initially we used the basic scal
 \label{fig:colourschemeActivations}
 \end{figure}
 
+
+
+
+\subsection{Architectures}
+
+\subsection{Pre-trained Networks}
+
+
+
+
+
+
+
+
+
+
 \bibliographystyle{plain}
 \bibliography{library,myLib,homemadeRefs}
 
@@ -368,7 +403,7 @@ This joint position vector is then processed using the non-linear dimensionality
 
 Next the reduced pose vectors~\textbf{Y} of the training data is used to learn two probabilistic continuous HMM (Hidden Markov Model) models, one of instantaneous pose, and one of dynamics. The normality of a pose is then the likelihood of the of~\textbf{Y} being described by the pose model. Similarly the dynamical model computes a quality based on the likelihood of~\textbf{Y} given the proceeding frames and the model of normal dynamics. Thresholds on these two normality scores are used to classify each frame normal or abnormal.
 
-The system is 'online' in that it measures abnormality on a frame-by-frame basis, rather than processing a recorded sequence offline and measuring across the full sequence. This enables it produce more detailed data on the parts of the motion that are deviating from normality, which is a benefit.
+The system is 'online' in that it measures abnormality on a frame-by-frame basis, rather than processing a recorded sequence offline and measuring across the full sequence. This enables it to produce data on the parts of the motion that are deviating from normality, which is a benefit.
  
 \end{appendices}
 
