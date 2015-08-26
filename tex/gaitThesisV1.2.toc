@@ -1,0 +1,18 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}Background and Related Work}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Depth Imaging}{3}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Sensor Performance}{4}{subsubsection.2.1.1}
+\contentsline {subsection}{\numberline {2.2}Human Pose Estimation}{5}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Human Pose Estimation Using Dimensionality Reduction}{6}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Human Pose Estimation From Depth Images}{8}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.3}Convolutional Neural Networks}{9}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Human Pose Estimation Using CNNs}{12}{subsubsection.2.3.1}
+\contentsline {section}{\numberline {3}Methods}{13}{section.3}
+\contentsline {subsection}{\numberline {3.1}Preprocessing}{13}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Skeleton Preprocessing}{14}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Depth Preprocessing}{14}{subsubsection.3.1.2}
+\contentsline {section}{\numberline {4}RGB Pre-processing}{17}{section.4}
+\contentsline {subsection}{\numberline {4.1}Architectures}{19}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Pre-trained Networks}{19}{subsection.4.2}
+\contentsline {section}{Appendices}{19}{section*.3}
+\contentsline {section}{\numberline {A}Pre-existing SPHERE System For Movement Quality Analysis}{19}{section.1.A}
