@@ -159,7 +159,7 @@ In depth images each pixel value represents the distance of that point from the 
 
 There are three main technologies used to produce depth images: Time~of~flight~(ToF) cameras, Stereo~imaging cameras and Structured~light cameras. It was not until the last~5~years that affordable good~quality RGB-D sensors came on the market, since then there has been an explosion in their use in the computer vision community~\cite{Han2013}.
 
-The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Live which uses the structured light technology developed by Primesense (same as the Microsoft Kinect). It consists of an infrared laser emitter, an infrared camera, which together make up the depth sensor, and an RGB camera. An infrared laser is passed through a diffraction grating to produce a known pattern of dots that is projected onto the scene then reflected back and captured by the infrared camera. The measured pattern is compared to a reference pattern produced at a known distance of reflection, which has been stored during the calibration process. The surface of reflection being farther or nearer than the reference surface produces a shift in the pattern which is used to determine the depth value~\cite{Zhang2012a,Khoshelham2012a} as shown in figure \ref{.
+The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Live which uses the structured light technology developed by Primesense (same as the Microsoft Kinect). It consists of an infrared laser emitter, an infrared camera, which together make up the depth sensor, and an RGB camera. An infrared laser is passed through a diffraction grating to produce a known pattern of dots that is projected onto the scene then reflected back and captured by the infrared camera. The measured pattern is compared to a reference pattern produced at a known distance of reflection, which has been stored during the calibration process. The surface of reflection being farther or nearer than the reference surface produces a shift in the pattern which is used to determine the depth value~\cite{Zhang2012a,Khoshelham2012a} as shown in figure \ref{fig:kinectMeasure}.
 
 \begin{figure}
 \centering
@@ -297,25 +297,23 @@ Each example consists of the RGB image, the depth image and 3D joint position / 
 
 These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large amount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardised by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the beginning and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisy periods in the middle. 
 
-Specifically for this project we also take the mirror image of each skeleton. Combined with a mirror image of the depth image this doubles our data. 
+Specifically for this project we also take the mirror image of each skeleton. Combined with a mirror image of the depth image, this doubles our data. 
 
 Now the collection of remaining skeletons is given to the manifold learning stage. The dimensionality reduction method used is Diffusion Maps~\cite{Coifman2006} with an adaptation to better handle the remaining noise and outliers present in the skeleton data. We refer to the original publications ~\cite{Paiement} and~\cite{Tao} for a full technical description. In essence Diffusion Maps retains the relative distances between data in the reduced space of the data. \cite{Tao} analysed the quality assessment performance using 1,2,3,4, and 5 dimensional representations and concludes that a 3D representation is the most effective.
 
-The set data which is used to used to build the determines its form. In the original works~\cite{Paiement} and~\cite{Tao} the authors used only the 'normal' sequences from the first 6 subjects. The manifold this produces is shown in figure \ref{fig:1-6manifoldNoFlips}. We initially worked with a manifold built from all sequences abnormal and normal from each of the 12 subjects, the produces a slightly different manifold shown in figure \ref{fig:1-12maniWFlips}.
-
-
-%The manifold is built from all the remaining skeletons. %The appearence of the manifold is shown in figure %we also tried...
+The set of data which is used in building the manifold determines its form. In the original works~\cite{Paiement} and~\cite{Tao} the authors used only the 'normal' sequences from the first 6 subjects. The manifold this produces is shown in figure \ref{fig:1-6manifoldNoFlips}. We initially worked with a manifold built from all sequences abnormal and normal from each of the 12 subjects. This produces a slightly different manifold which exhibits a larger spread in the Z component as shown in figure \ref{fig:1-12maniWFlips}.  
+%will look do a figure with skeletons -> manifold labelled and discuss what the 3 dimension represent.
 
 \begin{figure}
 \centering
-\subfloat[The manifold produced by 'normal' sequences of subjects 1-6. This was the form used in~\cite{Paiement}.	\label{fig:1-6manifoldNoFlips} ]{{
-\includegraphics*[width=0.34\linewidth,clip]{1-6maniNoFlips.pdf} }}%
+\subfloat[The manifold produced by normal sequences of subjects 1-6. This was the form used in~\cite{Paiement}.	\label{fig:1-6manifoldNoFlips} ]{{
+\includegraphics*[trim={2cm 8cm 2cm 10cm},clip,width=0.45\linewidth,clip]{1-6maniNoFlips.pdf} }}%
 \qquad
-\subfloat[Mean background method.		\label{fig:1-6manifoldWFlips}]{{
-\includegraphics*[width=0.34\linewidth,clip]{1-6maniWFlips} }}%
+\subfloat[The manifold produced by normal sequences of subjects 1-6 including their horizontal flips. This was the form used in this work.\label{fig:1-6manifoldWFlips}]{{
+\includegraphics*[trim={2cm 8cm 3cm 10cm},clip,width=0.45\linewidth,clip]{1-6maniWFlips} }}%
 \qquad
-\subfloat[Final scheme.   \label{fig:1-12maniWFlips} ]{{
-\includegraphics*[width=0.7\linewidth,clip]{1-12maniWFlips.pdf}}}%
+\subfloat[The manifold produced by all sequences including their flips. The larger variation in the z component (the vertical axis in the figure) lead to lower network accuracy and incorrect normality analysis.  \label{fig:1-12maniWFlips} ]{{
+\includegraphics*[trim={0cm 5cm 0cm 9cm},clip,width=0.7\linewidth,clip]{1-12maniWFlips.pdf}}}%
 \caption{}
 \label{fig:colourschemes}
 \end{figure}
@@ -333,6 +331,23 @@ The set data which is used to used to build the determines its form. In the orig
 
 %add all scripts to appendix
 As described in section \ref{sec:senPerf} depth images are generally incomplete and noisy. We first fill holes in the data using a simple method which iteratively paints in the maximum pixel values from the neighbouring cells. We initially experimented with using the method of \cite{Camplani2012a} which combines noise filtering and hole filling. However the version that we accessed did not use the motion detection and segmentation components. In practise we found that the quality of the filled and filtered depth maps produced by this version were inferior to those produced by the simple method.  \cite{Camplani2012a}'s method also required far longer processing times ~1 week for the full set as opposed to a 20 minutes for the simple method. 
+
+
+\begin{figure}
+\centering
+\subfloat[Typical image before hole filling.		\label{fig:depthWithHoles} ]{{
+\includegraphics*[width=0.4\linewidth,clip]{depth_334.png} }}%
+\qquad
+\subfloat[Filter and filled using~\cite{Camplani2012a}. \label{fig:camplaniCleaned} ]{{
+\includegraphics*[width=0.4\linewidth,clip]{clean_depth_334.png} }}%
+\qquad
+\subfloat[Filled using quick method.   \label{fig:quickFilled} ]{{
+\includegraphics*[width=0.4\linewidth,clip]{qFilled_334.png} }}%
+\caption{}
+\label{fig:colourschemes}
+\end{figure}
+
+
 
 We then perform background subtraction on the filled depth images. We employed the C++ BGS library~\cite{bgslibrary} and tested each of the provided methods on our data. For all methods some initial set of background frames at the beginning of the sequence were required to achieve satisfactory results. The best results were achieved using the dp/DPZivkovicAGMMBGS method which implements~\cite{Zivkovic2004}. 
 

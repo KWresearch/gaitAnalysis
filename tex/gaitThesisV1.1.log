@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2015.6.9)  26 AUG 2015 17:01
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2015.6.9)  27 AUG 2015 11:10
 entering extended mode
  %&-line parsing enabled.
 **gaitThesisV1.1.tex
@@ -383,6 +383,9 @@ Package: bibentry 2007/10/30 1.5 (PWD)
 
 LaTeX Warning: Label `fig:colourschemes' multiply defined.
 
+
+LaTeX Warning: Label `fig:colourschemes' multiply defined.
+
 )
 \openout1 = `gaitThesisV1.1.aux'.
 
@@ -595,192 +598,520 @@ LaTeX Warning: Citation `Zhang2012a' on page 4 undefined on input line 162.
 LaTeX Warning: Citation `Khoshelham2012a' on page 4 undefined on input line 162
 .
 
-[4]
+[4] <kinectMeasure.png, id=140, 627.34375pt x 578.16pt>
+File: kinectMeasure.png Graphic file (type png)
+
+<use kinectMeasure.png>
+
+LaTeX Warning: Citation `Han2013' on page 5 undefined on input line 167.
+
+
+LaTeX Warning: Citation `Han2013' on page 5 undefined on input line 167.
+
 
 LaTeX Warning: Citation `Gonzalez-Jorge2013' on page 5 undefined on input line 
-178.
+173.
 
 
-LaTeX Warning: Citation `Han2013' on page 5 undefined on input line 180.
+LaTeX Warning: Citation `Han2013' on page 5 undefined on input line 175.
 
 
 LaTeX Warning: Citation `StoyanovTodorandLouloudiAthanasiaandAndreassonHenrikan
-dLilienthal2011a' on page 5 undefined on input line 190.
+dLilienthal2011a' on page 5 undefined on input line 177.
 
+[5 <./kinectMeasure.png>]
 
-LaTeX Warning: Citation `Khoshelham2012a' on page 5 undefined on input line 192
+LaTeX Warning: Citation `Khoshelham2012a' on page 6 undefined on input line 179
 .
 
 
-LaTeX Warning: Citation `Smisek2011' on page 5 undefined on input line 192.
+LaTeX Warning: Citation `Smisek2011' on page 6 undefined on input line 179.
 
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ± in font cmr10!
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ± in font cmr10!
 
-LaTeX Warning: Citation `Nguyen2012' on page 5 undefined on input line 192.
+LaTeX Warning: Citation `Nguyen2012' on page 6 undefined on input line 179.
+
+<kinectHoles4.png, id=152, 896.34875pt x 373.395pt>
+File: kinectHoles4.png Graphic file (type png)
+ <use kinectHoles4.png>
+
+LaTeX Warning: Citation `Feng2013' on page 6 undefined on input line 184.
 
 
-LaTeX Warning: Reference `fig:kinectHoles4' on page 5 undefined on input line 1
-94.
+LaTeX Warning: Citation `Feng2013' on page 6 undefined on input line 184.
+
+<kinectHoles3.png, id=154, 865.2325pt x 363.3575pt>
+File: kinectHoles3.png Graphic file (type png)
+ <use kinectHoles3.png>
+
+LaTeX Warning: Citation `Feng2013' on page 6 undefined on input line 188.
 
 
-LaTeX Warning: Reference `fig:kinectHoles3' on page 5 undefined on input line 1
-94.
+LaTeX Warning: Citation `Feng2013' on page 6 undefined on input line 188.
 
-[5]
 
-LaTeX Warning: Citation `Khoshelham2012a' on page 6 undefined on input line 196
+LaTeX Warning: Citation `Khoshelham2012a' on page 6 undefined on input line 191
 .
 
 
-LaTeX Warning: Citation `Smisek2011' on page 6 undefined on input line 196.
+LaTeX Warning: Citation `Smisek2011' on page 6 undefined on input line 191.
 
 
-LaTeX Warning: Citation `Nguyen2012' on page 6 undefined on input line 196.
+LaTeX Warning: Citation `Nguyen2012' on page 6 undefined on input line 191.
 
 
-LaTeX Warning: Citation `Fiedler2013' on page 6 undefined on input line 196.
+LaTeX Warning: Citation `Fiedler2013' on page 6 undefined on input line 191.
 
+[6 <./kinectHoles4.png>]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
 
-LaTeX Warning: Citation `Forsyth2005' on page 6 undefined on input line 204.
+
+LaTeX Warning: Citation `Forsyth2005' on page 7 undefined on input line 199.
 
 
-LaTeX Warning: Citation `Moeslund2006' on page 6 undefined on input line 206.
+LaTeX Warning: Citation `Moeslund2006' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Hen2009' on page 6 undefined on input line 206.
+LaTeX Warning: Citation `Hen2009' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Poppe2007' on page 6 undefined on input line 206.
+LaTeX Warning: Citation `Poppe2007' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Sminchisescu2006' on page 6 undefined on input line 20
-6.
-
-
-LaTeX Warning: Citation `Liu2015' on page 6 undefined on input line 206.
-
-
-LaTeX Warning: Citation `Poppe2007' on page 6 undefined on input line 206.
-
-
-LaTeX Warning: Citation `Sminchisescu2003' on page 6 undefined on input line 21
+LaTeX Warning: Citation `Sminchisescu2006' on page 7 undefined on input line 20
 1.
 
 
-LaTeX Warning: Citation `Hen2009' on page 6 undefined on input line 211.
+LaTeX Warning: Citation `Liu2015' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Hen2009' on page 6 undefined on input line 211.
+LaTeX Warning: Citation `Poppe2007' on page 7 undefined on input line 201.
+
+[7 <./kinectHoles3.png>]
+
+LaTeX Warning: Citation `Sminchisescu2003' on page 8 undefined on input line 20
+6.
 
 
-LaTeX Warning: Citation `Agarwal2006' on page 6 undefined on input line 211.
-
-[6]
-
-LaTeX Warning: Citation `Brand1999' on page 7 undefined on input line 213.
+LaTeX Warning: Citation `Hen2009' on page 8 undefined on input line 206.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 7 undefined on input line 213.
+LaTeX Warning: Citation `Hen2009' on page 8 undefined on input line 206.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 7 undefined on input line 213.
+LaTeX Warning: Citation `Agarwal2006' on page 8 undefined on input line 206.
 
 
-LaTeX Warning: Citation `Poggio1990' on page 7 undefined on input line 213.
+LaTeX Warning: Citation `Brand1999' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 7 undefined on input line 213.
+LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Elgammal2004b' on page 7 undefined on input line 213.
+LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Brand1999' on page 7 undefined on input line 215.
-
-[7]
-
-LaTeX Warning: Citation `Urtasun2005' on page 8 undefined on input line 217.
+LaTeX Warning: Citation `Poggio1990' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Lawrence2004' on page 8 undefined on input line 217.
+LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Tangkuampien2006' on page 8 undefined on input line 21
-9.
-
-
-LaTeX Warning: Citation `Rosales2000' on page 8 undefined on input line 221.
-
-
-LaTeX Warning: Citation `Rosales2001' on page 8 undefined on input line 221.
+LaTeX Warning: Citation `Elgammal2004b' on page 8 undefined on input line 208.
 
 [8]
 
-LaTeX Warning: Citation `Helten2013' on page 9 undefined on input line 225.
+LaTeX Warning: Citation `Brand1999' on page 9 undefined on input line 210.
 
 
-LaTeX Warning: Citation `Han2013' on page 9 undefined on input line 225.
+LaTeX Warning: Citation `Urtasun2005' on page 9 undefined on input line 212.
 
 
-LaTeX Warning: Citation `Giovanni' on page 9 undefined on input line 225.
+LaTeX Warning: Citation `Lawrence2004' on page 9 undefined on input line 212.
 
 
-LaTeX Warning: Citation `Shotton2011' on page 9 undefined on input line 227.
+LaTeX Warning: Citation `Tangkuampien2006' on page 9 undefined on input line 21
+4.
 
 
-LaTeX Warning: Citation `Shotton2013a' on page 9 undefined on input line 227.
+LaTeX Warning: Citation `Rosales2000' on page 9 undefined on input line 216.
 
 
-LaTeX Warning: Citation `Shotton2011' on page 9 undefined on input line 227.
+LaTeX Warning: Citation `Rosales2001' on page 9 undefined on input line 216.
+
+[9]
+
+LaTeX Warning: Citation `Helten2013' on page 10 undefined on input line 220.
 
 
-LaTeX Warning: Citation `Plagemann2010' on page 9 undefined on input line 229.
+LaTeX Warning: Citation `Han2013' on page 10 undefined on input line 220.
+
+
+LaTeX Warning: Citation `Giovanni' on page 10 undefined on input line 220.
+
+
+LaTeX Warning: Citation `Shotton2011' on page 10 undefined on input line 222.
+
+
+LaTeX Warning: Citation `Shotton2013a' on page 10 undefined on input line 222.
+
+
+LaTeX Warning: Citation `Shotton2011' on page 10 undefined on input line 222.
+
+[10]
+
+LaTeX Warning: Citation `Plagemann2010' on page 11 undefined on input line 224.
+
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
-[9]
 
-LaTeX Warning: Citation `Ye2011' on page 10 undefined on input line 231.
-
-
-LaTeX Warning: Citation `Wei2011' on page 10 undefined on input line 231.
+LaTeX Warning: Citation `Ye2011' on page 11 undefined on input line 226.
 
 
-LaTeX Warning: Citation `Baak2011' on page 10 undefined on input line 231.
+LaTeX Warning: Citation `Wei2011' on page 11 undefined on input line 226.
 
 
-LaTeX Warning: Citation `Zhu2008' on page 10 undefined on input line 231.
+LaTeX Warning: Citation `Baak2011' on page 11 undefined on input line 226.
 
 
-LaTeX Warning: Citation `Chan2014' on page 10 undefined on input line 233.
+LaTeX Warning: Citation `Zhu2008' on page 11 undefined on input line 226.
 
 
-LaTeX Warning: Reference `fig:pool' on page 10 undefined on input line 249.
+LaTeX Warning: Citation `Chan2014' on page 11 undefined on input line 228.
 
-
-LaTeX Warning: Reference `fig:pool' on page 10 undefined on input line 249.
-
-[10] <convnet.jpeg, id=168, 1259.70625pt x 603.25375pt>
+[11] <convnet.jpeg, id=192, 1259.70625pt x 603.25375pt>
 File: convnet.jpeg Graphic file (type jpg)
  <use convnet.jpeg>
 
-LaTeX Warning: Citation `KarLects' on page 11 undefined on input line 253.
+LaTeX Warning: Citation `KarLects' on page 12 undefined on input line 248.
 
 
-LaTeX Warning: Citation `KarLects' on page 11 undefined on input line 253.
+LaTeX Warning: Citation `KarLects' on page 12 undefined on input line 248.
+
+<pooling.png, id=196, 1086.0575pt x 349.305pt>
+File: pooling.png Graphic file (type png)
+ <use pooling.png>
+
+LaTeX Warning: Citation `KarLects' on page 12 undefined on input line 254.
 
 
-LaTeX Warning: Citation `Rumelhart1986' on page 11 undefined on input line 261.
+LaTeX Warning: Citation `KarLects' on page 12 undefined on input line 254.
+
+
+LaTeX Warning: Citation `Rumelhart1986' on page 12 undefined on input line 257.
 
 
 
-LaTeX Warning: Citation `Crabbe2015' on page 11 undefined on input line 261.
+LaTeX Warning: Citation `Crabbe2015' on page 12 undefined on input line 257.
 
-[11 <
+
+LaTeX Warning: Citation `Shotton2011' on page 12 undefined on input line 259.
+
+
+LaTeX Warning: Citation `Chan2014' on page 12 undefined on input line 259.
+
+[12] [13 <./convnet.jpeg> <./pooling.png>]
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 14 undefined on input line 261
+.
+
+
+LaTeX Warning: Citation `Russakovsky' on page 14 undefined on input line 261.
+
+
+LaTeX Warning: Citation `Seung1992' on page 14 undefined on input line 263.
+
+
+LaTeX Warning: Citation `Vapnik1994' on page 14 undefined on input line 263.
+
+
+LaTeX Warning: Citation `LeCun1998' on page 14 undefined on input line 268.
+
+
+LaTeX Warning: Citation `Szegedy2014' on page 14 undefined on input line 270.
+
+
+LaTeX Warning: Citation `Sharif2014' on page 14 undefined on input line 270.
+
+
+LaTeX Warning: Citation `Donahue2014' on page 14 undefined on input line 270.
+
+
+LaTeX Warning: Citation `Oquab2014' on page 14 undefined on input line 270.
+
+
+LaTeX Warning: Citation `Girshick2014' on page 14 undefined on input line 270.
+
+
+LaTeX Warning: Citation `Yosinski2014' on page 14 undefined on input line 270.
+
+
+LaTeX Warning: Citation `Schwarz2015' on page 14 undefined on input line 270.
+
+
+LaTeX Warning: Citation `Alexandre2013' on page 14 undefined on input line 270.
+
+
+[14]
+
+LaTeX Warning: Citation `Jain2013a' on page 15 undefined on input line 275.
+
+
+LaTeX Warning: Citation `Jain2014' on page 15 undefined on input line 275.
+
+
+LaTeX Warning: Citation `Toshev' on page 15 undefined on input line 277.
+
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 15 undefined on input line 277
+.
+
+
+LaTeX Warning: Citation `Accv2014' on page 15 undefined on input line 279.
+
+
+LaTeX Warning: Citation `Pfister' on page 15 undefined on input line 281.
+
+
+LaTeX Warning: Citation `Sermanet2013a' on page 15 undefined on input line 281.
+
+
+[15]
+
+LaTeX Warning: Citation `Tompson2014' on page 16 undefined on input line 283.
+
+
+LaTeX Warning: Citation `Paiement' on page 16 undefined on input line 292.
+
+
+LaTeX Warning: Citation `Paiement' on page 16 undefined on input line 298.
+
+
+LaTeX Warning: Citation `Coifman2006' on page 16 undefined on input line 302.
+
+
+LaTeX Warning: Citation `Paiement' on page 16 undefined on input line 302.
+
+
+LaTeX Warning: Citation `Tao' on page 16 undefined on input line 302.
+
+
+LaTeX Warning: Citation `Tao' on page 16 undefined on input line 302.
+
+[16]
+
+LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 304.
+
+
+LaTeX Warning: Citation `Tao' on page 17 undefined on input line 304.
+
+<1-6maniNoFlips.pdf, id=228, 597.23125pt x 845.1575pt>
+File: 1-6maniNoFlips.pdf Graphic file (type pdf)
+
+<use 1-6maniNoFlips.pdf>
+
+LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 312.
+
+
+LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 312.
+
+<1-6maniWFlips.pdf, id=230, 597.23125pt x 845.1575pt>
+File: 1-6maniWFlips.pdf Graphic file (type pdf)
+ <use 1-6maniWFlips.pdf>
+<1-12maniWFlips.pdf, id=232, 597.23125pt x 845.1575pt>
+File: 1-12maniWFlips.pdf Graphic file (type pdf)
+
+<use 1-12maniWFlips.pdf>
+
+LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 324.
+
+
+LaTeX Warning: Citation `Tao' on page 17 undefined on input line 324.
+
+
+LaTeX Warning: Citation `Camplani2012a' on page 17 undefined on input line 335.
+
+
+
+LaTeX Warning: Citation `Camplani2012a' on page 17 undefined on input line 335.
+
+
+<depth_334.png, id=235, 642.4pt x 481.8pt>
+File: depth_334.png Graphic file (type png)
+ <use depth_334.png>
+<clean_depth_334.png, id=237, 642.4pt x 481.8pt>
+File: clean_depth_334.png Graphic file (type png)
+ <use clean_depth_334.png>
+
+LaTeX Warning: Citation `Camplani2012a' on page 17 undefined on input line 344.
+
+
+
+LaTeX Warning: Citation `Camplani2012a' on page 17 undefined on input line 344.
+
+
+<qFilled_334.png, id=239, 642.4pt x 481.8pt>
+File: qFilled_334.png Graphic file (type png)
+ <use qFilled_334.png>
+
+LaTeX Warning: Citation `bgslibrary' on page 17 undefined on input line 354.
+
+
+LaTeX Warning: Citation `Zivkovic2004' on page 17 undefined on input line 354.
+
+[17] [18 <./1-6maniNoFlips.pdf> <./1-6maniWFlips.pdf> <./1-12maniWFlips.pdf>]
+[19 <./depth_334.png (PNG copy)> <./clean_depth_334.png (PNG copy)> <./qFilled_
+334.png (PNG copy)>] [20]
+
+LaTeX Warning: Reference `adjustedNorm1' on page 21 undefined on input line 367
+.
+
+[21] <depth_186.png, id=298, 115.43124pt x 228.855pt>
+File: depth_186.png Graphic file (type png)
+ <use depth_186.png>
+<depth_186Mbg.png, id=300, 115.43124pt x 228.855pt>
+File: depth_186Mbg.png Graphic file (type png)
+ <use depth_186Mbg.png>
+Underfull \hbox (badness 10000) in paragraph at lines 376--376
+[]\OT1/cmr/m/n/9 (+20) (b) |Mean back-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 376--376
+\OT1/cmr/m/n/9 (+20) ground method.
+ []
+
+<depth_186Adj.png, id=302, 115.43124pt x 228.855pt>
+File: depth_186Adj.png Graphic file (type png)
+ <use depth_186Adj.png>
+<img_186.png, id=304, 116.435pt x 231.86626pt>
+File: img_186.png Graphic file (type png)
+ <use img_186.png>
+Underfull \hbox (badness 10000) in paragraph at lines 382--382
+[]\OT1/cmr/m/n/9 (+20) (d) |Pre-processed
+ []
+
+<filters.png, id=306, 731.3724pt x 731.3724pt>
+File: filters.png Graphic file (type png)
+ <use filters.png>
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 22 undefined on input line 390
+.
+
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 22 undefined on input line 390
+.
+
+<blackBGnorm1blob.png, id=308, 731.3724pt x 731.3724pt>
+File: blackBGnorm1blob.png Graphic file (type png)
+
+<use blackBGnorm1blob.png> <meanBGnorm1.png, id=310, 731.3724pt x 731.3724pt>
+File: meanBGnorm1.png Graphic file (type png)
+
+<use meanBGnorm1.png> <adjustedNorm1.png, id=312, 731.3724pt x 731.3724pt>
+File: adjustedNorm1.png Graphic file (type png)
+
+<use adjustedNorm1.png>
+
+LaTeX Warning: Citation `Jia2014' on page 22 undefined on input line 410.
+
+
+LaTeX Warning: Citation `Chen' on page 22 undefined on input line 410.
+
+
+LaTeX Warning: Citation `Pfister' on page 22 undefined on input line 410.
+
+
+LaTeX Warning: Citation `Girshick2014' on page 22 undefined on input line 410.
+
+
+LaTeX Warning: Citation `Springenberg2015' on page 22 undefined on input line 4
+10.
+
+
+LaTeX Warning: Citation `Schwarz2015' on page 22 undefined on input line 410.
+
+
+LaTeX Warning: Citation `Simonyan2015' on page 22 undefined on input line 410.
+
+
+LaTeX Warning: Citation `Wang2015' on page 22 undefined on input line 410.
+
+
+LaTeX Warning: Citation `Folk2011' on page 22 undefined on input line 412.
+
+[22 <./depth_186.png (PNG copy)> <./depth_186Mbg.png (PNG copy)> <./depth_186Ad
+j.png (PNG copy)> <./img_186.png (PNG copy)>] [23 <./filters.png> <./blackBGnor
+m1blob.png> <./meanBGnorm1.png> <./adjustedNorm1.png>]
+No file gaitThesisV1.1.bbl.
+
+LaTeX Warning: Citation `Paiement' on page 24 undefined on input line 441.
+
+
+LaTeX Warning: Citation `Tao' on page 24 undefined on input line 441.
+
+
+LaTeX Warning: Reference `sec:intro' on page 24 undefined on input line 447.
+
+
+LaTeX Warning: Citation `Paiement' on page 24 undefined on input line 450.
+
+
+LaTeX Warning: Reference `fig:exsysData' on page 24 undefined on input line 450
+.
+
+[24]
+
+LaTeX Warning: Reference `fig:sysPipe' on page 25 undefined on input line 453.
+
+
+LaTeX Warning: Reference `sec:sofTools' on page 25 undefined on input line 453.
+
+
+
+LaTeX Warning: Citation `Tao' on page 25 undefined on input line 459.
+
+
+LaTeX Warning: Citation `Coifman2006' on page 25 undefined on input line 461.
+
+[25] [26] (./gaitThesisV1.1.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 9953 strings out of 495061
+ 150580 string characters out of 1182622
+ 263893 words of memory out of 3000000
+ 12767 multiletter control sequences out of 15000+50000
+ 21453 words of font info for 117 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 44i,10n,47p,2201b,432s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
+m/cmmib10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on gaitThesisV1.1.pdf (26 pages, 3596281 bytes).
+PDF statistics:
+ 421 PDF objects out of 1000 (max. 8388607)
+ 76 named destinations out of 1000 (max. 500000)
+ 13690 words of extra memory for PDF output out of 14400 (max. 10000000)
+
