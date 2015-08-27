@@ -17,7 +17,7 @@ Feature Descriptors for Gait Analysis From Depth Sensors}
 \usepackage{hyperref}
 \usepackage[toc,page]{appendix}
 \titleclass{\subsubsubsection}{straight}[\subsection]
-\usepackage{epstopdf}
+
 \newcounter{subsubsubsection}[subsubsection]
 \renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
 \renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
@@ -127,7 +127,7 @@ Currently this system uses joint position information captured by the OpenNI ske
 Since this system uses data driven, machine learning methods to learn both the manifold representation of pose and the model of normal motion, it can be applied to other types of movement quality assessment such a sports movement optimisation or physiotherapy exercise coaching. The system has been applied to a sitting-standing motion, to punching motions in boxing $^{how to site http://www.irc-sphere.ac.uk/work-package-2/movement-quality ?}$ and to people walking upstairs. 
 %Limitation - doesn't work well in realisitic senarios
 
-One issue currently limiting the effectiveness of this system is the fragility of the skeleton tracking software. This software was designed for controlling entertainment/gaming systems with the user viewed frontally, within a range of 1-4m and at a pitch angle near 0$\degree$. Outside of these conditions skeletons become noisy and unreliable. Typically only a small fraction of data recorded from a camera attached to the ceiling above the stairs is fit for use with the system. Increasing amount of usable data requires more intrusive camera placement which is to be avoided. The skeleton trackers also perform poorly when props are involved in the scene, for example grasping a banister or a ball often leads to erroneous joint positions for that arm. It also struggles to accurately record sitting/standing motions.
+One issue currently limiting the effectiveness of this system is the fragility of the skeleton tracking software. Shotton et al's algorithm was designed for controlling entertainment/gaming systems with the user viewed frontally, within a range of 1-4m and at a pitch angle near 0$\degree$. Outside of these conditions skeletons become noisy and unreliable. Typically only a small fraction of data recorded from a camera attached to the ceiling above the stairs is fit for use with the system. Increasing amount of usable data requires more intrusive camera placement which is to be avoided. The skeleton trackers also perform poorly when props are involved in the scene, for example grasping a banister or a ball often leads to erroneous joint positions for that arm. It also struggles to accurately record sitting/standing motions.
 %Aims
 
 The aim of this project is to develop a tailor made system for determining the reduced pose vector directly from RGB-D footage. To enable the flexibility of the rest of the system we require this new component to exhibit the same flexibility as the rest of the system by being able to record a wide range of motions. It should also work with an effective accuracy under the kinds of viewing angles produced by practical, unobtrusive, in home camera placements. This requires a data driven approach since the pose representation we wish to infer is not fixed, differing based on the body configurations presented in training data. %Simply we require a system that can be trained to regress from RGB-D image data to a point in a continuous 3d space.
@@ -159,13 +159,18 @@ In depth images each pixel value represents the distance of that point from the 
 
 There are three main technologies used to produce depth images: Time~of~flight~(ToF) cameras, Stereo~imaging cameras and Structured~light cameras. It was not until the last~5~years that affordable good~quality RGB-D sensors came on the market, since then there has been an explosion in their use in the computer vision community~\cite{Han2013}.
 
-The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Live which uses the structured light technology developed by Primesense (same as the Microsoft Kinect). It consists of an infrared laser emitter, an infrared camera, which together make up the depth sensor, and an RGB camera. An infrared laser is passed through a diffraction grating to produce a known pattern of dots that is projected onto the scene then reflected back and captured by the infrared camera. The measured pattern is compared to a reference pattern produced at a known distance of reflection, which has been stored during the calibration process. The surface of reflection being farther or nearer than the reference surface produces a shift in the pattern which is used to determine the depth value~\cite{Zhang2012a,Khoshelham2012a} as shown in figure \ref{.
+ The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Live which uses the structured light technology developed by Primesense (same as the Microsoft Kinect). It consists of an infrared laser emitter, an infrared camera, which together make up the depth sensor, and an RGB camera. An infrared laser is passed through a diffraction grating to produce a known pattern of dots that is projected onto the scene then reflected back and captured by the infrared camera. The measured pattern is compared to a reference pattern produced at a known distance of reflection, which has been stored during the calibration process. The surface of reflection being farther or nearer than the reference surface produces a shift in the pattern which is used to determine the depth value~\cite{Zhang2012a,Khoshelham2012a}.
 
-\begin{figure}
-\centering
-\includegraphics*[width=0.45\linewidth,clip]{kinectMeasure}%
-\caption{The process by which depth is computed from triangulation of structured light. From \cite{Han2013}		\label{fig:kinectMeasure}}
-\end{figure}
+%\begin{figure}
+%\centering
+%\subfloat[The Microsoft Kinect v1. From \cite{Zhang2012a}		\label{fig:kinectCam} ]{{
+%\includegraphics*[width=0.45\linewidth,clip]{kinectCamera} }}%
+%\qquad
+%\subfloat[Shows the process by which the Kinect v1 computes depth from triangulation of structured light. From \cite{Han2013}		\label{fig:kinectMeasure} ]{{
+%\includegraphics*[width=0.45\linewidth,clip]{kinectMeasure} }}%
+%\caption{}
+%\label{fig:kinect}
+%\end{figure}
 
 \subsubsection{Sensor Performance}
 \label{sec:senPerf}
@@ -173,20 +178,20 @@ The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Liv
 Most of the studies reported below have focused on the Microsoft Kinect however both sensor contain the same depth sensing system and have been shown to perform equivalently when compared~\cite{Gonzalez-Jorge2013}, hence we report the findings based off of the Kinect performance.
 
 The range of the depth sensor is~0.8-3.5m with increasingly noisy or incomplete readings up to 8m. It has a~43$\degree$~vertical by~57$\degree$~horizontal field~of~view~\cite{Han2013}.
+ %\begin{figure}
+%\includegraphics*[width=1\linewidth,clip]{kinectHoles4}
+%\caption{Shows the holes in Kinect depth data due to the different perspectives of IR projector and senor (regions~1~and~3) and due to the surface of reflection being roughly~5m away and at a large angle(region~2) From~\cite{Feng2013}		\label{fig:kinectHoles4}  } 
+%\end{figure}
+ %\begin{figure}
+%\includegraphics*[width=1\linewidth,clip]{kinectHoles3}
+%\caption{Shows the holes in Kinect depth data due abnormal reflections from certain glossy surfaces like the TV monitor and the subjects hair.  From~\cite{Feng2013}			%\label{fig:kinectHoles3}  } 
+%\end{figure}
 
 Stoyanov et al.~\cite{StoyanovTodorandLouloudiAthanasiaandAndreassonHenrikandLilienthal2011a} compare the performance of the Kinect with that of two other ToF depth imaging cameras (SwissRanger~SR-4000 and Fotonic~B70~ToF) assessing them against a ground truth of expensive and low fps laser depth scanner measurements. They find that within a range of 3.5m the Kinect outperforms that of the ToF sensors and is comparable to the laser scanner, and that outside of this range the accuracy falls considerably.
 
 Both Khoshelham~\&~Elberink~\cite{Khoshelham2012a} and Smisek~et~al.~\cite{Smisek2011} have measured this effect experimentally comparing Kinect measurements with those from high performance laser scanners. They find temporally fluctuating noise in the depth measurements increases quadratically with distance from the sensor so the depth precision decreases from about~±0.5cm~at~1m to~±7cm at~7m. Nguyen~et~al. shows there to also be linearly increasing noise with lateral distance, and greatly increased noise on surfaces at greater than 70$\degree$~angles~\cite{Nguyen2012}. This last effect can lead to increased levels of noise around edges of humans. 
 
 As well as noise, the structured light sensors often return 'unknown' depth value pixels, known as holes, when the infrared receiver cannot read the reflected pattern properly. This can occur around the sides of foreground objects due to the slightly different viewing angles between the projector and camera as in regions 2~and~3 of figure~\ref{fig:kinectHoles4}, or when certain surface materials, such as human hair, interfere with the infrared pattern's reflection as in region~4 in figure~\ref{fig:kinectHoles3}. 
- \begin{figure}
-\includegraphics*[width=1\linewidth,clip]{kinectHoles4}
-\caption{Shows the holes in structured light depth data due to the different perspectives of IR projector and senor (regions~1~and~3) and due to the surface of reflection being roughly~5m away and at a large angle(region~2) From~\cite{Feng2013}		\label{fig:kinectHoles4}  } 
-\end{figure}
- \begin{figure}
-\includegraphics*[width=1\linewidth,clip]{kinectHoles3}
-\caption{Shows the holes in depth data due abnormal reflections from certain glossy surfaces like the TV monitor and the subjects hair.  From~\cite{Feng2013}			\label{fig:kinectHoles3}  } 
-\end{figure}
 
 It should be noted that each of these studies mentioned above~\cite{Khoshelham2012a,Smisek2011,Nguyen2012} fail to consider the environmental factors in the quality of the measurement. Fiedler~\&~Muller \cite{Fiedler2013} show that air draft can cause changes of the depth values up to~21mm at a distance of~1.5m, and temperature variations cause changes up to~1.88mm~per~1$\degree$~C. They also find a temperature dependant drift in the position of objects captured by the RGB camera.
 
@@ -248,11 +253,10 @@ They consist of a set of filter maps, essentially matrices (or tensors if applyi
 \caption{Shows a representation of the activations produced following a number of convolution layers, non-linearities (Rectified Linear Units, or ReLUs, are the function $max(0,x)$ and pooling layers. The network, an online demo from \cite{KarLects}, is classifying images from the CIFAR-10 dataset using the ConvnetJS library\protect\footnotemark. ) \label{fig:convnet}  }
 \end{figure}
 \footnotetext{http://cs.stanford.edu/people/karpathy/convnetjs/}
-
-\begin{figure}
-\includegraphics*[width=1\linewidth,clip]{pooling}
-\caption{Shows the effect of pooling layers in a CNN.  From~\cite{KarLects} \label{fig:pool}  } 
-\end{figure}
+%\begin{figure}
+%\includegraphics*[width=1\linewidth,clip]{pooling}
+%\caption{Shows the effect of pooling layers in a CNN.  From~\cite{KarLects} \label{fig:pool}  } 
+%\end{figure}
 
 CNNs are trained using backpropagation and gradient descent. During training an error function is defined which quantifies the difference between the networks output and the desired output. In our case, as is typical of regression tasks, we use the euclidean distance between the two. Using the backpropagation algorithm~\cite{Rumelhart1986} the derivative of this error with respect to each parameter is found.  Then the values of each parameter are adjusted a small amount in the direction which reduces the error. In this way, over many training examples, the network converges on a minima in the error surface across the space of all parameter values.  A derivation of backpropagation and further technical discussion of CNNs in general can be found in the preceding work on this project~\cite{Crabbe2015}.
 
@@ -267,7 +271,8 @@ E_{test}-E_{training} \propto \frac{c}{P}
 \end{equation}
 The capacity of the network is essentially the number of parameters being trained, which depends on the number of layers, the dimensions of the input images and the number of channels, the size and number of convolving filters and the way the filters and the pooling are applied. Increasing capacity will also decrease the size of~$\boldsymbol{E}_{training}$, hence there the aim in designing the network is to find the architecture which minimises both~$\boldsymbol{E}_{training}$ and~$\boldsymbol{E}_{test}-\boldsymbol{E}_{training}$ as far as possible~\cite{LeCun1998}.
 
-Since ImageNet contains around 15 million training examples it has enabled the training of very large networks such as the 2014 winner GoogLeNet which had 22 layers~\cite{Szegedy2014}. In our case we are limited by the size of our dataset which contains a total of 6228 usable examples, many of which are practically identical due to being adjacent frames. A common method used to apply deep CNNs to tasks which lack large amounts of training data is to use a network pre-trained on a large dataset, typically ImageNet. Numerous studies~\cite{Sharif2014,Donahue2014,Oquab2014,Girshick2014,Yosinski2014} have shown ImageNet trained networks producing better results than randomly initialised networks in a variety of task, and also on depth data~\cite{Schwarz2015,Alexandre2013}. Typically the filters in the early layers are generic edge, corner or blob detectors which can be expected to generalise well to different tasks. In higher layers, as the spatial size of the input to each filter increases (due to pooling), more task specific representations are learnt. 
+Since ImageNet contains around 15 million training examples it has enabled the training of very large networks such as the 2014 winner GoogLeNet which had 22 layers~\cite{Szegedy2014}. In our case we are limited by the size of our dataset which contains a total of 6228 usable examples, many of which are practically identical due to being adjacent frames. A common method used to apply deep CNNs to tasks which lack large amounts of training data is to use a network pre-trained on a large dataset, typically ImageNet. Numerous studies~\cite{Sharif2014,Donahue2014,Oquab2014,Girshick2014,Yosinski2014} have shown ImageNet trained networks producing better results than randomly initialised networks in a variety of task, and also on depth data~\cite{Schwarz2015,Alexandre2013}. Typically the filters in the early layers are generic edge, corner or blob detectors which can be expected to generalise well to different tasks. In higher layers, as the spatial size of the input to each filter increases (due to pooling), more task specific representations are learnt. In this work we found that using the ImageNet pre-trained network of~\cite{Krizhevsky2012} as an initialisation for training on our task generally produced better results than starting from random initialisations, with the added benefit of taking far less time to converge.
+
 
 \subsubsection{Human Pose Estimation Using CNNs}
 
@@ -278,123 +283,87 @@ In a similar work Toshev and Szegedy~\cite{Toshev} used a multi resolution appro
 
 Li and Chan also measure 2D joint locations with a CNN. They use a single network with three convolution layers which they train for a pose regression and a joint detection simultaneously, sharing all convolution filters between tasks. They show that training for the extraneous task of joint detection consistently improves the accuracy of the regression task. In~\cite{Accv2014} they extend their work to 3D joint position measurements. They also compare the original multi task training with pre-training on joint detection before fine tuning on regression. They find little difference between the two but still show that the joint detection task consistently improves the regression performance. They show that the network produces reasonable position estimates even for completely occluded joints. 
 
-Pfister et al.~\cite{Pfister} used the architecture of~\cite{Sermanet2013a} (a 2013 ILSVRC winner) to regress 2D upper body joint locations from RGB video. They experiment with using an ImageNet pre-trained model but find results are improved when training from scratch, a result echoed in this work. The found a their accuracy improved by 5\% after performing background subtraction on their data, a method we also adopt. They also experiment with using multiple frames as input, finding this gives only a modest 0.3\% improvement. 
-
-Tompson et al.~\cite{Tompson2014}
+Pfister et al.~\cite{Pfister} used the architecture of~\cite{Sermanet2013a} (a 2013 ILSVRC winner) to regress 2D upper body joint locations from video. They experiment with using an ImageNet 
 
 
 
 \section{Methods}
 
-\subsection{Data Preprocessing}
+\subsection{Preprocessing}
 \label{sec:preprocessing}
 
 The dataset used in this project (SPHERE-staircase2014~dataset~\cite{Paiement}) includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking.
 
-Each example consists of the RGB image, the depth image and 3D joint position / skeleton data. Preprocessing is applied to each of these separately.
+Each example consists of the RGB image, the depth image and 3D joint postion / skeleton data. Preprocessing is applied to each of these seperately.
 
 \subsubsection{Skeleton Preprocessing}
 
-These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large amount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardised by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the beginning and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisy periods in the middle. 
+These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large ammount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardised by a measure of the scale of the reference shape. We discard any frames where this dissimilarity is greater than 0.1. This generally discards frames from the begining and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisey periods in the middle. 
 
-Specifically for this project we also take the mirror image of each skeleton. Combined with a mirror image of the depth image this doubles our data. 
+Specfically for this project we also take the mirror image of each skeleton. Combined with a mirror image of the depth image this doubles our data. 
 
-Now the collection of remaining skeletons is given to the manifold learning stage. The dimensionality reduction method used is Diffusion Maps~\cite{Coifman2006} with an adaptation to better handle the remaining noise and outliers present in the skeleton data. We refer to the original publications ~\cite{Paiement} and~\cite{Tao} for a full technical description. In essence Diffusion Maps retains the relative distances between data in the reduced space of the data. \cite{Tao} analysed the quality assessment performance using 1,2,3,4, and 5 dimensional representations and concludes that a 3D representation is the most effective.
+Now the collection of remaining skeletons is given to the manifold learning stage. The dimensionality reduction method used is DIffusion Maps~\cite{Coifman2006} with an adaptation to better handle the remaining noise and outliers present in the skeleton data. We refer to the original publications ~\cite{Paiement} and~\cite{Tao} for a full technical description. In essence Diffusion Maps retains the relative distances between data in the reduced space of the data. \cite{Tao} analysed the quality assement performance using 1,2,3,4, and 5 dimensional representations and concludes that a 3D representation is the most effective.
 
-The set data which is used to used to build the determines its form. In the original works~\cite{Paiement} and~\cite{Tao} the authors used only the 'normal' sequences from the first 6 subjects. The manifold this produces is shown in figure \ref{fig:1-6manifoldNoFlips}. We initially worked with a manifold built from all sequences abnormal and normal from each of the 12 subjects, the produces a slightly different manifold shown in figure \ref{fig:1-12maniWFlips}.
-
-
-%The manifold is built from all the remaining skeletons. %The appearence of the manifold is shown in figure %we also tried...
-
-\begin{figure}
-\centering
-\subfloat[The manifold produced by 'normal' sequences of subjects 1-6. This was the form used in~\cite{Paiement}.	\label{fig:1-6manifoldNoFlips} ]{{
-\includegraphics*[width=0.34\linewidth,clip]{1-6maniNoFlips.pdf} }}%
-\qquad
-\subfloat[Mean background method.		\label{fig:1-6manifoldWFlips}]{{
-\includegraphics*[width=0.34\linewidth,clip]{1-6maniWFlips} }}%
-\qquad
-\subfloat[Final scheme.   \label{fig:1-12maniWFlips} ]{{
-\includegraphics*[width=0.7\linewidth,clip]{1-12maniWFlips.pdf}}}%
-\caption{}
-\label{fig:colourschemes}
-\end{figure}
-
-%do an analysis of each manifold used, 
-2793 skeletons from the first 6 'normal' sequence subjects plus their horizontal flips are used to build the manifold. The skeletons of the 31 sequences from the other 6 subjects (and their flips) are then projected onto the manifold (again, see \cite{Paiement} and~\cite{Tao} for details). This gives a total of 8253*2 potential data points.
+2793 skeletons from the first 6 'normal' sequence subjects plus their horizontal flips are used to build the manifold. The skeletons of the 31 sequences from the other 6 subjects (and their flips) are then projected onto the manifold (again, see~\cite{Paiement} and~\cite{Tao} for details). This gives a total of 8253*2 potential datapoints.
 
 %The manifold is built from all the remaining skeletons. %The appearence of the manifold is shown in figure %we also tried...
-
-
-
-
 
 \subsubsection{Depth Preprocessing}
 
-%add all scripts to appendix
-As described in section \ref{sec:senPerf} depth images are generally incomplete and noisy. We first fill holes in the data using a simple method which iteratively paints in the maximum pixel values from the neighbouring cells. We initially experimented with using the method of \cite{Camplani2012a} which combines noise filtering and hole filling. However the version that we accessed did not use the motion detection and segmentation components. In practise we found that the quality of the filled and filtered depth maps produced by this version were inferior to those produced by the simple method.  \cite{Camplani2012a}'s method also required far longer processing times ~1 week for the full set as opposed to a 20 minutes for the simple method. 
+As described in section \ref{sec:senPerf} depth images are generally incomplete and noisy. We first fill holes in the data using a simple method which iteratively paints in the maximum pixel values from the neighbouring cells. We initially experimented with using the method of \cite{Camplani2012a} which combines noise filtering and hole filling. However the version that we were provided did not use the motion detection and segmentation components. In practise we found that the quality of the filled and filtered depth maps produced by this version were inferior to those produced by the simple method.  \cite{Camplani2012a}'s method also required far longer processing times ~1 week for the full set as opposed to a few minutes for the simple method. 
 
-We then perform background subtraction on the filled depth images. We employed the C++ BGS library~\cite{bgslibrary} and tested each of the provided methods on our data. For all methods some initial set of background frames at the beginning of the sequence were required to achieve satisfactory results. The best results were achieved using the dp/DPZivkovicAGMMBGS method which implements~\cite{Zivkovic2004}. 
+We then perform background subtraction on the filled depth images. We employed the C++ BGS library~\cite{bgslibrary} and tested each of the provided methods on our data. For all methods some initial set of background frames at the begining of the sequence were required to acheive satisfactory results. The best results were acheived using the dp/DPZivkovicAGMMBGS method which implements~\cite{Zivkovic2004}. 
 
+We found that the foreground masks produced often mistook sensor noise for moving objects. To fix this problem we apply a simple cleaning proceedure to the masks which takes only the largest collection of positive pixels. This discards the small noise related blobs. We also apply a small errosion and dilation to get rid of noise effects connected to the largest blob. There is also problems correctly identifying the feet of the subjects since the floor is at approximately equal depth and therefore the same colour in the depth image. The masks generally only extend to around the mid point of the shin. For some subjects feet can appear mid stride when raised high enough from the ground to be distinguishable. We also attempted using the RGB images to improve assist in extracting the feet, however most subjects are wearing dark coloured shoes which did not differentiate well from the colour of the stairs, meaning the results we just as poor as for the depth, with additional issues in other parts of the images where clothing matched the colour of the walls. 
 
-We found that the foreground masks produced often mistook sensor noise for moving objects. To fix this problem we apply a simple cleaning proceedure to the masks which takes only the largest collection of positive pixels. This discards the small noise related blobs. We also apply a small errosion and dilation to get rid of noise effects connected to the largest blob. There is also problems correctly identifying the feet of the subjects since the floor is at approximately equal depth and therefore the same colour in the depth image. The masks generally only extend to around the mid point of the shin. For some subjects feet can appear mid stride when raised high enough from the ground to be distinguishable. We also attempted using the RGB images to improve assist in extracting the feet, however most subjects are wearing dark coloured shoes which did not differentiate well from the colour of the stairs, meaning the results we just as poor as for the depth, with additional issues in other parts of the images where clothing matched the colour of the walls. %some masks are still bad and get discarded
-
-We then take the cleaned mask and extract the foreground containing the human figure from the depth image. In some cases patches of background get included around the edges of the mask. We remove any pixels which have values greater than two standard deviations from the mean of the foreground. Due to the perspective of the camera the depth values of the of the foreground increase towards the feet of the subject, therefore if this cut is too strict we begin to loose valid pixels near the feet. To avoid this whilst still removing all background pixels from the rest of the image we select only the top 75\% of the figure and apply a more stringent cut. 
+We then take the cleaned mask and extract the foreground containing the human figure from the depth image. In some cases patches of background get included around the edges of the mask. We remove any pixels which have values greater than two standard deviations from the mean of the foreground. Due to the perspective of the camera the depth values of the of the forground increase towards the feet of the subject, therefore if this cut is too strict we begin to loose valid pixels near the feet. To avoid this whilst still removing all background pixels from the rest of the image we select only the top 75\% of the figure and apply a more stringent cut. 
 
 Since all skeleton data was scaled and transformed to a common point we do the same to the depth data. We normalise the mean depth values of the of each image by finding the mean depth value of a small region near the subjects waist. Using only this region gives an accurate indication of the distance of the subject from the camera rather than transient effects such as arm swing. This value is subtracted from all foreground pixels before all being scaled to 0.5. 
 
-Next we crop the background area from each image so that each is left with the average width to height ratio of the full dataset which is 0.504.
+Next we crop the backround area from each image so that each is left with the average width to height ratio of the full dataset which is 0.504.
 
-We then try to normalise the position of the figure within the image. There are two issues with the data which make this a necessary step, firstly the length of lower leg included in the masks varies from frame to frame, secondly there are a number of sequences in which the head of the subject leaves the camera's field of view during the middle of the ascent. Without fixing this problem the scale of the subjects in the images changes depending on how much of them was captured in the mask, which would mean the network would be required to learn an invariance to scale. In general we developed these preprocessing procedures to reduce the amount of invariance the network is required to learn. To fix this we try and identify the position of the shoulders; the width of the mask as a function of height in the image was found across the full dataset, the point greatest curvature was determined to lie at a width of 0.65 of the full image width (after initial cropping). We therefore define the point at which the the width of the mask exceeds this value as the shoulders. From this we find the position of the shoulders in each image. We found the mean position of the shoulders in all non-headless images to be 0.22 of the full image height. Then each image is rescaled, adding additional pixels of background so that the position of the shoulders occurs at exactly 0.22. If the initial shoulder position was less than 0.22 then we assume the image is missing part of its head and rows are added to the top, if it is greater than 0.22 we assume it misses more leg than usual and rows are added to the bottom. Whilst this doesn't recreate the actual foreground pixels of the legs or head, it does mean that the foreground pixels for each intact body part do occupy roughly the same position in the images. One limitation of this method is that it is difficult to handle images which lack both head and legs. We attempt to deal with this by storing the mean number of rows added to the bottom of the image in each frame. Then if we find on the next frame that we are missing rows from the top (i.e. part of the head is missing) then we continue to add the mean number of rows.
+We then try to normalise the position of the figure within the image. There are two issues with the data which make this a necessary step, firstly the length of lower leg included in the masks varies from frame to frame, secondly there are a number of sequences in which the head of the subject leaves the camera's field of view during the middle of the ascent. Without fixing this problem the scale of the subjects in the images changes depending on how much of them was captured in the mask, which would mean the network would be required to learn an invariance to scale. In general we developed these preprocessing preceedures to reduce the ammount of invariance the network is required to learn. To fix this we try and identify the postition of the shoulders; the width of the mask as a function of height in the image was found across the full dataset, the point greatest curvature was determined to lie at a width of 0.65 of the full image width (after initial cropping). We therefore define the point at which the the width of the mask exceeds this value as the shoulders. From this we find the position of the shoulders in each image. We found the mean position of the shoulders in all non-headless images to be 0.22 of the full image height. Then each image is rescaled, adding additional pixels of background so that the position of the shoulders occurs at exactly 0.22. If the initial shoulder position was less than 0.22 then we assume the image is missing part of its head and rows are added to the top, 
+if it is greater than 0.22 we assume it misses more leg than usual and rows are added to the bottom. Whilst this doesn't recreate the actual foreground pixels of the legs or head, it does mean that the foreground pixels for each intact body part do occupy roughly the same position in the images. One limitation of this method is that it is difficult to handle images which lack both head and legs. We attempt to deal with this by storing the mean number of rows added to the bottom of the image in each frame. Then if we find on the next frame that we are missing rows from the top (i.e. part of the head is missing) then we continue to add the meadjustedNorm1an number of rows.
 
-Next we adjust the colour balance of the image. Initially we used the basic scaled depth values and a black background. Analysis of the activations produced by the first layer filters of an ImageNet pre-trained network on this type of input , shown in figure \ref{fig:blackBGactiv}, seemed to indicate that depth information was not being extracted effectively. ImageNet first layer filters, shown in figure \ref{fig:layer1filts}, generally respond to edges. It is clear that the very small differences in depth between parts of the body will produce far smaller activations than the huge difference between the figure and the black background. To encourage the network to focus on the smaller edges we tried setting the background of the images to the mean depth value around the waist of the subject, as shown in figure \ref{fig:meanBG}. However after training until convergence the network seemed to have discarded most of the filters activations rather than adjusting to them as is seen in \ref{fig:meanBGactiv}. Finally we used histogram equalisation to increase the differences in depth values within the figure. We use a background value of 0.82 of the mean value at the subjects waist as this was slightly less than minimum value any valid foreground pixels seen in the dataset. This results in the largest spread possible in the foreground depth values without ever having a foreground value at a colour darker than the background. This scheme seems to achieve the desired result of allowing interior depth values and edges to be preserved through the first convolution layer as seen in figure \ref{adjustedNorm1}.
-
+Next we adjust the colour balance of the image. Initially we used the basic scaled depth values and a black background. Analysis of the activations produced by the first layer filters of an ImageNet pre-trained network on this type of input , shown in figure \ref{fig:blackBGactiv}, seemed to indicate that depth information was not being extracted effectively. ImageNet first layer filters, shown in figure \ref{fig:layer1filts}, generally respond to edges. It is clear that the very small differences in depth between parts of the body will produce far smaller activations than the huge difference between the figure and the black background. To encourage the network to focus on the smaller edges we tried setting the background of the images to the mean depth value around the waist of the subject, as shown in figure \ref{fig:meanBG}. However after training untill convergence the network seemed to have discarded most of the filters activations rather than adjusting to them as is seen in \ref{fig:meanBGactiv}. Finally we used histogram equalisation to increase the differences in depth values within the figure. We use a background value of 0.82 of the mean value at the subjects waist as this was slightly less than minimum value any valid foreground pixels seen in the dataset. This results in the largest spread possible in the foreground depth values without ever having a foreground value at a colour darker than the background. This scheme seems to achieve the desired result of allowing interior depth values and edges to be preserved through the first convolution layer as seen in figure \ref{adjustedNorm1}. 
 
 \begin{figure}
 \centering
 \subfloat[Initial colouring scheme.		\label{fig:blackBG} ]{{
-\includegraphics*[width=0.17\linewidth,clip]{depth_186.png} }}%
+\includegraphics*[width=0.2\linewidth,clip]{depth_186.png} }}%
 \qquad
 \subfloat[Mean background method.	\label{fig:meanBG} ]{{
-\includegraphics*[width=0.17\linewidth,clip]{depth_186Mbg.png} }}%
+\includegraphics*[width=0.2\linewidth,clip]{depth_186Mbg.png} }}%
 \qquad
 \subfloat[Final scheme.   \label{fig:adjusted} ]{{
-\includegraphics*[width=0.17\linewidth,clip]{depth_186Adj.png} }}%
+\includegraphics*[width=0.2\linewidth,clip]{depth_186Adj.png} }}%
 \qquad
-\subfloat[Pre-processed RGB \label{fig:rgb} ]{{
-\includegraphics*[width=0.17\linewidth,clip]{img_186.png} }}%
+\subfloat[Final scheme.   \label{fig:adjusted} ]{{
+\includegraphics*[width=0.2\linewidth,clip]{img_186.png} }}%
 \caption{}
 \label{fig:colourschemes}
 \end{figure}
 
-\begin{figure}
-\centering
-\subfloat[The filters in conv1 of a imagenet pre-trained then finetuned AlexNet \cite{Krizhevsky2012}.	\label{fig:layer1filts} ]{{
-\includegraphics*[width=0.45\linewidth,clip]{filters} }}%
-\qquad
-\subfloat[Initial colouring scheme		\label{fig:blackBGactiv} ]{{
-\includegraphics*[width=0.45\linewidth,clip]{blackBGnorm1blob} }}%
-\qquad
-\subfloat[Mean background method	\label{fig:meanBGactiv} ]{{
-\includegraphics*[width=0.45\linewidth,clip]{meanBGnorm1} }}%
-\qquad
-\subfloat[Final scheme   \label{fig:adjustedActiv} ]{{
-\includegraphics*[width=0.45\linewidth,clip]{adjustedNorm1} }}%
-\caption{The activations produced by the first layer filters for each of the colour schemes of figure \ref{fig:colourschemes}.  }
-\label{fig:colourschemeActivations}
-\end{figure}
+%\begin{figure}
+%\centering
+%\subfloat[The filters in conv1 of a imagenet pre-trained then finetuned AlexNet \cite{Krizhevsky2012}.	\label{fig:layer1filts} ]{{
+%\includegraphics*[width=0.45\linewidth,clip]{filters} }}%
+%\qquad
+%\subfloat[Initial colouring scheme		\label{fig:blackBGactiv} ]{{
+%\includegraphics*[width=0.45\linewidth,clip]{blackBGnorm1blob} }}%
+%\qquad
+%\subfloat[Mean background method	\label{fig:meanBGactiv} ]{{
+%\includegraphics*[width=0.45\linewidth,clip]{meanBGnorm1} }}%
+%\qquad
+%\subfloat[Final scheme   \label{fig:adjustedActiv} ]{{
+%\includegraphics*[width=0.45\linewidth,clip]{adjustedNorm1} }}%
+%\caption{The activations produced by the first layer filters for each of the colour schemes of figure \ref{fig:colourschemes}.  }
+%\label{fig:colourschemeActivations}
+%\end{figure}
 
-\subsubsection{RGB Pre-processing}
+\section{RGB Pre-processing}
 
-When using the RGB images we applied the foreground masks retrieved from the corresponding depth images and then applied clipping and scaling in the same manner as the depth images. The result is shown in \ref{fig:rgb}.
-
-\subsection{Software}
-
-We use the open source CNN library Caffe~\cite{Jia2014} which is common among researchers including~\cite{Chen, Pfister,Girshick2014,Springenberg2015,Schwarz2015,Simonyan2015,Wang2015}. 
-
-Caffe requires datasets to be in certain formats for training. When using multi-dimensional labels, as in our case, you are constrained to using a HDF5 formatted~\cite{Folk2011} dataset. 
-
-One disadvantage of this is that automated shuffling options are not availible as in the other dataset formats. Shuffling training examples is important for achieving the best training results in the shortest times. When training each adjustment to the network's parameters is proportional to the error on the last example. If the network is shown each ascent sequence in order the errors between each consecutive frame will be small since they contain very similar images and poses. Therefore we will waste lots of iterations making small updates. Since the HDF5 input layer in Caffe doesn't provide an automated shuffling we have to pre-shuffle the images and labels before storing them.
+When using the RGB images
 
 \subsection{Architectures}
 
@@ -447,767 +416,6 @@ Next the reduced pose vectors~\textbf{Y} of the training data is used to learn t
 
 The system is 'online' in that it measures abnormality on a frame-by-frame basis, rather than processing a recorded sequence offline and measuring across the full sequence. This enables it to produce data on the parts of the motion that are deviating from normality, which is a benefit.
  
-
-\section{Networks}
-\label{sec:networkCodes}
-
-\subsection{AlexNet}
-name: "gaitAlexNet"
-%layer {
-%  name: "data"
-%  type: "HDF5Data"
-%  top: "data"
-%  top: "label"
-%  include {
-%    phase: TRAIN
-%  }
-%  hdf5_data_param {
-%    source: "/media/EA8EC36A8EC32DBF/ben/trainingOnlyManifold/train.txt"
-%    batch_size: 25
-%  }
-%}
-%layer {
-%  name: "data"
-%  type: "HDF5Data"
-%  top: "data"
-%  top: "label"
-%  include {
-%    phase: TEST
-%  }
-%  
-%  hdf5_data_param {
-%    source: "/media/EA8EC36A8EC32DBF/ben/trainingOnlyManifold/val.txt"
-%    batch_size: 25
-%  }
-%}
-%layer {
-%  name: "concat"
-%  bottom: "data"
-%  bottom: "data"
-%  bottom: "data"
-%  top: "out"
-%  type: "Concat"
-%  concat_param {
-%    axis: 1
-%  }
-%}
-%
-%
-%layer {
-%  name: "conv1"
-%  type: "Convolution"
-%  bottom: "out"
-%  top: "conv1"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 96
-%    kernel_size: 11
-%    stride: 4
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0
-%    }
-%  }
-%}
-%layer {
-%  name: "relu1"
-%  type: "ReLU"
-%  bottom: "conv1"
-%  top: "conv1"
-%}
-%layer {
-%  name: "norm1"
-%  type: "LRN"
-%  bottom: "conv1"
-%  top: "norm1"
-%  lrn_param {
-%    local_size: 5
-%    alpha: 0.0001
-%    beta: 0.75
-%  }
-%}
-%layer {
-%  name: "pool1"
-%  type: "Pooling"
-%  bottom: "norm1"
-%  top: "pool1"
-%  pooling_param {
-%    pool: MAX
-%    kernel_size: 3
-%    stride: 2
-%  }
-%}
-%layer {
-%  name: "conv2"
-%  type: "Convolution"
-%  bottom: "pool1"
-%  top: "conv2"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 256
-%    pad: 2
-%    kernel_size: 5
-%    group: 2
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu2"
-%  type: "ReLU"
-%  bottom: "conv2"
-%  top: "conv2"
-%}
-%layer {
-%  name: "norm2"
-%  type: "LRN"
-%  bottom: "conv2"
-%  top: "norm2"
-%  lrn_param {
-%    local_size: 5
-%    alpha: 0.0001
-%    beta: 0.75
-%  }
-%}
-%layer {
-%  name: "pool2"
-%  type: "Pooling"
-%  bottom: "norm2"
-%  top: "pool2"
-%  pooling_param {
-%    pool: MAX
-%    kernel_size: 3
-%    stride: 2
-%  }
-%}
-%layer {
-%  name: "conv3"
-%  type: "Convolution"
-%  bottom: "pool2"
-%  top: "conv3"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 384
-%    pad: 1
-%    kernel_size: 3
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0
-%    }
-%  }
-%}
-%layer {
-%  name: "relu3"
-%  type: "ReLU"
-%  bottom: "conv3"
-%  top: "conv3"
-%}
-%layer {
-%  name: "conv4"
-%  type: "Convolution"
-%  bottom: "conv3"
-%  top: "conv4"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 384
-%    pad: 1
-%    kernel_size: 3
-%    group: 2
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu4"
-%  type: "ReLU"
-%  bottom: "conv4"
-%  top: "conv4"
-%}
-%layer {
-%  name: "conv5"
-%  type: "Convolution"
-%  bottom: "conv4"
-%  top: "conv5"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 256
-%    pad: 1
-%    kernel_size: 3
-%    group: 2
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu5"
-%  type: "ReLU"
-%  bottom: "conv5"
-%  top: "conv5"
-%}
-%layer {
-%  name: "pool5"
-%  type: "Pooling"
-%  bottom: "conv5"
-%  top: "pool5"
-%  pooling_param {
-%    pool: MAX
-%    kernel_size: 3
-%    stride: 2
-%  }
-%}
-%layer {
-%  name: "fc6"
-%  type: "InnerProduct"
-%  bottom: "pool5"
-%  top: "fc6"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  inner_product_param {
-%    num_output: 4096
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.005
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu6"
-%  type: "ReLU"
-%  bottom: "fc6"
-%  top: "fc6"
-%}
-%layer {
-%  name: "drop6"
-%  type: "Dropout"
-%  bottom: "fc6"
-%  top: "fc6"
-%  dropout_param {
-%    dropout_ratio: 0.5
-%  }
-%}
-%layer {
-%  name: "fc7"
-%  type: "InnerProduct"
-%  bottom: "fc6"
-%  top: "fc7"
-%  param {
-%name: "gaitAlexNet"
-%layer {
-%  name: "data"
-%  type: "HDF5Data"
-%  top: "data"
-%  top: "label"
-%  include {
-%    phase: TRAIN
-%  }
-%  hdf5_data_param {
-%    source: "/media/EA8EC36A8EC32DBF/ben/trainingOnlyManifold/train.txt"
-%    batch_size: 25
-%  }
-%}
-%layer {
-%  name: "data"
-%  type: "HDF5Data"
-%  top: "data"
-%  top: "label"
-%  include {
-%    phase: TEST
-%  }
-%  
-%  hdf5_data_param {
-%    source: "/media/EA8EC36A8EC32DBF/ben/trainingOnlyManifold/val.txt"
-%    batch_size: 25
-%  }
-%}
-%layer {
-%  name: "concat"
-%  bottom: "data"
-%  bottom: "data"
-%  bottom: "data"
-%  top: "out"
-%  type: "Concat"
-%  concat_param {
-%    axis: 1
-%  }
-%}
-%
-%
-%layer {
-%  name: "conv1"
-%  type: "Convolution"
-%  bottom: "out"
-%  top: "conv1"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 96
-%    kernel_size: 11
-%    stride: 4
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0
-%    }
-%  }
-%}
-%layer {
-%  name: "relu1"
-%  type: "ReLU"
-%  bottom: "conv1"
-%  top: "conv1"
-%}
-%layer {
-%  name: "norm1"
-%  type: "LRN"
-%  bottom: "conv1"
-%  top: "norm1"
-%  lrn_param {
-%    local_size: 5
-%    alpha: 0.0001
-%%    beta: 0.75
-%%  }
-%%}
-%%layer {
-%%  name: "pool1"
-%%  type: "Pooling"
-%%  bottom: "norm1"
-%%  top: "pool1"
-%%  pooling_param {
-%%    pool: MAX
-%%    kernel_size: 3
-%%    stride: 2
-%%  }
-%%}
-%%layer {
-%%  name: "conv2"
-%%  type: "Convolution"
-%%  bottom: "pool1"
-%%  top: "conv2"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  convolution_param {
-%%    num_output: 256
-%%    pad: 2
-%%    kernel_size: 5
-%%    group: 2
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu2"
-%%  type: "ReLU"
-%%  bottom: "conv2"
-%%  top: "conv2"
-%%}
-%%layer {
-%%  name: "norm2"
-%%  type: "LRN"
-%%  bottom: "conv2"
-%%  top: "norm2"
-%%  lrn_param {
-%%    local_size: 5
-%%    alpha: 0.0001
-%%    beta: 0.75
-%%  }
-%%}
-%%layer {
-%%  name: "pool2"
-%%  type: "Pooling"
-%%  bottom: "norm2"
-%%  top: "pool2"
-%%  pooling_param {
-%%    pool: MAX
-%%    kernel_size: 3
-%%    stride: 2
-%%  }
-%%}
-%%layer {
-%%  name: "conv3"
-%%  type: "Convolution"
-%%  bottom: "pool2"
-%%  top: "conv3"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  convolution_param {
-%%    num_output: 384
-%%    pad: 1
-%%    kernel_size: 3
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu3"
-%%  type: "ReLU"
-%%  bottom: "conv3"
-%%  top: "conv3"
-%%}
-%%layer {
-%%  name: "conv4"
-%%  type: "Convolution"
-%%  bottom: "conv3"
-%%  top: "conv4"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  convolution_param {
-%%    num_output: 384
-%%    pad: 1
-%%    kernel_size: 3
-%%    group: 2
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu4"
-%%  type: "ReLU"
-%%  bottom: "conv4"
-%%  top: "conv4"
-%%}
-%%layer {
-%%  name: "conv5"
-%%  type: "Convolution"
-%%  bottom: "conv4"
-%%  top: "conv5"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  convolution_param {
-%%    num_output: 256
-%%    pad: 1
-%%    kernel_size: 3
-%%    group: 2
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu5"
-%%  type: "ReLU"
-%%  bottom: "conv5"
-%%  top: "conv5"
-%%}
-%%layer {
-%%  name: "pool5"
-%%  type: "Pooling"
-%%  bottom: "conv5"
-%%  top: "pool5"
-%%  pooling_param {
-%%    pool: MAX
-%%    kernel_size: 3
-%%    stride: 2
-%%  }
-%%}
-%%layer {
-%%  name: "fc6"
-%%  type: "InnerProduct"
-%%  bottom: "pool5"
-%%  top: "fc6"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  inner_product_param {
-%%    num_output: 4096
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.005
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu6"
-%%  type: "ReLU"
-%%  bottom: "fc6"
-%%  top: "fc6"
-%%}
-%%layer {
-%%  name: "drop6"
-%%  type: "Dropout"
-%%  bottom: "fc6"
-%%  top: "fc6"
-%%  dropout_param {
-%%    dropout_ratio: 0.5
-%%  }
-%%}
-%%layer {
-%%  name: "fc7"
-%%  type: "InnerProduct"
-%%  bottom: "fc6"
-%%  top: "fc7"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  inner_product_param {
-%%    num_output: 4096
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.005
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu7"
-%%  type: "ReLU"
-%%  bottom: "fc7"
-%%  top: "fc7"
-%%}
-%%layer {
-%%  name: "drop7"
-%%  type: "Dropout"
-%%  bottom: "fc7"
-%%  top: "fc7"
-%%  dropout_param {
-%%    dropout_ratio: 0.5
-%%  }
-%%}
-%%
-%%layer {
-%%  name: "new-fc8"
-%%  type: "InnerProduct"
-%%  bottom: "fc7"
-%%  top: "fc8"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  inner_product_param {
-%%    num_output: 3
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0
-%%    }
-%%  }
-%%}
-%%
-%%layer {
-%%  name: "loss"
-%%  type: "EuclideanLoss"
-%%  bottom: "fc8"
-%%  bottom: "label"
-%%  top: "loss"
-%%}    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  inner_product_param {
-%    num_output: 4096
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.005
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu7"
-%  type: "ReLU"
-%  bottom: "fc7"
-%  top: "fc7"
-%}
-%layer {
-%  name: "drop7"
-%  type: "Dropout"
-%  bottom: "fc7"
-%  top: "fc7"
-%  dropout_param {
-%    dropout_ratio: 0.5
-%  }
-%}
-%
-%layer {
-%  name: "new-fc8"
-%  type: "InnerProduct"
-%  bottom: "fc7"
-%  top: "fc8"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  inner_product_param {
-%    num_output: 3
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0
-%    }
-%  }
-%}
-%
-%layer {
-%  name: "loss"
-%  type: "EuclideanLoss"
-%  bottom: "fc8"
-%  bottom: "label"
-%  top: "loss"
-%}
-
 \end{appendices}
 
 
