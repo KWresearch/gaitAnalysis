@@ -317,7 +317,7 @@ All results presented here after use the 2793 skeletons from the first 6 'normal
 \subfloat[The manifold produced by normal sequences of subjects 1-6 including their horizontal flips. This was the form used in this work.\label{fig:1-6manifoldWFlips}]{{
 \includegraphics*[trim={2cm 8cm 3cm 10cm},clip,width=0.45\linewidth,clip]{1-6maniWFlips} }}%
 \qquad
-\subfloat[The manifold produced by all sequences including their flips. The larger variation in the z component (the vertical axis in the figure) lead to lower network accuracy and incorrect normality analysis.  \label{fig:1-12maniWFlips} ]{{
+\subfloat[The manifold produced by all sequences including their flips. The larger variation in the z component (the vertical axis in the figure) led to lower network accuracy and incorrect normality analysis.  \label{fig:1-12maniWFlips} ]{{
 \includegraphics*[trim={0cm 5cm 0cm 9cm},clip,width=0.7\linewidth,clip]{1-12maniWFlips.pdf}}}%
 \caption{}
 \label{fig:colourschemes}
@@ -331,6 +331,7 @@ All results presented here after use the 2793 skeletons from the first 6 'normal
 \subsubsection{Depth Preprocessing}
 
 %will add all scripts mentioned into appendix
+%will add a preprocesing pipeline figure
 As described in section \ref{sec:senPerf} depth images are generally incomplete and noisy. We first fill holes in the data using a simple method which iteratively paints in the maximum pixel values from the neighbouring cells. We initially experimented with using the method of \cite{Camplani2012a} which combines noise filtering and hole filling. However the version that we accessed did not use the motion detection and segmentation components. In practise we found that the quality of the filled and filtered depth maps produced by this version were inferior to those produced by the simple method.  \cite{Camplani2012a}'s method also required far longer processing times ~1 week for the full set as opposed to a 20 minutes for the simple method. 
 
 
@@ -400,9 +401,27 @@ Next we adjust the colour balance of the image. Initially we used the basic scal
 \label{fig:colourschemeActivations}
 \end{figure}
 
+A common pre-processing step when working with CNNs is to subtract the mean image of the training data (i.e. the mean value of each pixel) from each image. This is supposed to speed up training for reasons detailed in~\cite{LeCun1998a,Bottou2010,LeCun2012}. After testing the accuracy of the network's trained on such mean subtracted data we found that this opperation actually decreased the performance as shown in figure \ref{fig:meanSubComp}. However this test was only conducted on an ImageNet pre-trained AlexNet (see section\ref{sec:alexNet}) , we have not studied the effect when training from scratch.
+
+\begin{figure}
+\includegraphics*[width=0.9\linewidth,clip]{meanSubComp.png} %
+\caption{The accuracy of network predictions was seen to decrease when using mean subtracted data, hence we abandon this common practise.}
+\label{fig:meanSubComp}
+\end{figure}
+
+
 \subsubsection{RGB Pre-processing}
 
-When using the RGB images we applied the foreground masks retrieved from the corresponding depth images and then applied clipping and scaling in the same manner as the depth images. The result is shown in \ref{fig:rgb}.
+For RGB images we applied the foreground masks retrieved from the corresponding depth images and then applied clipping and scaling in the same manner as the depth images. The result is shown in \ref{fig:rgb}. 
+
+We measured the accuracy of an ImageNet pre-trained AlexNet (see section\ref{sec:alexNet}), which requires a 3 channelled input image, when using the RGB images only, the depth image replicated for each of the 3 channels only, and a combination of the two which consisted of 1 chanel of the average of red and green, 1 channel of green and blue averaged and the depth in the final channel. As is shown in figure \ref{fig:rgbdcomp} the replicated depth was shown to produce the most accurate regression. All other results reported here use a pure depth input image. 
+
+\begin{figure}
+\includegraphics*[width=0.9\linewidth,clip]{rgb-dComp.png} %
+\caption{The accuracy of network predictions was seen to decrease when using mean subtracted data, hence we abandon this common practise.}
+\label{fig:rgbdcomp}
+\end{figure}
+
 
 \subsection{Software}
 
@@ -415,18 +434,27 @@ One disadvantage of this is that automated shuffling options are not availible a
 \subsection{Architectures}
 
 
+\subsection{AlexNet}
 
+\label{sec:alexNet}
 
-\subsection{Pre-trained Networks}
+%add figure
+This architecture is an adapted form of that which won the 2012 ILSVRC~\cite{Krizhevsky2012}. It consists of 5 convolutional layers, the 1st, 2nd and 5th of which are followed by max pooling layers. This network also features Local Response Normalisation (LRN) layers. These normalise the values of each filter's activation with respect to the others in the same spatial position. Each activation is divided by
+\begin{equation}
+(1 + \frac{\alpha}{n} \sum_i^n x_i^2)^\beta
+\end{equation}
+where $x_i$ are the activations of filter $i$ at the same position. $n$, $\alpha$ and $\beta$ are adjustable parameters, which we leave unchanged from those used by ~\cite{Krizhevsky2012} at 5, 0.0001 and 0.75 respectively. The effect of this operation on our data is shown in figure \ref{fig:LRN}.
 
-
-
-
-
-
-
-
-
+\begin{figure}
+\centering
+\subfloat[The activations before LRN.	\label{fig:conv1} ]{{
+\includegraphics*[width=0.45\linewidth,clip]{conv1} }}%
+\qquad
+\subfloat[And after	\label{fig:norm1} ]{{
+\includegraphics*[width=0.45\linewidth,clip]{norm1} }}%
+\caption{ }
+\label{fig:LRN}
+\end{figure}
 
 \bibliographystyle{plain}
 \bibliography{library,myLib,homemadeRefs}
