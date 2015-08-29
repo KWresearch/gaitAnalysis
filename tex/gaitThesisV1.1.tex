@@ -409,7 +409,12 @@ Now the collection of remaining skeletons is given to the manifold learning stag
 
 The set of data which is used in building the manifold determines its form. In the original works~\cite{Paiement} and~\cite{Tao} the authors used only the 'normal' sequences from the first 6 subjects. The manifold this produces is shown in figure \ref{fig:1-6manifoldNoFlips}. We initially worked with a manifold built from all sequences abnormal and normal from each of the 12 subjects. This produces a slightly different manifold shown in figure \ref{fig:1-12maniWFlips}. Once we switched to using the final manifold we observed an increase in accuracy of around 20\%. This shows that the form of the manifold can have a significant effect on the accuracy of the CNN, and therefore that these results for gait analysis may not be a reliable indication of performance on other movements and manifolds.
 
-All results presented here after use the 2793 skeletons from the first 6 'normal' sequence subjects plus their horizontal flips to build the manifold seen in figure \ref{fig:1-6manifoldWFlips}. The skeletons of the 31 sequences from the other 6 subjects (and their flips) are then projected onto the manifold (again, see \cite{Paiement} and~\cite{Tao} for details). Interestingly the flipped skeletons produce a manifold coordinate precisely equal to the non flipped version but with the first component negated. This sugests that each of the three components of the manifold are tied with the 3 regular spacial dimensions of the skeletons. Generally the normal gait sequences follow paths  Figure \ref{
+All results presented here after use the 2793 skeletons from the first 6 'normal' sequence subjects plus their horizontal flips to build the manifold, shown in figure \ref{fig:1-6manifoldWFlips}. The skeletons of the 31 sequences from the other 6 subjects (and their flips) are then projected onto the manifold (again, see \cite{Paiement} and~\cite{Tao} for details). Interestingly the flipped skeletons produce a manifold coordinate precisely equal to the non flipped version but with the first component negated. This sugests that each of the three components of the manifold are tied with the 3 regular spacial dimensions of the skeletons, although there is no gaurentee of this with the Diffusion Maps method. 
+
+To illustrate the meaning of the manifold coordinates the skeletons placed at the 3 corners are shown in figure \ref{fig:skelToManifod}. Generally the normal gait sequences follow paths across the dense semi-sphereical surface with the frame of maximal left and right knee flex occuring at the maximum and minimum of first coordinate. The second dimension, plotted horizontally in figure \ref{fig:skelToManifod}, seems to measure the vertical distance between skeletons. The skeleton with raised knees occur near its minimal value and at its maximum we find elongated skeletons which are measured erroneously when subjects are very close to the camera. During processing of the images we remove these images from the dataset which results in the removal of most of the points which lie at this end of the manifold, as shown in figure \ref{manifoldAfterImageProcessing}. 
+
+The meaning of the 3rd manifold coordinate is less clear. Figure \ref{fig:skelsZcomp} compares skeletons of minimum and maximum values for points of equal y[0], y[1], we are able to find no discernable pattern. This is reflected by the CNN as we find it far less accurate in this coordinate than the others. There are two obervations which we use to improve the accuracy: 1) this coordinate can reasonably well modelled by a polynomial funtion of Y[0] and Y[1] as shown in \ref{fig:polyFit}. 2) This coordinate is found to be somewhat subject specific as seen in figure \ref{fig:subjectsOnManifold}. 
+%exlain how here or leave till later?
 
 
 
@@ -429,7 +434,54 @@ All results presented here after use the 2793 skeletons from the first 6 'normal
 \label{fig:manifolds}
 \end{figure}
 
-Generally 
+
+\begin{figure}
+\centering
+\includegraphics*[trim={1cm 18cm 1cm 1cm},clip,width=0.96\linewidth,clip]{skelToManifod} 
+\caption{Normal gait sequences trace paths between the two corners on the right, with the postion of maximal knee flex the turning point. The left most coner of the manifold consists of elongated skeletons which tend to be measured when the subject is too close to the sensor. }
+\label{fig:skelToManifod}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics*[trim={0 5cm 0 9cm},clip,width=0.75\linewidth,clip]{manifoldAfterImageProcessing.pdf} 
+\caption{After image pre-processing we retain only those points shown in blue. }
+\label{fig:manifoldAfterImageProcessing}
+\end{figure}
+
+\begin{figure}
+\centering
+\subfloat[Red skeleton has Y[2] = -0.2211, black has Y[2] = 0.1888\label{fig:-1.165-0.6517} ]{{
+\includegraphics*[trim={3cm 8cm 3cm 8cm},clip,width=0.45\linewidth,clip]{-1_165-0_6517} }}%
+\qquad
+\subfloat[Red skeleton has Y[2] = -0.0499 , black has Y[2] = 0.4803.\label{fig:0.9485,-0.1622}]{{
+\includegraphics*[trim={3cm 8cm 3cm 8cm},clip,width=0.45\linewidth,clip]{0_9485,-0_1622} }}%
+\caption{Shows skeletons within 0.02 of the same Y[0],Y[1] postition but with maximum difference in Y[3]. We find no clear difference between the Skeleton of minimum and maximum Y[2]. This is reflected by the CNN which measures this coordinate with a lower accuracy than the first two.}
+\label{fig:skelsZcomp}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics*[trim={0 5cm 0 7cm},clip,width=0.75\linewidth,clip]{subjectsOnManifold.pdf} 
+\caption{Each normal sequence of the first 6 subjects plotted in a different colour. We observe that Y[2] coordinates for each subject tend to ramain within a sub-region of full range. This finding promoted the use of subject finetuning which improves the accuracy of Y[2] predictions. }
+\label{fig:subjectsOnManifold}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics*[trim={0 8cm 0 9cm},clip,width=0.75\linewidth,clip]{polyFit} 
+\caption{The gait manifold is reasonably well modelled by a polynomial function of the first two coordinates. We attempt to use this to improve the networks accuracy for Y[2] predictions. }
+\label{fig:polyFit}
+\end{figure}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -446,12 +498,12 @@ As described in section \ref{sec:senPerf} depth images are generally incomplete 
 \subfloat[Typical image before hole filling.		\label{fig:depthWithHoles} ]{{
 \includegraphics*[width=0.4\linewidth,clip]{depth_334.png} }}%
 \qquad
-\subfloat[Filter and filled using~\cite{Camplani2012a}. \label{fig:camplaniCleaned} ]{{
+\subfloat[Filter and filled using a simplifed version of~\cite{Camplani2012a}. \label{fig:camplaniCleaned} ]{{
 \includegraphics*[width=0.4\linewidth,clip]{clean_depth_334.png} }}%
 \qquad
-\subfloat[Filled using quick method.   \label{fig:quickFilled} ]{{
+\subfloat[Filled using max fill method.   \label{fig:quickFilled} ]{{
 \includegraphics*[width=0.4\linewidth,clip]{qFilled_334.png} }}%
-\caption{}
+\caption{A comparison of hole filling methods. We use the max fill method. }
 \label{fig:filtering}
 \end{figure}
 
