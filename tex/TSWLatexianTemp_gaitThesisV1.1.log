@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.31)  30 AUG 2015 13:40
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.31)  31 AUG 2015 14:43
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -679,723 +679,774 @@ Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
 [5] [6 <./kinectHoles4.png> <./kinectHoles3.png>]
 
-LaTeX Warning: Citation `Forsyth2005' on page 7 undefined on input line 200.
+LaTeX Warning: Citation `Forsyth2005' on page 7 undefined on input line 199.
 
 
-LaTeX Warning: Citation `Moeslund2006' on page 7 undefined on input line 202.
+LaTeX Warning: Citation `Moeslund2006' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Hen2009' on page 7 undefined on input line 202.
+LaTeX Warning: Citation `Hen2009' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Poppe2007' on page 7 undefined on input line 202.
+LaTeX Warning: Citation `Poppe2007' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Sminchisescu2006' on page 7 undefined on input line 202.
+LaTeX Warning: Citation `Sminchisescu2006' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Liu2015' on page 7 undefined on input line 202.
+LaTeX Warning: Citation `Liu2015' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Poppe2007' on page 7 undefined on input line 202.
+LaTeX Warning: Citation `Poppe2007' on page 7 undefined on input line 201.
 
 
-LaTeX Warning: Citation `Sminchisescu2003' on page 7 undefined on input line 207.
+LaTeX Warning: Citation `Sminchisescu2003' on page 7 undefined on input line 206.
 
 
-LaTeX Warning: Citation `Hen2009' on page 7 undefined on input line 207.
+LaTeX Warning: Citation `Hen2009' on page 7 undefined on input line 206.
 
 
-LaTeX Warning: Citation `Hen2009' on page 7 undefined on input line 207.
+LaTeX Warning: Citation `Hen2009' on page 7 undefined on input line 206.
 
 
-LaTeX Warning: Citation `Agarwal2006' on page 7 undefined on input line 207.
+LaTeX Warning: Citation `Agarwal2006' on page 7 undefined on input line 206.
 
 [7]
 
-LaTeX Warning: Citation `Brand1999' on page 8 undefined on input line 209.
+LaTeX Warning: Citation `Brand1999' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 209.
+LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 209.
+LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Poggio1990' on page 8 undefined on input line 209.
+LaTeX Warning: Citation `Poggio1990' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 209.
+LaTeX Warning: Citation `Elgammal2004' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Elgammal2004b' on page 8 undefined on input line 209.
+LaTeX Warning: Citation `Elgammal2004b' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Brand1999' on page 8 undefined on input line 211.
+LaTeX Warning: Reference `sec:abnormals' on page 8 undefined on input line 208.
 
 
-LaTeX Warning: Citation `Urtasun2005' on page 8 undefined on input line 213.
+LaTeX Warning: Citation `Brand1999' on page 8 undefined on input line 210.
 
 
-LaTeX Warning: Citation `Lawrence2004' on page 8 undefined on input line 213.
+LaTeX Warning: Citation `Urtasun2005' on page 8 undefined on input line 212.
+
+
+LaTeX Warning: Citation `Lawrence2004' on page 8 undefined on input line 212.
 
 [8]
 
-LaTeX Warning: Citation `Tangkuampien2006' on page 9 undefined on input line 215.
+LaTeX Warning: Citation `Tangkuampien2006' on page 9 undefined on input line 214.
 
 
-LaTeX Warning: Citation `Rosales2000' on page 9 undefined on input line 217.
+LaTeX Warning: Citation `Rosales2000' on page 9 undefined on input line 216.
 
 
-LaTeX Warning: Citation `Rosales2001' on page 9 undefined on input line 217.
+LaTeX Warning: Citation `Rosales2001' on page 9 undefined on input line 216.
 
 
-LaTeX Warning: Citation `Helten2013' on page 9 undefined on input line 221.
+LaTeX Warning: Citation `Helten2013' on page 9 undefined on input line 220.
 
 
-LaTeX Warning: Citation `Han2013' on page 9 undefined on input line 221.
+LaTeX Warning: Citation `Han2013' on page 9 undefined on input line 220.
 
 
-LaTeX Warning: Citation `Giovanni' on page 9 undefined on input line 221.
+LaTeX Warning: Citation `Giovanni' on page 9 undefined on input line 220.
 
 [9]
 
-LaTeX Warning: Citation `Shotton2011' on page 10 undefined on input line 223.
+LaTeX Warning: Citation `Shotton2011' on page 10 undefined on input line 222.
 
 
-LaTeX Warning: Citation `Shotton2013a' on page 10 undefined on input line 223.
+LaTeX Warning: Citation `Shotton2013a' on page 10 undefined on input line 222.
 
 
-LaTeX Warning: Citation `Shotton2011' on page 10 undefined on input line 223.
+LaTeX Warning: Citation `Shotton2011' on page 10 undefined on input line 222.
 
 
-LaTeX Warning: Citation `Plagemann2010' on page 10 undefined on input line 225.
+LaTeX Warning: Citation `Plagemann2010' on page 10 undefined on input line 224.
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-LaTeX Warning: Citation `Ye2011' on page 10 undefined on input line 227.
+LaTeX Warning: Citation `Ye2011' on page 10 undefined on input line 226.
 
 
-LaTeX Warning: Citation `Wei2011' on page 10 undefined on input line 227.
+LaTeX Warning: Citation `Wei2011' on page 10 undefined on input line 226.
 
 
-LaTeX Warning: Citation `Baak2011' on page 10 undefined on input line 227.
+LaTeX Warning: Citation `Baak2011' on page 10 undefined on input line 226.
 
 
-LaTeX Warning: Citation `Zhu2008' on page 10 undefined on input line 227.
+LaTeX Warning: Citation `Zhu2008' on page 10 undefined on input line 226.
 
 
-LaTeX Warning: Citation `Chan2014' on page 10 undefined on input line 229.
+LaTeX Warning: Citation `Chan2014' on page 10 undefined on input line 228.
 
 [10]
 Missing character: There is no Â in font cmr10!
 Missing character: There is no § in font cmr10!
 
 
-LaTeX Warning: Reference `fig:convnet' on page 11 undefined on input line 244.
+LaTeX Warning: Reference `fig:convnet' on page 11 undefined on input line 243.
 
 
-LaTeX Warning: Reference `fig:pool' on page 11 undefined on input line 244.
+LaTeX Warning: Reference `fig:pool' on page 11 undefined on input line 243.
 
 
-LaTeX Warning: Reference `fig:pool' on page 11 undefined on input line 244.
+LaTeX Warning: Reference `fig:pool' on page 11 undefined on input line 243.
 
 <convnet.jpeg, id=83, 1259.70625pt x 603.25375pt>
 File: convnet.jpeg Graphic file (type jpg)
  <use convnet.jpeg>
-Package pdftex.def Info: convnet.jpeg used on input line 247.
+Package pdftex.def Info: convnet.jpeg used on input line 246.
 (pdftex.def)             Requested size: 443.57848pt x 212.42145pt.
 
 
-LaTeX Warning: Citation `KarLects' on page 11 undefined on input line 248.
+LaTeX Warning: Citation `KarLects' on page 11 undefined on input line 247.
 
 
-LaTeX Warning: Citation `KarLects' on page 11 undefined on input line 248.
+LaTeX Warning: Citation `KarLects' on page 11 undefined on input line 247.
 
-[11] <pooling.png, id=94, 1086.0575pt x 349.305pt>
+<pooling.png, id=87, 1086.0575pt x 349.305pt>
 File: pooling.png Graphic file (type png)
  <use pooling.png>
-Package pdftex.def Info: pooling.png used on input line 253.
+Package pdftex.def Info: pooling.png used on input line 252.
 (pdftex.def)             Requested size: 443.57848pt x 142.66698pt.
 
 
-LaTeX Warning: Citation `KarLects' on page 12 undefined on input line 254.
+LaTeX Warning: Citation `KarLects' on page 11 undefined on input line 253.
 
 
-LaTeX Warning: Citation `KarLects' on page 12 undefined on input line 254.
+LaTeX Warning: Citation `KarLects' on page 11 undefined on input line 253.
 
 
-LaTeX Warning: Citation `Rumelhart1986' on page 12 undefined on input line 257.
+LaTeX Warning: Citation `Rumelhart1986' on page 11 undefined on input line 256.
 
 
-LaTeX Warning: Citation `Crabbe2015' on page 12 undefined on input line 257.
+LaTeX Warning: Citation `Crabbe2015' on page 11 undefined on input line 256.
+
+[11] [12 <./convnet.jpeg> <./pooling.png>]
+
+LaTeX Warning: Citation `Shotton2011' on page 13 undefined on input line 258.
 
 
-LaTeX Warning: Citation `Shotton2011' on page 12 undefined on input line 259.
+LaTeX Warning: Citation `Chan2014' on page 13 undefined on input line 258.
 
 
-LaTeX Warning: Citation `Chan2014' on page 12 undefined on input line 259.
-
-[12 <./convnet.jpeg>]
-
-LaTeX Warning: Citation `Krizhevsky2012' on page 13 undefined on input line 261.
+LaTeX Warning: Citation `Krizhevsky2012' on page 13 undefined on input line 260.
 
 
-LaTeX Warning: Citation `Russakovsky' on page 13 undefined on input line 261.
+LaTeX Warning: Citation `Russakovsky' on page 13 undefined on input line 260.
 
 
-LaTeX Warning: Citation `Seung1992' on page 13 undefined on input line 263.
+LaTeX Warning: Citation `Seung1992' on page 13 undefined on input line 262.
 
 
-LaTeX Warning: Citation `Vapnik1994' on page 13 undefined on input line 263.
+LaTeX Warning: Citation `Vapnik1994' on page 13 undefined on input line 262.
 
 
-LaTeX Warning: Citation `LeCun1998' on page 13 undefined on input line 268.
+LaTeX Warning: Citation `LeCun1998' on page 13 undefined on input line 267.
+
+[13]
+
+LaTeX Warning: Citation `Szegedy2014' on page 14 undefined on input line 269.
 
 
-LaTeX Warning: Citation `Szegedy2014' on page 13 undefined on input line 270.
+LaTeX Warning: Citation `Sharif2014' on page 14 undefined on input line 269.
 
 
-LaTeX Warning: Citation `Sharif2014' on page 13 undefined on input line 270.
+LaTeX Warning: Citation `Donahue2014' on page 14 undefined on input line 269.
 
 
-LaTeX Warning: Citation `Donahue2014' on page 13 undefined on input line 270.
+LaTeX Warning: Citation `Oquab2014' on page 14 undefined on input line 269.
 
 
-LaTeX Warning: Citation `Oquab2014' on page 13 undefined on input line 270.
+LaTeX Warning: Citation `Girshick2014' on page 14 undefined on input line 269.
 
 
-LaTeX Warning: Citation `Girshick2014' on page 13 undefined on input line 270.
+LaTeX Warning: Citation `Yosinski2014' on page 14 undefined on input line 269.
 
 
-LaTeX Warning: Citation `Yosinski2014' on page 13 undefined on input line 270.
+LaTeX Warning: Citation `Schwarz2015' on page 14 undefined on input line 269.
 
 
-LaTeX Warning: Citation `Schwarz2015' on page 13 undefined on input line 270.
+LaTeX Warning: Citation `Alexandre2013' on page 14 undefined on input line 269.
 
 
-LaTeX Warning: Citation `Alexandre2013' on page 13 undefined on input line 270.
-
-[13 <./pooling.png>]
-
-LaTeX Warning: Citation `Jain2013a' on page 14 undefined on input line 276.
+LaTeX Warning: Citation `Jain2013a' on page 14 undefined on input line 275.
 
 
-LaTeX Warning: Citation `Jain2014' on page 14 undefined on input line 276.
+LaTeX Warning: Citation `Jain2014' on page 14 undefined on input line 275.
 
 
-LaTeX Warning: Citation `Toshev' on page 14 undefined on input line 278.
+LaTeX Warning: Citation `Toshev' on page 14 undefined on input line 277.
 
 
-LaTeX Warning: Citation `Krizhevsky2012' on page 14 undefined on input line 278.
+LaTeX Warning: Citation `Krizhevsky2012' on page 14 undefined on input line 277.
 
 
-LaTeX Warning: Citation `Accv2014' on page 14 undefined on input line 280.
+LaTeX Warning: Citation `Accv2014' on page 14 undefined on input line 279.
 
 [14]
 
-LaTeX Warning: Citation `Pfister' on page 15 undefined on input line 282.
+LaTeX Warning: Citation `Pfister' on page 15 undefined on input line 281.
 
 
-LaTeX Warning: Citation `Sermanet2013a' on page 15 undefined on input line 282.
+LaTeX Warning: Citation `Sermanet2013a' on page 15 undefined on input line 281.
 
 
-LaTeX Warning: Citation `Tompson2014' on page 15 undefined on input line 284.
+LaTeX Warning: Citation `Tompson2014' on page 15 undefined on input line 283.
 
 
-LaTeX Warning: Citation `Paiement' on page 15 undefined on input line 295.
+LaTeX Warning: Citation `Paiement' on page 15 undefined on input line 294.
 
 
-LaTeX Warning: Reference `fig:subjects' on page 15 undefined on input line 295.
+LaTeX Warning: Reference `fig:subjects' on page 15 undefined on input line 294.
 
 <depth_258.png, id=117, 125.46875pt x 247.92625pt>
 File: depth_258.png Graphic file (type png)
  <use depth_258.png>
-Package pdftex.def Info: depth_258.png used on input line 302.
+Package pdftex.def Info: depth_258.png used on input line 301.
 (pdftex.def)             Requested size: 75.40752pt x 149.01414pt.
  <depth_186Adj.png, id=119, 115.43124pt x 228.855pt>
 File: depth_186Adj.png Graphic file (type png)
  <use depth_186Adj.png>
-Package pdftex.def Info: depth_186Adj.png used on input line 305.
+Package pdftex.def Info: depth_186Adj.png used on input line 304.
 (pdftex.def)             Requested size: 75.40752pt x 149.50476pt.
  <depth_122.png, id=121, 179.67125pt x 355.3275pt>
 File: depth_122.png Graphic file (type png)
  <use depth_122.png>
-Package pdftex.def Info: depth_122.png used on input line 308.
+Package pdftex.def Info: depth_122.png used on input line 307.
 (pdftex.def)             Requested size: 75.40752pt x 149.1335pt.
  <depth_286.png, id=123, 133.49875pt x 263.98625pt>
 File: depth_286.png Graphic file (type png)
  <use depth_286.png>
-Package pdftex.def Info: depth_286.png used on input line 311.
+Package pdftex.def Info: depth_286.png used on input line 310.
 (pdftex.def)             Requested size: 75.40752pt x 149.12027pt.
  <depth_260.png, id=125, 184.69pt x 366.36874pt>
 File: depth_260.png Graphic file (type png)
  <use depth_260.png>
-Package pdftex.def Info: depth_260.png used on input line 314.
+Package pdftex.def Info: depth_260.png used on input line 313.
 (pdftex.def)             Requested size: 75.40752pt x 149.58603pt.
  <depth_229.png, id=127, 210.7875pt x 417.56pt>
 File: depth_229.png Graphic file (type png)
  <use depth_229.png>
-Package pdftex.def Info: depth_229.png used on input line 317.
+Package pdftex.def Info: depth_229.png used on input line 316.
 (pdftex.def)             Requested size: 75.40752pt x 149.3785pt.
  <depth_171.png, id=129, 137.51375pt x 272.01625pt>
 File: depth_171.png Graphic file (type png)
  <use depth_171.png>
-Package pdftex.def Info: depth_171.png used on input line 320.
+Package pdftex.def Info: depth_171.png used on input line 319.
 (pdftex.def)             Requested size: 75.40752pt x 149.16942pt.
  <depth_175.png, id=131, 121.45375pt x 239.89626pt>
 File: depth_175.png Graphic file (type png)
  <use depth_175.png>
-Package pdftex.def Info: depth_175.png used on input line 323.
+Package pdftex.def Info: depth_175.png used on input line 322.
 (pdftex.def)             Requested size: 75.40752pt x 148.94278pt.
  <depth_280.png, id=133, 161.60374pt x 320.19624pt>
 File: depth_280.png Graphic file (type png)
  <use depth_280.png>
-Package pdftex.def Info: depth_280.png used on input line 326.
+Package pdftex.def Info: depth_280.png used on input line 325.
 (pdftex.def)             Requested size: 75.40752pt x 149.4076pt.
  <depth_265.png, id=135, 123.46124pt x 243.91125pt>
 File: depth_265.png Graphic file (type png)
  <use depth_265.png>
-Package pdftex.def Info: depth_265.png used on input line 329.
+Package pdftex.def Info: depth_265.png used on input line 328.
 (pdftex.def)             Requested size: 75.40752pt x 148.9829pt.
  <depth_252.png, id=137, 174.6525pt x 345.29pt>
 File: depth_252.png Graphic file (type png)
  <use depth_252.png>
-Package pdftex.def Info: depth_252.png used on input line 332.
+Package pdftex.def Info: depth_252.png used on input line 331.
 (pdftex.def)             Requested size: 75.40752pt x 149.08296pt.
  <depth_221.png, id=139, 164.615pt x 325.215pt>
 File: depth_221.png Graphic file (type png)
  <use depth_221.png>
-Package pdftex.def Info: depth_221.png used on input line 335.
+Package pdftex.def Info: depth_221.png used on input line 334.
 (pdftex.def)             Requested size: 75.40752pt x 148.98041pt.
 
 
-LaTeX Warning: Citation `Paiement' on page 15 undefined on input line 404.
+LaTeX Warning: Citation `Paiement' on page 15 undefined on input line 403.
 
 [15] [16 <./depth_258.png (PNG copy)> <./depth_186Adj.png (PNG copy)> <./depth_122.png (PNG copy)> <./depth_286.png (PNG copy)> <./depth_260.png (PNG copy)> <./depth_229.png (PNG copy)> <./depth_171.png (PNG copy)> <./depth_175.png (PNG copy)> <./depth_280.png (PNG copy)> <./depth_265.png (PNG copy)> <./depth_252.png (PNG copy)> <./depth_221.png (PNG copy)>]
 
-LaTeX Warning: Citation `Coifman2006' on page 17 undefined on input line 408.
+LaTeX Warning: Citation `Coifman2006' on page 17 undefined on input line 407.
 
 
-LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 408.
+LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 407.
 
 
-LaTeX Warning: Citation `Tao' on page 17 undefined on input line 408.
+LaTeX Warning: Citation `Tao' on page 17 undefined on input line 407.
 
 
-LaTeX Warning: Citation `Tao' on page 17 undefined on input line 408.
+LaTeX Warning: Citation `Tao' on page 17 undefined on input line 407.
 
 
-LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 410.
+LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 409.
 
 
-LaTeX Warning: Citation `Tao' on page 17 undefined on input line 410.
+LaTeX Warning: Citation `Tao' on page 17 undefined on input line 409.
 
 
-LaTeX Warning: Reference `fig:1-6manifoldNoFlips' on page 17 undefined on input line 410.
+LaTeX Warning: Reference `fig:1-6manifoldNoFlips' on page 17 undefined on input line 409.
 
 
-LaTeX Warning: Reference `fig:1-12maniWFlips' on page 17 undefined on input line 410.
+LaTeX Warning: Reference `fig:1-12maniWFlips' on page 17 undefined on input line 409.
 
 
-LaTeX Warning: Reference `fig:1-6manifoldWFlips' on page 17 undefined on input line 412.
+LaTeX Warning: Reference `fig:1-6manifoldWFlips' on page 17 undefined on input line 411.
 
 
-LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 412.
+LaTeX Warning: Citation `Paiement' on page 17 undefined on input line 411.
 
 
-LaTeX Warning: Citation `Tao' on page 17 undefined on input line 412.
-
-
-LaTeX Warning: Reference `fig:skelToManifod' on page 17 undefined on input line 414.
-
-
-LaTeX Warning: Reference `fig:skelToManifod' on page 17 undefined on input line 414.
-
-
-LaTeX Warning: Reference `manifoldAfterImageProcessing' on page 17 undefined on input line 414.
+LaTeX Warning: Citation `Tao' on page 17 undefined on input line 411.
 
 [17]
 
-LaTeX Warning: Reference `fig:skelsZcomp' on page 18 undefined on input line 416.
+LaTeX Warning: Reference `fig:skelToManifod' on page 18 undefined on input line 413.
 
 
-LaTeX Warning: Reference `fig:polyFit' on page 18 undefined on input line 416.
+LaTeX Warning: Reference `fig:skelToManifod' on page 18 undefined on input line 413.
 
 
-LaTeX Warning: Reference `fig:subjectsOnManifold' on page 18 undefined on input line 416.
+LaTeX Warning: Reference `manifoldAfterImageProcessing' on page 18 undefined on input line 413.
+
+
+LaTeX Warning: Reference `fig:skelsZcomp' on page 18 undefined on input line 415.
+
+
+LaTeX Warning: Reference `fig:polyFit' on page 18 undefined on input line 415.
+
+
+LaTeX Warning: Reference `fig:subjectsOnManifold' on page 18 undefined on input line 415.
 
 <1-6maniNoFlips.pdf, id=182, 597.23125pt x 845.1575pt>
 File: 1-6maniNoFlips.pdf Graphic file (type pdf)
  <use 1-6maniNoFlips.pdf>
-Package pdftex.def Info: 1-6maniNoFlips.pdf used on input line 426.
+Package pdftex.def Info: 1-6maniNoFlips.pdf used on input line 425.
 (pdftex.def)             Requested size: 199.60895pt x 137.50465pt.
 
 
-LaTeX Warning: Citation `Paiement' on page 18 undefined on input line 426.
+LaTeX Warning: Citation `Paiement' on page 18 undefined on input line 425.
 
 
-LaTeX Warning: Citation `Paiement' on page 18 undefined on input line 426.
+LaTeX Warning: Citation `Paiement' on page 18 undefined on input line 425.
 
 <1-6maniWFlips.pdf, id=184, 597.23125pt x 845.1575pt>
 File: 1-6maniWFlips.pdf Graphic file (type pdf)
  <use 1-6maniWFlips.pdf>
-Package pdftex.def Info: 1-6maniWFlips.pdf used on input line 429.
+Package pdftex.def Info: 1-6maniWFlips.pdf used on input line 428.
 (pdftex.def)             Requested size: 199.60895pt x 146.10219pt.
  <1-12maniWFlips.pdf, id=186, 597.23125pt x 845.1575pt>
 File: 1-12maniWFlips.pdf Graphic file (type pdf)
  <use 1-12maniWFlips.pdf>
-Package pdftex.def Info: 1-12maniWFlips.pdf used on input line 432.
+Package pdftex.def Info: 1-12maniWFlips.pdf used on input line 431.
 (pdftex.def)             Requested size: 310.50357pt x 232.30627pt.
  <skelToManifod.pdf, id=188, 597.50786pt x 845.04686pt>
 File: skelToManifod.pdf Graphic file (type pdf)
  <use skelToManifod.pdf>
-Package pdftex.def Info: skelToManifod.pdf used on input line 440.
+Package pdftex.def Info: skelToManifod.pdf used on input line 439.
 (pdftex.def)             Requested size: 425.8383pt x 239.81636pt.
  <manifoldAfterImageProcessing.pdf, id=190, 597.23125pt x 845.1575pt>
 File: manifoldAfterImageProcessing.pdf Graphic file (type pdf)
  <use manifoldAfterImageProcessing.pdf>
-Package pdftex.def Info: manifoldAfterImageProcessing.pdf used on input line 447.
+Package pdftex.def Info: manifoldAfterImageProcessing.pdf used on input line 446.
 (pdftex.def)             Requested size: 332.68385pt x 248.90103pt.
 
-Overfull \hbox (0.9018pt too wide) in paragraph at lines 454--454
+Overfull \hbox (0.9018pt too wide) in paragraph at lines 453--453
 []\OT1/cmr/m/n/9 (-20) (a)
  []
 
 
-Overfull \hbox (7.22374pt too wide) in paragraph at lines 454--454
+Overfull \hbox (7.22374pt too wide) in paragraph at lines 453--453
 |\OT1/cmr/m/n/9 (-20) Red
  []
 
 
-Overfull \hbox (11.64572pt too wide) in paragraph at lines 454--454
+Overfull \hbox (11.64572pt too wide) in paragraph at lines 453--453
 \OT1/cmr/m/n/9 (-20) skele-
  []
 
 
-Overfull \hbox (4.5771pt too wide) in paragraph at lines 454--454
+Overfull \hbox (4.5771pt too wide) in paragraph at lines 453--453
 \OT1/cmr/m/n/9 (-20) ton
  []
 
 
-Overfull \hbox (4.62747pt too wide) in paragraph at lines 454--454
+Overfull \hbox (4.62747pt too wide) in paragraph at lines 453--453
 \OT1/cmr/m/n/9 (-20) has
  []
 
 
-Overfull \hbox (4.98889pt too wide) in paragraph at lines 454--454
+Overfull \hbox (4.98889pt too wide) in paragraph at lines 453--453
 \OT1/cmr/m/n/9 (-20) Y[2| 
  []
 
 <-1_165-0_6517.pdf, id=192, 597.23125pt x 845.1575pt>
 File: -1_165-0_6517.pdf Graphic file (type pdf)
  <use -1_165-0_6517.pdf>
-Package pdftex.def Info: -1_165-0_6517.pdf used on input line 455.
+Package pdftex.def Info: -1_165-0_6517.pdf used on input line 454.
 (pdftex.def)             Requested size: 199.60895pt x 182.47995pt.
 
-Overfull \hbox (1.4054pt too wide) in paragraph at lines 457--457
+Overfull \hbox (1.4054pt too wide) in paragraph at lines 456--456
 []\OT1/cmr/m/n/9 (-20) (b)
  []
 
 
-Overfull \hbox (7.22374pt too wide) in paragraph at lines 457--457
+Overfull \hbox (7.22374pt too wide) in paragraph at lines 456--456
 |\OT1/cmr/m/n/9 (-20) Red
  []
 
 
-Overfull \hbox (11.64572pt too wide) in paragraph at lines 457--457
+Overfull \hbox (11.64572pt too wide) in paragraph at lines 456--456
 \OT1/cmr/m/n/9 (-20) skele-
  []
 
 
-Overfull \hbox (4.5771pt too wide) in paragraph at lines 457--457
+Overfull \hbox (4.5771pt too wide) in paragraph at lines 456--456
 \OT1/cmr/m/n/9 (-20) ton
  []
 
 
-Overfull \hbox (4.62747pt too wide) in paragraph at lines 457--457
+Overfull \hbox (4.62747pt too wide) in paragraph at lines 456--456
 \OT1/cmr/m/n/9 (-20) has
  []
 
 
-Overfull \hbox (4.98889pt too wide) in paragraph at lines 457--457
+Overfull \hbox (4.98889pt too wide) in paragraph at lines 456--456
 \OT1/cmr/m/n/9 (-20) Y[2| 
  []
 
 <0_9485,-0_1622.pdf, id=194, 597.23125pt x 845.1575pt>
 File: 0_9485,-0_1622.pdf Graphic file (type pdf)
  <use 0_9485,-0_1622.pdf>
-Package pdftex.def Info: 0_9485,-0_1622.pdf used on input line 458.
+Package pdftex.def Info: 0_9485,-0_1622.pdf used on input line 457.
 (pdftex.def)             Requested size: 199.60895pt x 182.47995pt.
  <subjectsOnManifold.pdf, id=196, 597.23125pt x 845.1575pt>
 File: subjectsOnManifold.pdf Graphic file (type pdf)
  <use subjectsOnManifold.pdf>
-Package pdftex.def Info: subjectsOnManifold.pdf used on input line 465.
+Package pdftex.def Info: subjectsOnManifold.pdf used on input line 464.
 (pdftex.def)             Requested size: 332.68385pt x 280.60033pt.
  <polyFit.pdf, id=198, 597.23125pt x 845.1575pt>
 File: polyFit.pdf Graphic file (type pdf)
  <use polyFit.pdf>
-Package pdftex.def Info: polyFit.pdf used on input line 472.
+Package pdftex.def Info: polyFit.pdf used on input line 471.
 (pdftex.def)             Requested size: 332.68385pt x 201.35211pt.
 
 
-LaTeX Warning: Reference `sec:senPerf' on page 18 undefined on input line 493.
+LaTeX Warning: Reference `sec:senPerf' on page 18 undefined on input line 492.
 
 
-LaTeX Warning: Citation `Camplani2012a' on page 18 undefined on input line 493.
+LaTeX Warning: Citation `Camplani2012a' on page 18 undefined on input line 492.
 
 
-LaTeX Warning: Citation `Camplani2012a' on page 18 undefined on input line 493.
+LaTeX Warning: Citation `Camplani2012a' on page 18 undefined on input line 492.
 
 <depth_334.png, id=200, 642.4pt x 481.8pt>
 File: depth_334.png Graphic file (type png)
  <use depth_334.png>
-Package pdftex.def Info: depth_334.png used on input line 499.
+Package pdftex.def Info: depth_334.png used on input line 498.
 (pdftex.def)             Requested size: 177.42868pt x 133.07251pt.
  <clean_depth_334.png, id=202, 642.4pt x 481.8pt>
 File: clean_depth_334.png Graphic file (type png)
  <use clean_depth_334.png>
-Package pdftex.def Info: clean_depth_334.png used on input line 502.
+Package pdftex.def Info: clean_depth_334.png used on input line 501.
 (pdftex.def)             Requested size: 177.42868pt x 133.07251pt.
 
 
-LaTeX Warning: Citation `Camplani2012a' on page 18 undefined on input line 502.
+LaTeX Warning: Citation `Camplani2012a' on page 18 undefined on input line 501.
 
 
-LaTeX Warning: Citation `Camplani2012a' on page 18 undefined on input line 502.
+LaTeX Warning: Citation `Camplani2012a' on page 18 undefined on input line 501.
 
 <qFilled_334.png, id=204, 642.4pt x 481.8pt>
 File: qFilled_334.png Graphic file (type png)
  <use qFilled_334.png>
-Package pdftex.def Info: qFilled_334.png used on input line 505.
+Package pdftex.def Info: qFilled_334.png used on input line 504.
 (pdftex.def)             Requested size: 177.42868pt x 133.07251pt.
 
 
-LaTeX Warning: Citation `bgslibrary' on page 18 undefined on input line 512.
+LaTeX Warning: Citation `bgslibrary' on page 18 undefined on input line 511.
 
 
-LaTeX Warning: Citation `Zivkovic2004' on page 18 undefined on input line 512.
+LaTeX Warning: Citation `Zivkovic2004' on page 18 undefined on input line 511.
 
 [18] [19 <./1-6maniNoFlips.pdf> <./1-6maniWFlips.pdf> <./1-12maniWFlips.pdf>] [20 <./skelToManifod.pdf> <./manifoldAfterImageProcessing.pdf>] [21 <./-1_165-0_6517.pdf> <./0_9485,-0_1622.pdf>] [22 <./subjectsOnManifold.pdf>] [23 <./polyFit.pdf>] [24 <./depth_334.png (PNG copy)> <./clean_depth_334.png> <./qFilled_334.png (PNG copy)>] [25]
 
-LaTeX Warning: Reference `fig:blackBGactiv' on page 26 undefined on input line 525.
+LaTeX Warning: Reference `fig:blackBGactiv' on page 26 undefined on input line 524.
 
 
-LaTeX Warning: Reference `fig:layer1filts' on page 26 undefined on input line 525.
+LaTeX Warning: Reference `fig:layer1filts' on page 26 undefined on input line 524.
 
 
-LaTeX Warning: Reference `fig:meanBG' on page 26 undefined on input line 525.
+LaTeX Warning: Reference `fig:meanBG' on page 26 undefined on input line 524.
 
 
-LaTeX Warning: Reference `fig:meanBGactiv' on page 26 undefined on input line 525.
+LaTeX Warning: Reference `fig:meanBGactiv' on page 26 undefined on input line 524.
 
 
-LaTeX Warning: Reference `adjustedNorm1' on page 26 undefined on input line 525.
+LaTeX Warning: Reference `adjustedNorm1' on page 26 undefined on input line 524.
 
 
-LaTeX Warning: Citation `Belagiannis' on page 26 undefined on input line 527.
+LaTeX Warning: Citation `Belagiannis' on page 26 undefined on input line 526.
 
 <depth_186.png, id=310, 115.43124pt x 228.855pt>
 File: depth_186.png Graphic file (type png)
  <use depth_186.png>
-Package pdftex.def Info: depth_186.png used on input line 533.
+Package pdftex.def Info: depth_186.png used on input line 532.
 (pdftex.def)             Requested size: 75.40752pt x 149.50476pt.
  <depth_186Mbg.png, id=312, 115.43124pt x 228.855pt>
 File: depth_186Mbg.png Graphic file (type png)
  <use depth_186Mbg.png>
-Package pdftex.def Info: depth_186Mbg.png used on input line 536.
+Package pdftex.def Info: depth_186Mbg.png used on input line 535.
 (pdftex.def)             Requested size: 75.40752pt x 149.50476pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 536--536
+Underfull \hbox (badness 10000) in paragraph at lines 535--535
 []\OT1/cmr/m/n/9 (+20) (b) |Mean back-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 536--536
+Underfull \hbox (badness 10000) in paragraph at lines 535--535
 \OT1/cmr/m/n/9 (+20) ground method.
  []
 
 File: depth_186Adj.png Graphic file (type png)
 <use depth_186Adj.png>
-Package pdftex.def Info: depth_186Adj.png used on input line 539.
+Package pdftex.def Info: depth_186Adj.png used on input line 538.
 (pdftex.def)             Requested size: 75.40752pt x 149.50476pt.
  <img_186.png, id=315, 116.435pt x 231.86626pt>
 File: img_186.png Graphic file (type png)
  <use img_186.png>
-Package pdftex.def Info: img_186.png used on input line 542.
+Package pdftex.def Info: img_186.png used on input line 541.
 (pdftex.def)             Requested size: 75.40752pt x 150.16995pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 542--542
+Underfull \hbox (badness 10000) in paragraph at lines 541--541
 []\OT1/cmr/m/n/9 (+20) (d) |Pre-processed
  []
 
 <filters.png, id=317, 731.3724pt x 731.3724pt>
 File: filters.png Graphic file (type png)
  <use filters.png>
-Package pdftex.def Info: filters.png used on input line 550.
+Package pdftex.def Info: filters.png used on input line 549.
 (pdftex.def)             Requested size: 199.60895pt x 199.6047pt.
 
 
-LaTeX Warning: Citation `Krizhevsky2012' on page 26 undefined on input line 550.
+LaTeX Warning: Citation `Krizhevsky2012' on page 26 undefined on input line 549.
 
 
-LaTeX Warning: Citation `Krizhevsky2012' on page 26 undefined on input line 550.
+LaTeX Warning: Citation `Krizhevsky2012' on page 26 undefined on input line 549.
 
 <blackBGnorm1blob.png, id=319, 731.3724pt x 731.3724pt>
 File: blackBGnorm1blob.png Graphic file (type png)
  <use blackBGnorm1blob.png>
-Package pdftex.def Info: blackBGnorm1blob.png used on input line 553.
+Package pdftex.def Info: blackBGnorm1blob.png used on input line 552.
 (pdftex.def)             Requested size: 199.60895pt x 199.6047pt.
  <meanBGnorm1.png, id=321, 731.3724pt x 731.3724pt>
 File: meanBGnorm1.png Graphic file (type png)
  <use meanBGnorm1.png>
-Package pdftex.def Info: meanBGnorm1.png used on input line 556.
+Package pdftex.def Info: meanBGnorm1.png used on input line 555.
 (pdftex.def)             Requested size: 199.60895pt x 199.6047pt.
  <adjustedNorm1.png, id=323, 731.3724pt x 731.3724pt>
 File: adjustedNorm1.png Graphic file (type png)
  <use adjustedNorm1.png>
-Package pdftex.def Info: adjustedNorm1.png used on input line 559.
+Package pdftex.def Info: adjustedNorm1.png used on input line 558.
 (pdftex.def)             Requested size: 199.60895pt x 199.6047pt.
 
 
-LaTeX Warning: Reference `fig:colourschemes' on page 26 undefined on input line 560.
+LaTeX Warning: Reference `fig:colourschemes' on page 26 undefined on input line 559.
 
 
-LaTeX Warning: Reference `fig:colourschemes' on page 26 undefined on input line 560.
+LaTeX Warning: Reference `fig:colourschemes' on page 26 undefined on input line 559.
 
 
-LaTeX Warning: Citation `LeCun1998a' on page 26 undefined on input line 564.
+LaTeX Warning: Citation `LeCun1998a' on page 26 undefined on input line 563.
 
 
-LaTeX Warning: Citation `Bottou2010' on page 26 undefined on input line 564.
+LaTeX Warning: Citation `Bottou2010' on page 26 undefined on input line 563.
 
 
-LaTeX Warning: Citation `LeCun2012' on page 26 undefined on input line 564.
+LaTeX Warning: Citation `LeCun2012' on page 26 undefined on input line 563.
 
 
-LaTeX Warning: Reference `fig:meanSubComp' on page 26 undefined on input line 564.
+LaTeX Warning: Reference `fig:meanSubComp' on page 26 undefined on input line 563.
 
 
-LaTeX Warning: Reference `sec:alexNet' on page 26 undefined on input line 564.
+LaTeX Warning: Reference `sec:alexNet' on page 26 undefined on input line 563.
 
-<meanSubComp.png, id=325, 602.25pt x 301.125pt>
+[26] <meanSubComp.png, id=329, 602.25pt x 301.125pt>
 File: meanSubComp.png Graphic file (type png)
  <use meanSubComp.png>
-Package pdftex.def Info: meanSubComp.png used on input line 567.
+Package pdftex.def Info: meanSubComp.png used on input line 566.
 (pdftex.def)             Requested size: 399.21791pt x 199.61612pt.
 
 
-LaTeX Warning: Reference `fig:rgb' on page 26 undefined on input line 575.
-
-[26]
-
-LaTeX Warning: Reference `sec:alexNet' on page 27 undefined on input line 577.
+LaTeX Warning: Reference `fig:rgb' on page 27 undefined on input line 574.
 
 
-LaTeX Warning: Reference `fig:rgbdcomp' on page 27 undefined on input line 577.
+LaTeX Warning: Reference `sec:alexNet' on page 27 undefined on input line 576.
+
+
+LaTeX Warning: Reference `fig:rgbdcomp' on page 27 undefined on input line 576.
 
 <rgb-dComp.png, id=331, 602.25pt x 301.125pt>
 File: rgb-dComp.png Graphic file (type png)
  <use rgb-dComp.png>
-Package pdftex.def Info: rgb-dComp.png used on input line 580.
+Package pdftex.def Info: rgb-dComp.png used on input line 579.
 (pdftex.def)             Requested size: 399.21791pt x 199.61612pt.
 
 
-LaTeX Warning: Citation `Jia2014' on page 27 undefined on input line 591.
+LaTeX Warning: Citation `Jia2014' on page 27 undefined on input line 590.
 
 
-LaTeX Warning: Citation `Chen' on page 27 undefined on input line 591.
+LaTeX Warning: Citation `Chen' on page 27 undefined on input line 590.
 
 
-LaTeX Warning: Citation `Pfister' on page 27 undefined on input line 591.
+LaTeX Warning: Citation `Pfister' on page 27 undefined on input line 590.
 
 
-LaTeX Warning: Citation `Girshick2014' on page 27 undefined on input line 591.
+LaTeX Warning: Citation `Girshick2014' on page 27 undefined on input line 590.
 
 
-LaTeX Warning: Citation `Springenberg2015' on page 27 undefined on input line 591.
+LaTeX Warning: Citation `Springenberg2015' on page 27 undefined on input line 590.
 
 
-LaTeX Warning: Citation `Schwarz2015' on page 27 undefined on input line 591.
+LaTeX Warning: Citation `Schwarz2015' on page 27 undefined on input line 590.
 
 
-LaTeX Warning: Citation `Simonyan2015' on page 27 undefined on input line 591.
+LaTeX Warning: Citation `Simonyan2015' on page 27 undefined on input line 590.
 
 
-LaTeX Warning: Citation `Wang2015' on page 27 undefined on input line 591.
-
-
-LaTeX Warning: Citation `Folk2011' on page 27 undefined on input line 593.
+LaTeX Warning: Citation `Wang2015' on page 27 undefined on input line 590.
 
 [27 <./depth_186.png (PNG copy)> <./depth_186Mbg.png (PNG copy)> <./img_186.png (PNG copy)>] [28 <./filters.png> <./blackBGnorm1blob.png> <./meanBGnorm1.png> <./adjustedNorm1.png>] [29 <./meanSubComp.png> <./rgb-dComp.png>]
 
-LaTeX Warning: Citation `Krizhevsky2012' on page 30 undefined on input line 603.
+LaTeX Warning: Citation `Folk2011' on page 30 undefined on input line 592.
 
 
-LaTeX Warning: Citation `Krizhevsky2012' on page 30 undefined on input line 609.
+LaTeX Warning: Reference `fig:alexNet' on page 30 undefined on input line 602.
 
 
-LaTeX Warning: Reference `fig:LRN' on page 30 undefined on input line 609.
+LaTeX Warning: Citation `Krizhevsky2012' on page 30 undefined on input line 602.
 
-<conv1.png, id=376, 731.3724pt x 731.3724pt>
+<alexNet.pdf, id=375, 796.9775pt x 597.23125pt>
+File: alexNet.pdf Graphic file (type pdf)
+ <use alexNet.pdf>
+Package pdftex.def Info: alexNet.pdf used on input line 606.
+(pdftex.def)             Requested size: 443.57848pt x 146.4466pt.
+
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 30 undefined on input line 607.
+
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 30 undefined on input line 607.
+
+[30 <./alexNet.pdf>]
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 31 undefined on input line 616.
+
+
+LaTeX Warning: Reference `fig:LRN' on page 31 undefined on input line 616.
+
+<conv1.png, id=434, 731.3724pt x 731.3724pt>
 File: conv1.png Graphic file (type png)
  <use conv1.png>
-Package pdftex.def Info: conv1.png used on input line 614.
+Package pdftex.def Info: conv1.png used on input line 621.
 (pdftex.def)             Requested size: 199.60895pt x 199.6047pt.
- <norm1.png, id=378, 731.3724pt x 731.3724pt>
+ <norm1.png, id=436, 731.3724pt x 731.3724pt>
 File: norm1.png Graphic file (type png)
  <use norm1.png>
-Package pdftex.def Info: norm1.png used on input line 617.
+Package pdftex.def Info: norm1.png used on input line 624.
 (pdftex.def)             Requested size: 199.60895pt x 199.6047pt.
 
 
-LaTeX Warning: Reference `fig:alexNetpre' on page 30 undefined on input line 624.
+LaTeX Warning: Reference `fig:alexNetpre' on page 31 undefined on input line 631.
 
-[30] <AlexNetInitComploss.png, id=387, 602.25pt x 301.125pt>
+<AlexNetInitComploss.png, id=438, 602.25pt x 301.125pt>
 File: AlexNetInitComploss.png Graphic file (type png)
  <use AlexNetInitComploss.png>
-Package pdftex.def Info: AlexNetInitComploss.png used on input line 629.
+Package pdftex.def Info: AlexNetInitComploss.png used on input line 636.
 (pdftex.def)             Requested size: 399.21791pt x 199.61612pt.
+ [31 <./conv1.png> <./norm1.png>]
+
+LaTeX Warning: Citation `Duchi2011' on page 32 undefined on input line 653.
+
+[32 <./AlexNetInitComploss.png>] <s1.pdf, id=463, 614.295pt x 794.97pt>
+File: s1.pdf Graphic file (type pdf)
+ <use s1.pdf>
+Package pdftex.def Info: s1.pdf used on input line 661.
+(pdftex.def)             Requested size: 199.60895pt x 163.5437pt.
+ <s1FT.pdf, id=465, 614.295pt x 794.97pt>
+File: s1FT.pdf Graphic file (type pdf)
+ <use s1FT.pdf>
+Package pdftex.def Info: s1FT.pdf used on input line 664.
+(pdftex.def)             Requested size: 199.60895pt x 163.5437pt.
+ <s2.pdf, id=467, 614.295pt x 794.97pt>
+File: s2.pdf Graphic file (type pdf)
+ <use s2.pdf>
+Package pdftex.def Info: s2.pdf used on input line 668.
+(pdftex.def)             Requested size: 199.60895pt x 163.5437pt.
+ <s2FT.pdf, id=469, 614.295pt x 794.97pt>
+File: s2FT.pdf Graphic file (type pdf)
+ <use s2FT.pdf>
+Package pdftex.def Info: s2FT.pdf used on input line 671.
+(pdftex.def)             Requested size: 199.60895pt x 163.5437pt.
+File: s2.pdf Graphic file (type pdf)
+ <use s2.pdf>
+Package pdftex.def Info: s2.pdf used on input line 675.
+(pdftex.def)             Requested size: 199.60895pt x 163.5437pt.
+File: s2FT.pdf Graphic file (type pdf)
+ <use s2FT.pdf>
+Package pdftex.def Info: s2FT.pdf used on input line 678.
+(pdftex.def)             Requested size: 199.60895pt x 163.5437pt.
+
+
+LaTeX Warning: Float too large for page by 380.36496pt on input line 682.
 
 No file TSWLatexianTemp_gaitThesisV1.1.bbl.
 
-LaTeX Warning: Citation `Paiement' on page 31 undefined on input line 694.
+LaTeX Warning: Citation `Paiement' on page 33 undefined on input line 726.
 
 
-LaTeX Warning: Citation `Tao' on page 31 undefined on input line 694.
-
-[31 <./conv1.png> <./norm1.png>]
-
-LaTeX Warning: Reference `sec:intro' on page 32 undefined on input line 700.
+LaTeX Warning: Citation `Tao' on page 33 undefined on input line 726.
 
 
-LaTeX Warning: Citation `Paiement' on page 32 undefined on input line 703.
+LaTeX Warning: Reference `sec:intro' on page 33 undefined on input line 732.
 
 
-LaTeX Warning: Reference `fig:exsysData' on page 32 undefined on input line 703.
-
-[32 <./AlexNetInitComploss.png>]
-
-LaTeX Warning: Reference `fig:sysPipe' on page 33 undefined on input line 706.
+LaTeX Warning: Citation `Paiement' on page 33 undefined on input line 735.
 
 
-LaTeX Warning: Reference `sec:sofTools' on page 33 undefined on input line 706.
+LaTeX Warning: Reference `fig:exsysData' on page 33 undefined on input line 735.
 
 
-LaTeX Warning: Citation `Tao' on page 33 undefined on input line 712.
+LaTeX Warning: Reference `fig:sysPipe' on page 33 undefined on input line 738.
 
 
-LaTeX Warning: Citation `Coifman2006' on page 33 undefined on input line 714.
+LaTeX Warning: Reference `sec:sofTools' on page 33 undefined on input line 738.
 
-[33]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1484.
- [34]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1484.
+[33] [34 <./s1.pdf> <./s1FT.pdf> <./s2.pdf> <./s2FT.pdf>]
+
+LaTeX Warning: Citation `Tao' on page 35 undefined on input line 744.
+
+
+LaTeX Warning: Citation `Coifman2006' on page 35 undefined on input line 746.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1516.
+[35] [36]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1516.
  (./TSWLatexianTemp_gaitThesisV1.1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1484.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1484.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1516.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1516.
 
 
 Package rerunfilecheck Warning: File `TSWLatexianTemp_gaitThesisV1.1.out' has changed.
@@ -1404,28 +1455,28 @@ Package rerunfilecheck Warning: File `TSWLatexianTemp_gaitThesisV1.1.out' has ch
 
 Package rerunfilecheck Info: Checksums for `TSWLatexianTemp_gaitThesisV1.1.out':
 (rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  FDBB968A9993B12DD78FB56E9F20966B;1527.
+(rerunfilecheck)             After:  97D88528EAE7E76BB093733B64E6E768;1591.
 
 LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1484.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1516.
  ) 
 Here is how much of TeX's memory you used:
- 11866 strings out of 493315
- 180424 string characters out of 6137903
- 313057 words of memory out of 5000000
- 14901 multiletter control sequences out of 15000+600000
+ 11910 strings out of 493315
+ 180954 string characters out of 6137903
+ 312057 words of memory out of 5000000
+ 14929 multiletter control sequences out of 15000+600000
  21504 words of font info for 118 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  44i,10n,49p,2288b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on TSWLatexianTemp_gaitThesisV1.1.pdf (34 pages, 5615134 bytes).
+Output written on TSWLatexianTemp_gaitThesisV1.1.pdf (36 pages, 7503254 bytes).
 PDF statistics:
- 498 PDF objects out of 1000 (max. 8388607)
- 343 compressed objects within 4 object streams
- 112 named destinations out of 1000 (max. 500000)
- 13770 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 597 PDF objects out of 1000 (max. 8388607)
+ 395 compressed objects within 4 object streams
+ 123 named destinations out of 1000 (max. 500000)
+ 13837 words of extra memory for PDF output out of 14400 (max. 10000000)
 

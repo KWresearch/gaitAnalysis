@@ -207,23 +207,23 @@ With both of the above approaches there are significant issues posed by the high
 
 Although the full pose space is very large and high dimensional it has been shown e.g. in \cite{Brand1999,Elgammal2004} that when considering only movements in a well defined activity such as walking, then the pose data can be well represented by a low dimensional latent manifold. In a work closely related to our own Elgammal et al. \cite{Elgammal2004} use a Local Linear Embedding method to generate a 1D manifold representation (embedded within a 3D space)$^{(FIGURE?)}$ of a walking motion from single sequences of silhouette images. They use a Generalised Radial Basis Function interpolation framework~\cite{Poggio1990} (a form of neural network) to learn two mappings, one from the manifold to the silhouette image space and another from the manifold to full 3D joint positions. They then invert these mappings to extract points on the manifold from silhouettes and 3D joint positions from the points on the manifold. In contrast, our work builds the manifold representation from 3D joint position data, this has the benefit of the manifold representation not being tied to subject's visual appearance. This allows it to generalise naturally to multiple subjects, which is not the case in~\cite{Elgammal2004} (although they do introduce an solution for this problem in~\cite{Elgammal2004b}). It is also unlikely that this method could be used to capture abnormality in gait since defining an image to manifold transformation explicitly from the inverse constrains all input images to the poses contained in the original data. Elgammal et al. argue that learning a smooth mapping from examples is an ill-posed problem unless the mapping is constrained since the mapping will be undefined in other parts of the space. We address this issue in section~\ref{sec:abnormals}.
 
-Brand \cite{Brand1999}, also inferred 3D pose from silhouettes using an intermediate manifold representation. He uses a maximum a posteriori estimation for mapping between the image and manifold space. This uses information across the whole input sequence to find the most likely and consistent solutions in order resolve the ambiguities in the many to many silhouette to pose mapping. A solution of this form is unacceptable in our case as on of the key features of the SPHERE system is online measurement.
+Brand \cite{Brand1999}, also inferred 3D pose from silhouettes using an intermediate manifold representation. He uses a maximum a posteriori estimation for mapping between the image and manifold space. This uses information across the whole input sequence to find the most likely and consistent solutions in order resolve the ambiguities in the many to many silhouette to pose mapping. A solution of this form is unacceptable in our case as one of the key features of the SPHERE system is online measurement.
 
 Similarly Urtasan et al. \cite{Urtasun2005} used Scaled Gaussian Process Latent Variable Models (SGPLVM) \cite{Lawrence2004} on single training sequences (walking and a golf swing) labelled with 2D joint positions. These models build a low dimensional manifold, and simultaneously, a continuous mapping between this and the 2D joint positions. They use the low dimensional representation to facilitate efficient maximum a posteriori based tracking in this space. Again, this is only suitable as an offline solution. 
 
-Tangkuampien and Suter \cite{Tangkuampien2006} used Kernel Principle Component Analysis (KPCA) to learn low dimensional representations of 3D joint positions, and separately using the same method, a low dimensional representation of silhouette images. They then learn a mapping between these spaces using Locally Linear Embedding (LLE) reconstruction. This has some similarity with using a CNN, where the image is transformed in to progressively more concise feature representations, before the regression takes place. The disadvantage of using LLE to perform the final transformation is that it is contained to within the manifold space contained in pose training data. %As discussed above, our method has the benefit that it naturally maps unseen poses away from the manifold of the training data. This reduces the number of poses we must capture in our training data.
+Tangkuampien and Suter \cite{Tangkuampien2006} used Kernel Principle Component Analysis (KPCA) to learn low dimensional representations of 3D joint positions, and separately using the same method, a low dimensional representation of silhouette images. They then learn a mapping between these spaces using Locally Linear Embedding (LLE) reconstruction. This has some similarity with using a CNN, where the image is transformed in to progressively more concise feature representations, before the regression takes place. The disadvantage of using LLE to perform the final transformation is that it is restricted to within the manifold space contained in pose training data. %As discussed above, our method has the benefit that it naturally maps unseen poses away from the manifold of the training data. This reduces the number of poses we must capture in our training data.
 
-Rosales et al \cite{Rosales2000,Rosales2001} used 3D joint position data from a MoCap system to render synthetic training data from multiple angles. Hu moments were used to extract visual features from these (and real) images. Unsupervised learning was used to cluster 3D joint position data into areas of similar pose and a neural network was trained separately on each cluster to learn the mapping from visual features to pose. Using the developments in training of deep neural networks since this work we show that it is feasible to have a single CNN both learn the features best suited and the mapping to all poses. This removes the need for clustering and separate networks leading to a simpler, easily adaptable solution. Although their use of MoCap data as opposed to Kinect Skeletons for ground truth is a change we could expect to improve performance in our system. Similarly rendering synthetic training data from multiple angles would be a smart way of improving our viewing angle tolerance.
+Rosales et al \cite{Rosales2000,Rosales2001} used 3D joint position data from a MoCap system to render synthetic training data from multiple angles. Hu moments were used to extract visual features from these (and real) images. Unsupervised learning was used to cluster 3D joint position data into areas of similar pose and a neural network was trained separately on each cluster to learn the mapping from visual features to pose. Using the developments in training of deep neural networks since this work we show that it is feasible to have a single CNN learn both the features best suited and the mapping to all poses. This removes the need for clustering and separate networks leading to a simpler, easily adaptable solution. Although their use of MoCap data as opposed to Kinect Skeletons for ground truth is a change we could expect to improve performance in our system. Similarly rendering synthetic training data from multiple angles would be a smart way of improving our viewing angle tolerance.
 
 \subsubsection{Human Pose Estimation From Depth Images}
 
-With the advent low cost commodity depth sensors challenging aspects of RGB HPE such as the variability in human appearance and scene lighting were greatly simplified. RGB-D also provides richer data for inferring 3D structure; human poses which could be appear identical when projected onto the 2D image plane can be distinguished. Full body HPE methods from single depth images are review in \cite{Helten2013}. With the Kinect sensor and its bundled software packages (Kinect SDK or alternatively the open source OpenNI) low cost, flexible and reasonably accurate HPE is now available and has been employed in a huge variety of scientific applications~\cite{Han2013,Giovanni}.
+Challenging aspects of RGB HPE such as the variability in human appearance and scene lighting were greatly simplified with the advent of low cost commodity depth sensors. RGB-D also provides richer data for inferring 3D structure; human poses which could appear identical when projected onto the 2D image plane can be distinguished. Full body HPE methods from single depth images are reviewed in \cite{Helten2013}. With the Kinect/Xtion sensor and software packages (Kinect SDK or alternatively the open source OpenNI) low cost, flexible and reasonably accurate HPE is now available and has been employed in a huge variety of scientific applications~\cite{Han2013,Giovanni}.
 
 The Kinect SDK and OpenNI skeleton trackers apply some inter-frame tracking algorithms to the single frame pose measurements of~\cite{Shotton2011}. In this work Shotton et al. leveraged a large mocap 3D joint position dataset which they re-targetted onto a variety of synthetic body models before rendering as if captured from a Kinect, simulating sensor noise, camera pose, and crop position. Producing synthetic depth images data is far simpler than in RGB since depth is far more invariant to subject clothing and appearance changes. Using these generated depth images and a ground truth labelling of each pixel as one of 31 body parts they trained a randomised regression forrest to perform this body part classification at each pixel using simple and computationally efficient pixel wise features. They then use these classifications to infer actual joint position through a simple averaging and mean shift procedure. The whole algorithm operates in real time on the computational resources allowed to them on the Xbox gaming consoles GPU. \cite{Shotton2013a} adapts this work by allowing pixel classifications of a number of surrounding joints to be used when estimating the joint position, rather than the single corresponding body part pixels as in~\cite{Shotton2011}. This is shown to improve the quality of the prediction for occluded joints. A similar use of mocap joint position data for rendering synthetic images from multiple views is suggested as an ideal way for increasing the view angle and subject invariance of our system.
 
 Another discriminative method is \cite{Plagemann2010} where they find geodesic extrema (which are expected to correspond to the feet, hands and head) from Dijkstra’s algorithm on a graph produced by connecting all depth pixels in the image into a map. These points are identified (as hands feet or head) by applying local shape descriptors around the area. 
 
-Other methods e.g.~\cite{Ye2011,Wei2011,Baak2011,Zhu2008} have focused on improving temporal smoothness of the measured pose by combining such discriminative methods with model based temporal model based tracking methods. 
+Other methods e.g.~\cite{Ye2011,Wei2011,Baak2011,Zhu2008} have focused on improving temporal smoothness of the measured pose by combining such discriminative methods with model based temporal tracking methods. 
 
 In a recent attempt Chan et al \cite{Chan2014} use 3D point cloud information and propose a viewpoint and shape histogram feature based off these point clouds. This feature is then used to categorise the pose based on the action being performed using an introduced action mixed model. Each action is prescribed its own low dimensional manifold which allows a human pose database containing a limited amount of data to probabilistically infer the full pose.
 %look at He2015
@@ -240,7 +240,7 @@ Convolutional Neural Networks (CNNs) are biologically inspired supervised learni
 \end{equation}
 where~$\boldsymbol{Z}$ is an input image, the output~$\boldsymbol{Y}$ is the inferred pose vector for this image, and~$\boldsymbol{W}$ are the trainable parameters of the network. 
  
-They consist of a set of filter maps, essentially matrices (or tensors if applying to multiple channels), which are applied repeatedly across the whole of the input. Each application of these filters produces an activation value which is the sum of each filter element multiplied by its corresponding input pixel value plus a shift term known as a bias. The filter is applied iteratively across the whole image, typically with some overlap. This builds up an 'a§ctivation map' for that filter. With such a layer being comprised of a number of filters. The activations of each filter are stacked together, becoming the new image which is passed onto the next layer. This process is illustrated in figure \ref{fig:convnet}. This type of layer, known as Convolution layers, are typically followed by a non-linear function which is what enables the CNN to learn non-linear transformations such as the image to pose transformation we require. Although it is possible to stack convolutional layers on top of each other they are often followed by a pooling layer (also called subsampling). The idea of pooling is to reduce the spatial size from the previous layer as seen in figure~\ref{fig:pool}. Operating on each depth slice individually, i.e. each filters activation, the pooling window moves across the image taking the values of the elements in the input, conglomerating them using some operation, typically taking the max value as seen in the right hand side of figure~\ref{fig:pool}. CNNs also typically contain one or more fully connected layers at the end. Being fully connected means that rather than having a small filter applied repeatedly across the input, a number of filters of the same dimensions as the input are applied to the whole volume. This then outputs a~$1\times 1 \times K$ volume where~$K$ is the number of filters. This is then identical to regular neural networks where each unit in a layer is connected to every unit in the next. In our case, fully connected layers take the final high level feature representation from the rest of the network and perform the final regression to the pose vector. 
+They consist of a set of filter maps, essentially matrices (or tensors if applying to multiple channels), which are applied repeatedly across the whole of the input. Each application of these filters produces an activation value which is the sum of each filter element multiplied by its corresponding input pixel value plus a shift term known as a bias. The filter is applied iteratively across the whole image, typically with some overlap. This builds up an `activation map' for that filter. With such a layer being comprised of a number of filters. The activations of each filter are stacked together, becoming the new image which is passed onto the next layer. This process is illustrated in figure \ref{fig:convnet}. This type of layer, known as Convolution layers, are typically followed by a non-linear function which is what enables the CNN to learn non-linear transformations such as the image to pose transformation we require. Although it is possible to stack convolutional layers on top of each other they are often followed by a pooling layer (also called subsampling). The idea of pooling is to reduce the spatial size from the previous layer as seen in figure~\ref{fig:pool}. Operating on each depth slice individually, i.e. each filters activation, the pooling window moves across the image taking the values of the elements in the input, conglomerating them using some operation, typically taking the max value as seen in the right hand side of figure~\ref{fig:pool}. CNNs also typically contain one or more fully connected layers at the end. Being fully connected means that rather than having a small filter applied repeatedly across the input, a number of filters of the same dimensions as the input are applied to the whole volume. This then outputs a~$1\times 1 \times K$ volume where~$K$ is the number of filters. This is then identical to regular neural networks where each unit in a layer is connected to every unit in the next. In our case, fully connected layers take the final high level feature representation from the rest of the network and perform the final regression to the pose vector. 
 
 \begin{figure}
 \includegraphics*[width=1\linewidth,clip]{convnet}
@@ -255,7 +255,7 @@ They consist of a set of filter maps, essentially matrices (or tensors if applyi
 
 CNNs are trained using backpropagation and gradient descent. During training an error function is defined which quantifies the difference between the networks output and the desired output. In our case, as is typical of regression tasks, we use the euclidean distance between the two. Using the backpropagation algorithm~\cite{Rumelhart1986} the derivative of this error with respect to each parameter is found.  Then the values of each parameter are adjusted a small amount in the direction which reduces the error. In this way, over many training examples, the network converges on a minima in the error surface across the space of all parameter values.  A derivation of the backpropagation equations and further technical discussion of CNNs in general can be found in the preceding work on this project~\cite{Crabbe2015}.
 
-An advantage of CNNs over traditional computer vision methods is that rather than prescribing a hand-engineered feature such as the depth disparity feature in~\cite{Shotton2011} or the view point and shape feature of~\cite{Chan2014}, the network is responsible for learning features its self based off the data. This presents a significant advantage in our application since features which might be good for measuring pose for one type of motion may not be useful for other motions. %
+An advantage of CNNs over traditional computer vision methods is that rather than prescribing a hand-engineered feature such as the depth disparity feature in~\cite{Shotton2011} or the view point and shape feature of~\cite{Chan2014}, the network is responsible for learning features itself based off the data. This presents a significant advantage in our application since features which might be good for measuring pose for one type of motion may not be useful for other motions. %
 
 Deep CNNs have a proven capacity to learn a huge number of different visual representations. They have achieved great success in the International Large Scale Visual Recognition Challenge (ILSVRC, or ImageNet challenge) which is conducted each year and requires identification and localisation (separately) of 1000 different types of object. The work of~\cite{Krizhevsky2012} showed how deep networks could be trained by using ReLU non-linearities in place of the previous staple of tanh or logisitic functions, this over came the vanishing gradient problem that had previously made large network infeasible. Since then CNNs have achieved the best results in each task every year running, with every single participating team using them by 2014~\cite{Russakovsky}.
 
@@ -266,11 +266,11 @@ E_{test}-E_{training} \propto \frac{c}{P}
 \end{equation}
 The capacity of the network is essentially the number of parameters being trained, which depends on the number of layers, the dimensions of the input images and the number of channels, the size and number of convolving filters and the way the filters and the pooling are applied. Increasing capacity will also decrease the size of~$\boldsymbol{E}_{training}$, hence there the aim in designing the network is to find the architecture which minimises both~$\boldsymbol{E}_{training}$ and~$\boldsymbol{E}_{test}-\boldsymbol{E}_{training}$ as far as possible~\cite{LeCun1998}.
 
-Since ImageNet contains around 15 million training examples it has enabled the training of very large networks such as the 2014 winner GoogLeNet which had 22 layers~\cite{Szegedy2014}. In our case we are limited by the size of our dataset which contains a total of 6228 usable examples, many of which are practically identical due to being adjacent frames. A common method used to apply deep CNNs to tasks which lack large amounts of training data is to use a network pre-trained on a large dataset, typically ImageNet. Numerous studies~\cite{Sharif2014,Donahue2014,Oquab2014,Girshick2014,Yosinski2014} have shown ImageNet trained networks producing better results than randomly initialised networks in a variety of task, and also on depth data~\cite{Schwarz2015,Alexandre2013}. Typically the filters in the early layers are generic edge, corner or blob detectors which can be expected to generalise well to different tasks. In higher layers, as the spatial size of the input to each filter increases (due to pooling), more task specific representations are learnt. 
+Since ImageNet contains around 15 million training examples it has enabled the training of very large networks such as the 2014 winner GoogLeNet which had 22 layers~\cite{Szegedy2014}. In our case we are limited by the size of our dataset which contains a total of 6228 usable examples, many of which are practically identical due to being adjacent frames. A common method used to apply deep CNNs to tasks which lack large amounts of training data is to use a network pre-trained on a large dataset, typically ImageNet. Numerous studies~\cite{Sharif2014,Donahue2014,Oquab2014,Girshick2014,Yosinski2014} have shown ImageNet trained networks producing better results than randomly initialised networks in a variety of tasks, and also on depth data~\cite{Schwarz2015,Alexandre2013}. Typically the filters in the early layers are generic edge, corner or blob detectors which can be expected to generalise well to different tasks. In higher layers, as the spatial size of the input to each filter increases (due to pooling), more task specific representations are learnt. 
 
 \subsubsection{Human Pose Estimation Using CNNs}
 
- 
+\label{sec:HpeCnn} 
 
 Jain et al.~\cite{Jain2013a} were the first to apply CNNs to human pose estimation. They trained multiple small three layer networks to act as joint detectors with a separate network for each joint. Each network takes a small window of the full image as input. They are applied repeatedly with some overlap to produce probability map of the joint's estimated location. They then use a spatial model which enforces consistent and valid global pose estimates from the estimated joint locations. In~\cite{Jain2014} they extend their system to videos using RGB plus motion features e.g. optical flow. 
 
@@ -281,6 +281,10 @@ Li and Chan also measure 2D joint locations with a CNN. They use a single networ
 Pfister et al.~\cite{Pfister} used the architecture of~\cite{Sermanet2013a} (a 2013 ILSVRC winner) to regress 2D upper body joint locations from RGB video. They experiment with using an ImageNet pre-trained model but find results are improved when training from scratch, a result echoed in this work. The found a their accuracy improved by 5\% after performing background subtraction on their data, a method we also adopt. They also experiment with using multiple frames as input, finding this gives only a modest 0.3\% improvement. 
 
 Tompson et al.~\cite{Tompson2014}
+
+Recently Belagiannis et al.~\cite{Belagiannis} showed that convergence times and final accuracy in HPE tasks can be improved by replacing the common L2/Euclidean loss function with a function that reduces the effect of outliers in the objective space. They state that the L2 loss functions give a disproportionally high weight to outliers which negatively effects the training procedure, reducing the generalisation ability and increasing the convergence times. They propose a new loss function, Tukey's biweight loss function, which acts to minimise the effect of outliers and show that employing this function improves results in better accuracy and convergence rates on 2D HPE task. This is an interesting finding which is especially relevant to this work where a noisy skeletons produce a significant number of outliers. Unfortunately this paper was not discovered until after most of the work was completed. A direction of future work will be to implement this loss function.
+
+
 
 %To be finished...
 
@@ -412,7 +416,7 @@ All results presented here after use the 2793 skeletons from the first 6 'normal
 
 To illustrate the meaning of the manifold coordinates the skeletons placed at the 3 corners are shown in figure \ref{fig:skelToManifod}. Generally the normal gait sequences follow paths across the dense quarter sphere shaped surface with the frame of maximal left and right knee flex occurring at the maximum and minimum of first coordinate. The second dimension, plotted horizontally in figure \ref{fig:skelToManifod}, seems to measure the vertical distance between skeletons. The skeleton with raised knees occur near its minimal value and at its maximum we find elongated skeletons which are measured erroneously when subjects are very close to the camera but just survive the cut on skeleton disimilarity. During processing of the images we remove these images from the dataset which results in the removal of most of the points which lie at this end of the manifold, as shown in figure \ref{manifoldAfterImageProcessing}. 
 
-The meaning of the 3rd manifold coordinate is less clear. Figure \ref{fig:skelsZcomp} compares skeletons of minimum and maximum values for points of equal y[0], y[1], we are able to find no discernible pattern. This is reflected by the CNN as we find it far less accurate in this coordinate than the others. There are two observations which we use to improve the accuracy: 1) this coordinate can reasonably well modelled by a polynomial function of Y[0] and Y[1] as shown in \ref{fig:polyFit}. 2) This coordinate is found to be somewhat subject specific as seen in figure \ref{fig:subjectsOnManifold}. 
+The meaning of the 3rd manifold coordinate is less clear. Figure \ref{fig:skelsZcomp} compares skeletons of minimum and maximum values for points of equal Y[0], Y[1], we are able to find no discernible pattern. This is reflected by the CNN as we find it far less accurate in this coordinate than the others. However this coordinate is somewhat subject specific, as seen in figure \ref{fig:subjectsOnManifold}, with each subject found to traverse the quater-sphere surface with a Y[2] range smaller than that of the full manifold. We find that fine tuning our networks on additional sequences of the subject being tested improves results by 28\%. 
 %exlain how here or leave till later?
 
 
@@ -464,13 +468,6 @@ The meaning of the 3rd manifold coordinate is less clear. Figure \ref{fig:skelsZ
 \includegraphics*[trim={0 5cm 0 7cm},clip,width=0.75\linewidth,clip]{subjectsOnManifold.pdf} 
 \caption{Each normal sequence of the first 6 subjects plotted in a different colour. We observe that Y[2] coordinates for each subject tend to ramain within a sub-region of full range. This finding promoted the use of subject finetuning which improves the accuracy of Y[2] predictions. }
 \label{fig:subjectsOnManifold}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics*[trim={0 8cm 0 9cm},clip,width=0.75\linewidth,clip]{polyFit} 
-\caption{The gait manifold is reasonably well modelled by a polynomial function of the first two coordinates. We attempt to use this to improve the networks accuracy for Y[2] predictions. }
-\label{fig:polyFit}
 \end{figure}
 
 
@@ -596,10 +593,19 @@ One disadvantage of this is that automated shuffling options are not available a
 \subsection{Architecture}
 
 
+
 \label{sec:alexNet}
 
 %add figure
-The architecture used, shown in figure $\{addLater\}$, is a version of that which won the 2012 ILSVRC~\cite{Krizhevsky2012}. It consists of 5 convolutional layers, the 1st, 2nd and 5th of which are followed by max pooling layers. 
+The architecture used, shown in figure \ref{fig:alexNet}, is a version of that which won the 2012 ILSVRC~\cite{Krizhevsky2012}. It consists of 5 convolutional layers, the 1st, 2nd and 5th of which are followed by max pooling layers. 
+
+\begin{figure}
+\centering
+\includegraphics*[width=\linewidth,trim={0cm 0cm 0.78cm 12cm},clip]{alexNet} 
+\caption{ The achitecture of~\cite{Krizhevsky2012} is used.\label{fig:alexNet}}
+\end{figure}
+
+
 
 This network also features Local Response Normalisation (LRN) layers. These normalise the values of each filter's activation with respect to the others in the same spatial position. Each activation is divided by
 \begin{equation}
@@ -626,10 +632,32 @@ One advantage of using this architecture is that we can begin training from the 
 \begin{figure}
 \centering
 \includegraphics*[width=0.9\linewidth,clip]{AlexNetInitComploss.png} 
-\caption{We find that begining training from ImageNet pretrained weights throughout the network hinders performance. Using pre-trained weights only in the first two layers produced the best results. We use this strategy for our final tests. \label{fig:alexNetpre}}
+\caption{Shows a validation set loss for various pre-training schemes. We find that begining training from ImageNet pretrained weights throughout the network hinders performance. Using pre-trained weights only in the first two layers produced the best results. We use this strategy for our final tests. \label{fig:alexNetpre}}
 \end{figure}
 
+We also experimented with other architectures including VGG-S~\cite{Simonyan2015} the 2014 ILSVRC 2nd place model which has been shown to generalise better to other tasks than any other architecture~\cite{Chatfield2014}. However this deep 19 layer network was far too memory intensive. It could only run on our 2GB GPU with a batch size of 1 which produced extremely noisy losses and would not converge. 
 
+We also experimented with various custom architectures including: all convolutional architectures which forego pooling layers, using convolutional layers with 2 pixel strides instead, with the idea that this would increase the networks spatial precision since max pooling layers discard precise spatial information. Simple 2 and 3 layer architectures, based on the idea that our data is all very similar in appearance and therefore does not require very high level features. Architectures with filters sized to match the filters we hoped them to extract e.g. initial layer filters were slightly wider than the edge effects in the image to avoid the noisy activations we see in figure \cite{fig:norm1}, 2nd layer filters were sized to match arm and leg widths and 3rd layer filters to match shoulders and head sizes etc. However, we found none of these architectures to improve accuracy over that of~\cite{Krizhevsky2012}. 
+
+
+\subsubsection{Regression Vs. Classification}
+
+Whilst our task requires us to produce real valued continuous outputs, regression tasks are generally harder to optimise CNNs for than classification tasks~\cite{KarLects}. With a regression task we require one specific output from the network for each example. With a classification task, using a Softmax Loss, the exact output value is not important, only the relative values. Another problem with regression is the effect of outliers on training as we discussed with reference to~\cite{Belagiannis} in section~\ref{sec:HpeCnn}. An additional benefit of classification is that you get a distribution over the outputs which gives an indication of confidence not possible with pure regression. 
+
+To this end we experimented with posing our problem as a classification task by binning each component of the pose vectors into a class. We experimented with a range of numbers of classes. Figure~\ref{fig:classesRes} plots the predicted pose vectors after being converted back to the mid value of the predicted class, as well as the L2 norm between this value and the labels (note this was not the loss used in training the network, but is calculated afterwards for a measure of accuracy). We find that 51 classes produces mean loss of 0.60 and 500 classes a mean loss of 0.71. Our final regression network outperforms both of these with a loss of 0.13, this result is displayed in figure \ref{fig:s12n1}. These results suggest that this approach is far less suitable than pure regression.
+
+\begin{figure}
+\centering
+\subfloat[With 51 classes per component. Mean~loss~=~0.6035 std~=~0.3154. \label{fig:wClasses51} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{wClasses51S11n2.pdf} }}%
+\qquad
+\subfloat[With 500 classes per component. Mean~loss~=~0.7141 std~=~0.3054.	\label{fig:wClasses500s} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{wClasses500S11n2.pdf} }}%
+\caption{ Accuracy results for a classification network. We  }
+\label{fig:classesRes}
+\end{figure}
+
+Inspired by the results of Li and Chan~\cite{Li2014} who found that regression accuracy was improved by joint training with a joint detection task; we also attempted joint training of classification and regression tasks in various forms.  These included: performing the classification off of early layers in an attempt to force gradient terms to the lower layers. A sub-net which classified the first component and shared features with the regression network. Both shared and separate fully connected sections for regression and classification. However, across all these studies we found no improvement in accuracy over pure regression. We also found that the more complicated the architectures were prone to diverging during training. 
 
 
 
@@ -638,7 +666,158 @@ One advantage of using this architecture is that we can begin training from the 
 \subsection{Training Details}
 
 
-Following skeleton selection and depth pre-processing we are left with 6228 distinct examples, plus their horizontal flips. So as to best utilise our data we train 6 networks with pairs of adjacent subjects withheld for testing in each i.e. 1 and 2, 3 and 4, 5 and 6. For each subject we present results for their longest sequence. This is because longer sequences make the SPHERE softwares gait cycle time analysis more accurate. In the case of subjects 9, 11, and 12 we test one normal and one abnormal sequence taking the longest one of each. 
+Following skeleton selection and depth pre-processing we are left with 6228 distinct examples, plus their horizontal flips. So as to best utilise our data we train 6 networks with pairs of adjacent subjects withheld for testing in each i.e. 1 and 2, 3 and 4, 5 and 6. 
+
+Each of these networks was trained for 50000 iterations each with a batch size of 25 examples. Additionally we present subject fine tuned results where each of these trained networks is further trained for 10 epochs (10 times through the training data) on the remaining non-test sequences of that  same subject. We find that this reduces the total mean loss from 0.1565 to 0.1129.
+
+In both cases we use the adaptive learning rate method AdaGrad~\cite{Duchi2011} which scales the learning rate for each parameter based off the size of its previous updates. We found in practise that this method achieved a lower loss than manually tuned learning rate algorithms SGD+momentum and Nesterov's accelerated gradient. We also apply a weight decay of 0.005.  
+
+For each subject we present results for their longest sequence since longer sequences make the SPHERE software's gait cycle time analysis more accurate. In the case of subjects 9, 11, and 12 we test one normal and one abnormal sequence taking the longest one of each. 
+
+For the first 6 subjects we present only accuracy data, shown in figure \ref{fig:s1-7}, since these sequences are used by the SPHERE software to build the normality model.
+
+For subjects 7-12 we present both accuracy data and pose and dynamics quality scores. These quality scores were computed for us by the authors of~\cite{Paiement}. 
+
+\begin{figure}
+\centering
+%s1
+\subfloat[mean loss~=~0.1207, std~=~0.1604.\label{fig:s1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s1.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.1227 std~=~0.1497.	\label{fig:s1FT} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s1FT.pdf} }}%
+%s2
+\qquad
+\subfloat[mean loss~=~0.3859, std~=~0.3678.\label{fig:s2} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s2.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.2280 std~=~0.2457.	\label{fig:s2FT} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s2FT.pdf} }}%
+%s3
+\qquad
+\subfloat[mean loss~=~0.1648, std~=~0.2772.\label{fig:s3} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s3.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.1465 std~=~0.2713.	\label{fig:s1FT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s3FT.pdf} }}%
+\end{figure}
+
+
+\begin{figure}
+\ContinuedFloat
+\centering
+%s4
+\subfloat[mean loss~=~0.1613, std~=~0.1109.\label{fig:s4} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s4.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.0852 std~=~0.1030.	\label{fig:s4FT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s4FT.pdf} }}%
+%s5
+\qquad
+\subfloat[mean loss~=~0.1640, std~=~0.1450.\label{fig:s5} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s5.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.0751 std~=~0.0751.	\label{fig:s5FT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s5FT.pdf} }}%
+%s6
+\qquad
+\subfloat[mean loss~=~0.1952, std~=~0.1884.\label{fig:s6} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s6.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.0873 std~=~0.0970.	\label{fig:s6FT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s6FT.pdf} }}%
+\caption{Accuracy results for subjects 1-6. }
+\label{fig:s1-7}
+\end{figure}
+
+
+
+
+\begin{figure}
+\centering
+%s7
+\subfloat[mean loss~=~0.1208, std~=~0.1388.\label{fig:s7} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s7.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.1133 std~=~0.1439.	\label{fig:s7FT} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s7FT.pdf} }}%done
+%s8
+\qquad
+\subfloat[mean loss~=~0.0457, std~=~0.0720.\label{fig:s8} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s8.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.0795 std~=~0.0950.	\label{fig:s2FT} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s8FT.pdf} }}%
+\end{figure}
+
+\begin{figure}
+\ContinuedFloat
+\centering
+%s9n1
+\subfloat[mean loss~=~0.1110, std~=~0.0995.\label{fig:s9n1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s9n1.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.0692 std~=~0.0852.	\label{fig:s9n1FT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s9n1FT.pdf} }}%
+%s9rl
+\qquad
+\subfloat[mean loss~=~0.0944, std~=~0.0875.\label{fig:s3} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s9rl.pdf} }}%
+\qquad
+\subfloat[mean loss~=0.0821 std~=~0.0917	\label{fig:s9rlFT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s9rlFT.pdf} }}%
+\end{figure}
+
+\begin{figure}
+\ContinuedFloat
+\centering
+%s10LL
+\subfloat[mean loss~=~0.1937 std~=~0.2353.\label{fig:s10ll} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s10ll.pdf} }}%
+\qquad%FT
+\subfloat[mean loss~=0.1575 std~=~0.2448	\label{fig:s10llFT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s10llFT.pdf} }}%
+%s11n2
+\qquad
+\subfloat[mean loss~=~0.1337, std~=~0.1083.\label{fig:s11n2} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s11n2.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.0474 std~=~0.0496	\label{fig:s11n2FT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s11n2FT.pdf} }}%
+\end{figure}
+
+
+\begin{figure}
+\ContinuedFloat
+\centering
+%s11sx2
+\subfloat[mean loss~=~0.1547, std~=~0.1231.\label{fig:s11sx2} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s11sx2.pdf} }}%
+\qquad%FT
+\subfloat[mean loss~=0.0867 std~=~0.0792	\label{fig:s11sx2FT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s11sx2FT.pdf} }}%
+%s12n1
+\qquad
+\subfloat[mean loss~=~0.1893, std~=~0.2492.\label{fig:s12n1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12n1.pdf} }}%
+\qquad
+\subfloat[mean loss~=~0.1673 std~=~0.2368	\label{fig:s12n1FT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12n1FT.pdf} }}%
+\end{figure}
+
+\begin{figure}
+\ContinuedFloat
+\centering
+%s12rl
+\subfloat[mean loss~=~0.1611, std~=~0.1334.\label{fig:s12rl} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12rl.pdf} }}%
+\qquad%FT
+\subfloat[mean loss~=~0.1097 std~=~0.1040	\label{fig:s12rlFT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12rlFT.pdf} }}%
+\caption{Accuracy and quality results for subjects 7-12. }
+\end{figure}
+
+many of the largest losses occur at the begining of the sequence, does this match with the skeleton disimilarity plots?
 
 
 
