@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2015.6.9)  1 SEP 2015 15:56
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2015.6.9)  1 SEP 2015 16:57
 entering extended mode
  %&-line parsing enabled.
 **gaitThesisV1.1.tex
@@ -1192,4 +1192,343 @@ Underfull \hbox (badness 10000) in paragraph at lines 538--538
 []\OT1/cmr/m/n/9 (+20) (d) |Pre-processed
  []
 
-<filters.png, id=440, 731.3724pt x 731.3724p
+<filters.png, id=440, 731.3724pt x 731.3724pt>
+File: filters.png Graphic file (type png)
+ <use filters.png>
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 27 undefined on input line 546
+.
+
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 27 undefined on input line 546
+.
+
+<blackBGnorm1blob.png, id=442, 731.3724pt x 731.3724pt>
+File: blackBGnorm1blob.png Graphic file (type png)
+
+<use blackBGnorm1blob.png> <meanBGnorm1.png, id=444, 731.3724pt x 731.3724pt>
+File: meanBGnorm1.png Graphic file (type png)
+
+<use meanBGnorm1.png> <adjustedNorm1.png, id=446, 731.3724pt x 731.3724pt>
+File: adjustedNorm1.png Graphic file (type png)
+
+<use adjustedNorm1.png>
+
+LaTeX Warning: Citation `LeCun1998a' on page 27 undefined on input line 560.
+
+
+LaTeX Warning: Citation `Bottou2010' on page 27 undefined on input line 560.
+
+
+LaTeX Warning: Citation `LeCun2012' on page 27 undefined on input line 560.
+
+[27 <./depth_186.png (PNG copy)> <./depth_186Mbg.png (PNG copy)> <./img_186.png
+ (PNG copy)>] [28 <./filters.png> <./blackBGnorm1blob.png> <./meanBGnorm1.png> 
+<./adjustedNorm1.png>] <meanSub.pdf, id=480, 578.16pt x 361.35pt>
+File: meanSub.pdf Graphic file (type pdf)
+
+<use meanSub.pdf> <rgbComp.pdf, id=485, 578.16pt x 361.35pt>
+File: rgbComp.pdf Graphic file (type pdf)
+ <use rgbComp.pdf>
+
+LaTeX Warning: Citation `Jia2014' on page 29 undefined on input line 587.
+
+
+LaTeX Warning: Citation `Chen' on page 29 undefined on input line 587.
+
+
+LaTeX Warning: Citation `Pfister' on page 29 undefined on input line 587.
+
+
+LaTeX Warning: Citation `Girshick2014' on page 29 undefined on input line 587.
+
+
+LaTeX Warning: Citation `Springenberg2015' on page 29 undefined on input line 5
+87.
+
+
+LaTeX Warning: Citation `Schwarz2015' on page 29 undefined on input line 587.
+
+
+LaTeX Warning: Citation `Simonyan2015' on page 29 undefined on input line 587.
+
+
+LaTeX Warning: Citation `Wang2015' on page 29 undefined on input line 587.
+
+[29 <./meanSub.pdf>] [30 <./rgbComp.pdf>]
+
+LaTeX Warning: Citation `Folk2011' on page 31 undefined on input line 589.
+
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 31 undefined on input line 600
+.
+
+<alexNet.pdf, id=510, 796.9775pt x 597.23125pt>
+File: alexNet.pdf Graphic file (type pdf)
+ <use alexNet.pdf>
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 31 undefined on input line 605
+.
+
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 31 undefined on input line 605
+.
+
+[31 <./alexNet.pdf>]
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 32 undefined on input line 614
+.
+
+<conv1.png, id=569, 731.3724pt x 731.3724pt>
+File: conv1.png Graphic file (type png)
+ <use conv1.png>
+<norm1.png, id=571, 731.3724pt x 731.3724pt>
+File: norm1.png Graphic file (type png)
+ <use norm1.png>
+<alexNetComp.pdf, id=574, 578.16pt x 361.35pt>
+File: alexNetComp.pdf Graphic file (type pdf)
+ <use alexNetComp.pdf> [32 <./conv1.png> <./norm1.png>]
+
+LaTeX Warning: Citation `Simonyan2015' on page 33 undefined on input line 638.
+
+
+LaTeX Warning: Citation `Chatfield2014' on page 33 undefined on input line 638.
+
+
+
+LaTeX Warning: Citation `fig:norm1' on page 33 undefined on input line 640.
+
+
+LaTeX Warning: Citation `Krizhevsky2012' on page 33 undefined on input line 640
+.
+
+[33 <./alexNetComp.pdf>]
+
+LaTeX Warning: Citation `KarLects' on page 34 undefined on input line 645.
+
+
+LaTeX Warning: Citation `Belagiannis' on page 34 undefined on input line 645.
+
+<wClasses51S11n2.pdf, id=603, 614.295pt x 794.97pt>
+File: wClasses51S11n2.pdf Graphic file (type pdf)
+ <use wClasses51S11n2.pdf>
+Underfull \hbox (badness 10000) in paragraph at lines 652--652
+[]\OT1/cmr/m/n/9 (+20) (a) |With 51 classes per com-po-nent.
+ []
+
+<wClasses500S11n2.pdf, id=605, 614.295pt x 794.97pt>
+File: wClasses500S11n2.pdf Graphic file (type pdf)
+
+<use wClasses500S11n2.pdf>
+Underfull \hbox (badness 10000) in paragraph at lines 655--655
+[]\OT1/cmr/m/n/9 (+20) (b) |With 500 classes per com-po-nent.
+ []
+
+
+LaTeX Warning: Citation `Li2014' on page 34 undefined on input line 660.
+
+[34]
+
+LaTeX Warning: Citation `Duchi2011' on page 35 undefined on input line 673.
+
+[35 <./wClasses51S11n2.pdf> <./wClasses500S11n2.pdf>]
+
+LaTeX Warning: Citation `Paiement' on page 36 undefined on input line 679.
+
+<s1.pdf, id=628, 614.295pt x 794.97pt>
+File: s1.pdf Graphic file (type pdf)
+ <use s1.pdf>
+<s1FT.pdf, id=630, 614.295pt x 794.97pt>
+File: s1FT.pdf Graphic file (type pdf)
+ <use s1FT.pdf>
+<s2.pdf, id=632, 614.295pt x 794.97pt>
+File: s2.pdf Graphic file (type pdf)
+ <use s2.pdf>
+<s2FT.pdf, id=634, 614.295pt x 794.97pt>
+File: s2FT.pdf Graphic file (type pdf)
+ <use s2FT.pdf>
+<s3.pdf, id=636, 614.295pt x 794.97pt>
+File: s3.pdf Graphic file (type pdf)
+ <use s3.pdf>
+<s3FT.pdf, id=638, 614.295pt x 794.97pt>
+File: s3FT.pdf Graphic file (type pdf)
+ <use s3FT.pdf>
+<s4.pdf, id=640, 614.295pt x 794.97pt>
+File: s4.pdf Graphic file (type pdf)
+ <use s4.pdf>
+<s4FT.pdf, id=642, 614.295pt x 794.97pt>
+File: s4FT.pdf Graphic file (type pdf)
+ <use s4FT.pdf>
+<s5.pdf, id=644, 614.295pt x 794.97pt>
+File: s5.pdf Graphic file (type pdf)
+ <use s5.pdf>
+<s5FT.pdf, id=646, 614.295pt x 794.97pt>
+File: s5FT.pdf Graphic file (type pdf)
+ <use s5FT.pdf>
+<s6.pdf, id=648, 614.295pt x 794.97pt>
+File: s6.pdf Graphic file (type pdf)
+ <use s6.pdf>
+<s6FT.pdf, id=650, 614.295pt x 794.97pt>
+File: s6FT.pdf Graphic file (type pdf)
+ <use s6FT.pdf>
+<s7.pdf, id=652, 614.295pt x 794.97pt>
+File: s7.pdf Graphic file (type pdf)
+ <use s7.pdf>
+<s7FT.pdf, id=654, 614.295pt x 794.97pt>
+File: s7FT.pdf Graphic file (type pdf)
+ <use s7FT.pdf>
+<s8.pdf, id=656, 614.295pt x 794.97pt>
+File: s8.pdf Graphic file (type pdf)
+ <use s8.pdf>
+<s8FT.pdf, id=658, 614.295pt x 794.97pt>
+File: s8FT.pdf Graphic file (type pdf)
+ <use s8FT.pdf>
+<s9n1.pdf, id=660, 614.295pt x 794.97pt>
+File: s9n1.pdf Graphic file (type pdf)
+ <use s9n1.pdf>
+<s9n1FT.pdf, id=662, 614.295pt x 794.97pt>
+File: s9n1FT.pdf Graphic file (type pdf)
+ <use s9n1FT.pdf>
+<s9rl.pdf, id=664, 614.295pt x 794.97pt>
+File: s9rl.pdf Graphic file (type pdf)
+ <use s9rl.pdf>
+<s9rlFT.pdf, id=666, 614.295pt x 794.97pt>
+File: s9rlFT.pdf Graphic file (type pdf)
+ <use s9rlFT.pdf>
+<s10ll.pdf, id=668, 614.295pt x 794.97pt>
+File: s10ll.pdf Graphic file (type pdf)
+ <use s10ll.pdf>
+<s10llFT.pdf, id=670, 614.295pt x 794.97pt>
+File: s10llFT.pdf Graphic file (type pdf)
+ <use s10llFT.pdf>
+<s11n2.pdf, id=672, 614.295pt x 794.97pt>
+File: s11n2.pdf Graphic file (type pdf)
+ <use s11n2.pdf>
+<s11n2FT.pdf, id=674, 614.295pt x 794.97pt>
+File: s11n2FT.pdf Graphic file (type pdf)
+ <use s11n2FT.pdf>
+<s11sx2.pdf, id=676, 614.295pt x 794.97pt>
+File: s11sx2.pdf Graphic file (type pdf)
+ <use s11sx2.pdf>
+<s11sx2FT.pdf, id=678, 614.295pt x 794.97pt>
+File: s11sx2FT.pdf Graphic file (type pdf)
+ <use s11sx2FT.pdf>
+<s12n1.pdf, id=680, 614.295pt x 794.97pt>
+File: s12n1.pdf Graphic file (type pdf)
+ <use s12n1.pdf>
+<s12n1FT.pdf, id=682, 614.295pt x 794.97pt>
+File: s12n1FT.pdf Graphic file (type pdf)
+ <use s12n1FT.pdf>
+<s12rl.pdf, id=684, 614.295pt x 794.97pt>
+File: s12rl.pdf Graphic file (type pdf)
+ <use s12rl.pdf>
+<s12rlFT.pdf, id=686, 614.295pt x 794.97pt>
+File: s12rlFT.pdf Graphic file (type pdf)
+ <use s12rlFT.pdf>
+No file gaitThesisV1.1.bbl.
+
+LaTeX Warning: Citation `Paiement' on page 36 undefined on input line 864.
+
+
+LaTeX Warning: Citation `Tao' on page 36 undefined on input line 864.
+
+
+LaTeX Warning: Reference `sec:intro' on page 36 undefined on input line 870.
+
+
+LaTeX Warning: Citation `Paiement' on page 36 undefined on input line 873.
+
+
+LaTeX Warning: Reference `fig:exsysData' on page 36 undefined on input line 873
+.
+
+[36] [37 <./s1.pdf> <./s1FT.pdf> <./s2.pdf> <./s2FT.pdf> <./s3.pdf> <./s3FT.pdf
+>] [38 <./s4.pdf> <./s4FT.pdf> <./s5.pdf> <./s5FT.pdf> <./s6.pdf> <./s6FT.pdf>]
+[39pdfTeX warning (ext4): destination with the same identifier (name{subfigure.
+21.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.874 
+      pdfTeX warning (ext4): destination with the same identifier (name{subfigu
+re.21.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.874 
+      pdfTeX warning (ext4): destination with the same identifier (name{subfigu
+re.21.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.874 
+      pdfTeX warning (ext4): destination with the same identifier (name{subfigu
+re.21.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.874 
+       <./s7.pdf> <./s7FT.pdf> <./s8.pdf> <./s8FT.pdf>] [40pdfTeX warning (ext4
+): destination with the same identifier (name{subfigure.20.7}) has been already
+ used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.874 
+      pdfTeX warning (ext4): destination with the same identifier (name{subfigu
+re.20.8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.874 
+       <./s9n1.pdf> <./s9n1FT.pdf> <./s9rl.pdf> <./s9rlFT.pdf>] [41 <./s10ll.pd
+f> <./s10llFT.pdf> <./s11n2.pdf> <./s11n2FT.pdf>] [42 <./s11sx2.pdf> <./s11sx2F
+T.pdf> <./s12n1.pdf> <./s12n1FT.pdf>]
+
+LaTeX Warning: Reference `fig:sysPipe' on page 43 undefined on input line 876.
+
+
+LaTeX Warning: Reference `sec:sofTools' on page 43 undefined on input line 876.
+
+
+
+LaTeX Warning: Citation `Tao' on page 43 undefined on input line 882.
+
+
+LaTeX Warning: Citation `Coifman2006' on page 43 undefined on input line 884.
+
+[43 <./s12rl.pdf> <./s12rlFT.pdf>] [44] (./gaitThesisV1.1.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 10975 strings out of 495061
+ 163690 string characters out of 1182622
+ 288166 words of memory out of 3000000
+ 13635 multiletter control sequences out of 15000+50000
+ 21504 words of font info for 118 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 44i,10n,47p,2221b,427s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmib10.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
+r9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on gaitThesisV1.1.pdf (44 pages, 7737147 bytes).
+PDF statistics:
+ 962 PDF objects out of 1000 (max. 8388607)
+ 158 named destinations out of 1000 (max. 500000)
+ 14314 words of extra memory for PDF output out of 14400 (max. 10000000)
+

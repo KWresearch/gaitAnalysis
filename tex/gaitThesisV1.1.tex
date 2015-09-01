@@ -560,14 +560,11 @@ Finally, we remove images from the beginning and end of sequences where the subj
 A common pre-processing step when working with CNNs is to subtract the mean image of the training data (i.e. the mean value of each pixel) from each image. This is supposed to speed up training for reasons detailed in~\cite{LeCun1998a,Bottou2010,LeCun2012}. After testing the accuracy of the network's trained on such mean subtracted data we found that this operation actually decreased the performance as shown in figure \ref{fig:meanSubComp}. However this test was only conducted on an ImageNet pre-trained AlexNet (see section\ref{sec:alexNet}) , we have not studied the effect when training from scratch.
 
 \begin{figure}
-\includegraphics*[width=0.9\linewidth,clip]{meanSubComp.png} %
+\includegraphics*[width=0.9\linewidth,clip]{meanSub.pdf} %
 \caption{The accuracy of network predictions was seen to decrease when using mean subtracted data, hence we abandon this common practise.}
 \label{fig:meanSubComp}
 \end{figure}
 
-\begin{figure}
-	\input{introduction} 
-\end{figure}
 
 \subsubsection{RGB Pre-processing}
 
@@ -576,7 +573,7 @@ For RGB images we applied the foreground masks retrieved from the corresponding 
 We measured the accuracy of an ImageNet pre-trained AlexNet (see section\ref{sec:alexNet}), which requires a 3 channelled input image, when using the RGB images only, the depth image replicated for each of the 3 channels only, and a combination of the two which consisted of 1 channel of the average of red and green, 1 channel of green and blue averaged and the depth in the final channel. As is shown in figure \ref{fig:rgbdcomp} the replicated depth was shown to produce the most accurate regression. All other results reported here use a pure depth input image. 
 
 \begin{figure}
-\includegraphics*[width=0.9\linewidth,clip]{rgb-dComp.png} %
+\includegraphics*[width=0.9\linewidth,clip]{rgbComp.pdf} %
 \caption{Network accuracy when using the RGB images only, the depth image replicated for each of the 3 channels only, and a combination of the two which consisted of 1 chanel of the average of red and green, 1 channel of green and blue averaged and the depth in the final channel. }
 \label{fig:rgbdcomp}
 \end{figure}
@@ -634,7 +631,7 @@ One advantage of using this architecture is that we can begin training from the 
 
 \begin{figure}
 \centering
-\includegraphics*[width=0.9\linewidth,clip]{AlexNetInitComploss.png} 
+\includegraphics*[width=0.9\linewidth,clip]{alexNetComp.pdf} 
 \caption{Shows a validation set loss for various pre-training schemes. We find that begining training from ImageNet pretrained weights throughout the network hinders performance. Using pre-trained weights only in the first two layers produced the best results. We use this strategy for our final tests. \label{fig:alexNetpre}}
 \end{figure}
 
