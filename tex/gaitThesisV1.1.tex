@@ -165,7 +165,7 @@ The data in the SPHERE staircase dataset was captured using a Asus Xtion Pro Liv
 
 \begin{figure}
 \centering
-\includegraphics*[width=0.45\linewidth,clip]{kinectMeasure}%
+\includegraphics*[width=0.45\linewidth,clip,trim={1.2cm 1cm 0.7cm 1.5cm}]{kinectMeasure}%
 \caption{The process by which depth is computed from triangulation of structured light. From \cite{Han2013}		\label{fig:kinectMeasure}}
 \end{figure}
 
@@ -182,11 +182,11 @@ Both Khoshelham~\&~Elberink~\cite{Khoshelham2012a} and Smisek~et~al.~\cite{Smise
 
 As well as noise the structured light sensors often return 'unknown' depth value pixels, known as holes, when the infrared receiver cannot read the reflected pattern properly. This can occur around the sides of foreground objects due to the slightly different viewing angles between the projector and camera as in regions 2~and~3 of figure~\ref{fig:kinectHoles4}, or when certain surface materials, such as human hair, interfere with the infrared pattern's reflection as in region~4 in figure~\ref{fig:kinectHoles3}. 
  \begin{figure}
-\includegraphics*[width=1\linewidth,clip]{kinectHoles4}
+\includegraphics*[width=1\linewidth,clip,trim={1cm 1.5cm 1cm 1cm}]{kinectHoles4}
 \caption{Shows the holes in structured light depth data due to the different perspectives of IR projector and senor (regions~1~and~3) and due to the surface of reflection being roughly~5m away and at a large angle(region~2) From~\cite{Feng2013}		\label{fig:kinectHoles4}  } 
 \end{figure}
  \begin{figure}
-\includegraphics*[width=1\linewidth,clip]{kinectHoles3}
+\includegraphics*[width=1\linewidth,clip,trim={1cm 1.5cm 1cm 1cm}]{kinectHoles3}
 \caption{Shows the holes in depth data due abnormal reflections from certain glossy surfaces like the TV monitor and the subjects hair.  From~\cite{Feng2013}			\label{fig:kinectHoles3}  } 
 \end{figure}
 
@@ -205,7 +205,7 @@ Monocular visual pose estimation methods (reviewed in \cite{Moeslund2006, Hen200
 
 With both of the above approaches there are significant issues posed by the high dimensionality of pose data. In model based approaches likelihood functions, which are usually multi-modal and non-Gaussian, require a randomised search~\cite{Sminchisescu2003}. Such searches in~20 dimensions are computationally expensive and often lead to super real time frame rates~\cite{Hen2009}. In model free approaches training data must account for the highly non-linear mapping between image and pose, which means that the pose space must be densely sampled in the training set. Densely sampling a 20 dimensional space, even just the parts that correspond to valid human motion, whilst also modelling all the invariant aspects such as body shapes, viewing angle etc requires an inordinate amount of data~\cite{Hen2009,Agarwal2006}.%Agarwal2006Recovering 3D human pose from monocular images
 
-Although the full pose space is very large and high dimensional it has been shown e.g. in \cite{Brand1999,Elgammal2004} that when considering only movements in a well defined activity such as walking, then the pose data can be well represented by a low dimensional latent manifold. In a work closely related to our own Elgammal et al. \cite{Elgammal2004} use a Local Linear Embedding method to generate a 1D manifold representation (embedded within a 3D space)$^{(FIGURE?)}$ of a walking motion from single sequences of silhouette images. They use a Generalised Radial Basis Function interpolation framework~\cite{Poggio1990} (a form of neural network) to learn two mappings, one from the manifold to the silhouette image space and another from the manifold to full 3D joint positions. They then invert these mappings to extract points on the manifold from silhouettes and 3D joint positions from the points on the manifold. In contrast, our work builds the manifold representation from 3D joint position data, this has the benefit of the manifold representation not being tied to subject's visual appearance. This allows it to generalise naturally to multiple subjects, which is not the case in~\cite{Elgammal2004} (although they do introduce an solution for this problem in~\cite{Elgammal2004b}). It is also unlikely that this method could be used to capture abnormality in gait since defining an image to manifold transformation explicitly from the inverse constrains all input images to the poses contained in the original data. Elgammal et al. argue that learning a smooth mapping from examples is an ill-posed problem unless the mapping is constrained since the mapping will be undefined in other parts of the space. We address this issue in section~\ref{sec:abnormals}.
+Although the full pose space is very large and high dimensional it has been shown e.g. in \cite{Brand1999,Elgammal2004} that when considering only movements in a well defined activity such as walking, then the pose data can be well represented by a low dimensional latent manifold. In a work closely related to our own Elgammal et al. \cite{Elgammal2004} use Local Linear Embedding (LLE), a dimensionality reduction method, to generate a 1D manifold representation (embedded within a 3D space)$^{(FIGURE?)}$ of a walking motion from single sequences of silhouette images. They use a Generalised Radial Basis Function interpolation framework~\cite{Poggio1990} (a form of neural network) to learn two mappings, one from the manifold to the silhouette image space and another from the manifold to full 3D joint positions. They then invert these mappings to extract points on the manifold from silhouettes and 3D joint positions from the points on the manifold. In contrast, our work builds the manifold representation from 3D joint position data, this has the benefit of the manifold representation not being tied to subject's visual appearance. This allows it to generalise naturally to multiple subjects, which is not the case in~\cite{Elgammal2004} (although they do introduce an solution for this problem in~\cite{Elgammal2004b}). It is also unlikely that this method could be used to capture abnormality in gait since defining an image to manifold transformation explicitly from the inverse constrains all input images to the poses contained in the original data. Elgammal et al. argue that learning a smooth mapping from examples is an ill-posed problem unless the mapping is constrained since the mapping will be undefined in other parts of the space. We address this issue in section~\ref{sec:abnormals}.
 
 Brand \cite{Brand1999}, also inferred 3D pose from silhouettes using an intermediate manifold representation. He uses a maximum a posteriori estimation for mapping between the image and manifold space. This uses information across the whole input sequence to find the most likely and consistent solutions in order resolve the ambiguities in the many to many silhouette to pose mapping. A solution of this form is unacceptable in our case as one of the key features of the SPHERE system is online measurement.
 
@@ -414,9 +414,9 @@ The set of data which is used in building the manifold determines its form. In t
 
 All results presented here after use the 2793 skeletons from the first 6 'normal' sequence subjects plus their horizontal flips to build the manifold, shown in figure \ref{fig:1-6manifoldWFlips}. The skeletons of the 31 sequences from the other 6 subjects (and their flips) are then projected onto the manifold (again, see \cite{Paiement} and~\cite{Tao} for details). Interestingly the flipped skeletons produce a manifold coordinate precisely equal to the non flipped version but with the first component negated. This suggests that each of the three components of the manifold are tied with the 3 regular spacial dimensions of the skeletons, although there is no guarantee of this with the Diffusion Maps method. 
 
-To illustrate the meaning of the manifold coordinates the skeletons placed at the 3 corners are shown in figure \ref{fig:skelToManifod}. Generally the normal gait sequences follow paths across the dense quarter sphere shaped surface with the frame of maximal left and right knee flex occurring at the maximum and minimum of first coordinate. The second dimension, plotted horizontally in figure \ref{fig:skelToManifod}, seems to measure the vertical distance between skeletons. The skeleton with raised knees occur near its minimal value and at its maximum we find elongated skeletons which are measured erroneously when subjects are very close to the camera but just survive the cut on skeleton disimilarity. During processing of the images we remove these images from the dataset which results in the removal of most of the points which lie at this end of the manifold, as shown in figure \ref{manifoldAfterImageProcessing}. 
+To illustrate the meaning of the manifold coordinates the skeletons placed at the 3 corners are shown in figure \ref{fig:skelToManifod}. Generally the normal gait sequences follow paths across the dense quarter sphere shaped surface with the frame of maximal left and right knee flex occurring at the maximum and minimum of first coordinate. The second dimension, plotted horizontally in figure \ref{fig:skelToManifod}, seems to measure the vertical distance between skeletons. The skeleton with raised knees occur near its minimal value and at its maximum we find elongated skeletons which are measured erroneously when subjects are very close to the camera but just survive the cut on skeleton dissimilarity. During processing of the images we remove these images from the dataset which results in the removal of most of the points which lie at this end of the manifold, as shown in figure \ref{manifoldAfterImageProcessing}. 
 
-The meaning of the 3rd manifold coordinate is less clear. Figure \ref{fig:skelsZcomp} compares skeletons of minimum and maximum values for points of equal Y[0], Y[1], we are able to find no discernible pattern. This is reflected by the CNN as we find it far less accurate in this coordinate than the others. However this coordinate is somewhat subject specific, as seen in figure \ref{fig:subjectsOnManifold}, with each subject found to traverse the quater-sphere surface with a Y[2] range smaller than that of the full manifold. We find that fine tuning our networks on additional sequences of the subject being tested improves results by 28\%. 
+The meaning of the 3rd manifold coordinate is less clear. Figure \ref{fig:skelsZcomp} compares skeletons of minimum and maximum values for points of equal Y[0], Y[1], we are able to find no discernible pattern. This is reflected by the CNN as we find it far less accurate in this coordinate than the others. However this coordinate is somewhat subject specific, as seen in figure \ref{fig:subjectsOnManifold}, with each subject found to traverse the manifold with a Y[2] range smaller than that of the full dataset. We find that fine tuning our networks on additional sequences of the subject being tested improves results by 28\%. 
 %exlain how here or leave till later?
 
 
@@ -637,14 +637,14 @@ One advantage of using this architecture is that we can begin training from the 
 
 We also experimented with other architectures including VGG-S~\cite{Simonyan2015} the 2014 ILSVRC 2nd place model which has been shown to generalise better to other tasks than any other architecture~\cite{Chatfield2014}. However this deep 19 layer network was far too memory intensive. It could only run on our 2GB GPU with a batch size of 1 which produced extremely noisy losses and would not converge. 
 
-We also experimented with various custom architectures including: all convolutional architectures which forego pooling layers, using convolutional layers with 2 pixel strides instead, with the idea that this would increase the networks spatial precision since max pooling layers discard precise spatial information. Simple 2 and 3 layer architectures, based on the idea that our data is all very similar in appearance and therefore does not require very high level features. Architectures with filters sized to match the filters we hoped them to extract e.g. initial layer filters were slightly wider than the edge effects in the image to avoid the noisy activations we see in figure \cite{fig:norm1}, 2nd layer filters were sized to match arm and leg widths and 3rd layer filters to match shoulders and head sizes etc. However, we found none of these architectures to improve accuracy over that of~\cite{Krizhevsky2012}. 
+We also experimented with various custom architectures including: all convolutional architectures which forego pooling layers, using convolutional layers with 2 pixel strides instead, with the idea that this would increase the networks spatial precision since max pooling layers discard precise spatial information. Simple 2 and 3 layer architectures, based on the idea that our data is all very similar in appearance and therefore does not require very high level features. Architectures with filters sized to match the features we hoped them to extract e.g. initial layer filters were slightly wider than the edge effects in the image to avoid the noisy activations we see in figure \cite{fig:norm1}, 2nd layer filters were sized to match arm and leg widths and 3rd layer filters to match shoulders and head sizes etc. However, we found none of these architectures to improve accuracy over that of~\cite{Krizhevsky2012}. 
 
 
 \subsubsection{Regression Vs. Classification}
 
-Whilst our task requires us to produce real valued continuous outputs, regression tasks are generally harder to optimise CNNs for than classification tasks~\cite{KarLects}. With a regression task we require one specific output from the network for each example. With a classification task, using a Softmax Loss, the exact output value is not important, only the relative values. Another problem with regression is the effect of outliers on training as we discussed with reference to~\cite{Belagiannis} in section~\ref{sec:HpeCnn}. An additional benefit of classification is that you get a distribution over the outputs which gives an indication of confidence not possible with pure regression. 
+Regression tasks are generally harder to optimise CNNs for than classification tasks~\cite{KarLects}. With a regression task we require one specific output from the network for each example. With a classification task, using a Softmax Loss, the exact output value is not important, only the relative values. Another problem with regression is the effect of outliers on training as we discussed with reference to~\cite{Belagiannis} in section~\ref{sec:HpeCnn}. An additional benefit of classification is that you get a distribution over the outputs which gives an indication of confidence not possible with pure regression. 
 
-To this end we experimented with posing our problem as a classification task by binning each component of the pose vectors into a class. We experimented with a range of numbers of classes. Figure~\ref{fig:classesRes} plots the predicted pose vectors after being converted back to the mid value of the predicted class, as well as the L2 norm between this value and the labels (note this was not the loss used in training the network, but is calculated afterwards for a measure of accuracy). We find that 51 classes produces mean loss of 0.60 and 500 classes a mean loss of 0.71. Our final regression network outperforms both of these with a loss of 0.13, this result is displayed in figure \ref{fig:s12n1}. These results suggest that this approach is far less suitable than pure regression.
+To this end we experimented with posing our problem as a classification task by binning each component of the pose vectors into a class. We experimented with a range of numbers of classes. Figure~\ref{fig:classesRes} plots the predicted pose vectors after being converted back to the mid value of the predicted class, as well as the L2 norm between this value and the labels (note this was not the loss used in training the network, but is calculated afterwards for a measure of accuracy). We find that 51 classes produces mean loss of 0.60 and 500 classes a mean loss of 0.71. Our final regression network outperforms both of these with a loss of 0.13, this result is displayed in figure \ref{fig:s12n1}. These results suggest that this approach is far less suitable than pure regression. 
 
 \begin{figure}
 \centering
@@ -659,24 +659,51 @@ To this end we experimented with posing our problem as a classification task by 
 
 Inspired by the results of Li and Chan~\cite{Li2014} who found that regression accuracy was improved by joint training with a joint detection task; we also attempted joint training of classification and regression tasks in various forms.  These included: performing the classification off of early layers in an attempt to force gradient terms to the lower layers. A sub-net which classified the first component and shared features with the regression network. Both shared and separate fully connected sections for regression and classification. However, across all these studies we found no improvement in accuracy over pure regression. We also found that the more complicated the architectures were prone to diverging during training. 
 
-
-
-\section{Results}
-
 \subsection{Training Details}
 
 
 Following skeleton selection and depth pre-processing we are left with 6228 distinct examples, plus their horizontal flips. So as to best utilise our data we train 6 networks with pairs of adjacent subjects withheld for testing in each i.e. 1 and 2, 3 and 4, 5 and 6. 
 
-Each of these networks was trained for 50000 iterations each with a batch size of 25 examples. Additionally we present subject fine tuned results where each of these trained networks is further trained for 10 epochs (10 times through the training data) on the remaining non-test sequences of that  same subject. We find that this reduces the total mean loss from 0.1565 to 0.1129.
+Each of these networks was trained for 50000 iterations with a batch size of 25 examples. We observed no overfitting effects however results do stop improving quite quickly after the initial 10000 iterations as seen in figure \ref{fig:alexNetpre}.
 
-In both cases we use the adaptive learning rate method AdaGrad~\cite{Duchi2011} which scales the learning rate for each parameter based off the size of its previous updates. We found in practise that this method achieved a lower loss than manually tuned learning rate algorithms SGD+momentum and Nesterov's accelerated gradient. We also apply a weight decay of 0.005.  
+Additionally we present subject fine tuned results where each of these trained networks is further trained for 10 epochs (10 times through the training data) on the remaining non-test sequences of that same subject. We found that overfitting did occur for these small training sets, and that the optimum results required tailoring to the size of the training set rather than a fixed number of iterations.
+
+In both cases we use the adaptive learning rate method AdaGrad~\cite{Duchi2011} which scales the learning rate for each parameter based off the size of its previous updates. We found in practise that this method achieved a lower loss than manually tuned learning rate algorithms SGD+momentum and Nesterov's accelerated gradient. We also apply a weight decay of 0.005. We found that altering this had no effect on the accuracy of the network. We choose to keep it at this commonly used value.
 
 For each subject we present results for their longest sequence since longer sequences make the SPHERE software's gait cycle time analysis more accurate. In the case of subjects 9, 11, and 12 we test one normal and one abnormal sequence taking the longest one of each. 
 
-For the first 6 subjects we present only accuracy data, shown in figure \ref{fig:s1-7}, since these sequences are used by the SPHERE software to build the normality model.
+\section{Results}
 
-For subjects 7-12 we present both accuracy data and pose and dynamics quality scores. These quality scores were computed for us by the authors of~\cite{Paiement}. 
+
+We measure the accuracy by the same loss used to train the network i.e. the distance (L2 norm) between the predicted pose vectors, always shown in blue, and the ground truth labels shown in red. 
+
+For the first 6 subjects we present only accuracy data, shown in figure \ref{fig:s1-6}, since these sequences are used by the SPHERE software to build the normality model.
+
+For subjects 7-12 we present both accuracy data and pose and dynamics quality scores, shown in figure \ref{fig:s7-12}. These quality scores were computed for us by the authors of~\cite{Paiement} using the same methods and models (trained from the skeleton data) of that work. 
+
+Across all tested sequences we find an average error of 0.1565 for the non subject fine tuned models which is reduced to 0.1129 after fine tuning. It is difficult to accurately assess the precision of the network as the ground truth skeleton data is inaccurate itself. For example the frames of largest loss...
+
+
+The pose quality is an estimate of the likelihood of a instantaneous pose vector being a normal pose, given those normal poses used to train the model. For all sequences normal, and abnormal the pose quality is generally expected to remain roughly within normal limits since the abnormality of these sequences is in the dynamics e.g. freezing of gait rather than in the pose. 
+
+Generally the lower the loss is, the better the pose quality tracks that of the lables. There are however some poses 
+
+For the movement quality score, each sequence is separated into gait cycles and each frame is assigned a coordinate equal to its position in the estimated cycle. A statistical model of normal dynamics provides an estimate of the likelihood of the measured pose given its stage in the movement cycle. This likelihood is displayed on a heat map in figure \ref{fig:qualityHeatMap} as a function of movement stage for each of the manifold coordinates. In some areas, such as around $Y[0]=-1,X=0.3$  the likelihood can fall sharply with $Y[0]$  
+
+ is estimated  is an estimate of the
+
+qualityS9n1Fig2.pdf
+
+\begin{figure}
+\centering
+\subfloat[mean loss~=~0.1207, std~=~0.1604.\label{fig:s1} ]{{
+\includegraphics*[width=0.53\linewidth,trim={0cm 7.5cm 0cm 6.7cm},clip]{quality_s9n1_FT_labels.pdf}}}%
+\qquad
+\subfloat[mean loss~=~0.1227 std~=~0.1497.	\label{fig:s1FT} ]{{
+\includegraphics*[width=0.39\linewidth,trim={2.5cm 6.5cm 3cm 6.7cm},clip]{qualityS9n1Fig2.pdf} }}%
+\caption{Shows an example of movement quality analysis }
+\label{fig:qualityHeatMap}
+\end{figure}
 
 \begin{figure}
 \centering
@@ -727,7 +754,7 @@ For subjects 7-12 we present both accuracy data and pose and dynamics quality sc
 \subfloat[mean loss~=~0.0873 std~=~0.0970.	\label{fig:s6FT} ]{{%done
 \includegraphics*[width=0.45\linewidth,trim={1.3cm 6.5cm 2.3cm 6.7cm},clip]{s6FT.pdf} }}%
 \caption{Accuracy results for subjects 1-6. }
-\label{fig:s1-7}
+\label{fig:s1-6}
 \end{figure}
 
 
@@ -815,11 +842,27 @@ For subjects 7-12 we present both accuracy data and pose and dynamics quality sc
 \subfloat[mean loss~=~0.1097 std~=~0.1040	\label{fig:s12rlFT} ]{{%done
 \includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12rlFT.pdf} }}%
 \caption{Accuracy and quality results for subjects 7-12. }
+\label{fig:s7-12}
 \end{figure}
 
-many of the largest losses occur at the begining of the sequence, does this match with the skeleton disimilarity plots?
 
 
+
+
+\subsection{Failure cases}
+
+
+
+\begin{figure}
+\centering
+%s12rl
+\subfloat[mean loss~=~0.1611, std~=~0.1334.\label{fig:s12rl} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12rl.pdf} }}%
+\qquad%FT
+\subfloat[mean loss~=~0.1097 std~=~0.1040	\label{fig:s12rlFT} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12rlFT.pdf} }}%
+\caption{Accuracy and quality results for subjects 7-12. }
+\end{figure}
 
 
 
