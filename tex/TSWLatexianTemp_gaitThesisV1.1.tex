@@ -662,37 +662,50 @@ Inspired by the results of Li and Chan~\cite{Li2014} who found that regression a
 \subsection{Training Details}
 
 
-Following skeleton selection and depth pre-processing we are left with 6228 distinct examples, plus their horizontal flips. So as to best utilise our data we train 6 networks with pairs of adjacent subjects withheld for testing in each i.e. 1 and 2, 3 and 4, 5 and 6. 
+Following skeleton selection and depth pre-processing we are left with 6228 distinct examples, plus their horizontal flips. So as to best utilise our data we cross validate training 6 networks with pairs of adjacent subjects withheld for testing in each i.e. 1 and 2, 3 and 4, 5 and 6 etc. 
 
-Each of these networks was trained for 50000 iterations with a batch size of 25 examples. We observed no overfitting effects however results do stop improving quite quickly after the initial 10000 iterations as seen in figure \ref{fig:alexNetpre}.
+Each of these networks was trained for 50000 iterations with a batch size of 25 examples on a GTX 750 GPU taking almost 7 hours each. We observed no overfitting effects even after 700000 iterations. However results did not improve beyond 50000 iterations. The batch size was dictated by the 2GB memory limit of the GPU however it seemed reasonably suitable with only a small amount of noise in the loss curves as seen in figure \ref{fig:alexNetpre}.
 
-Additionally we present subject fine tuned results where each of these trained networks is further trained for 10 epochs (10 times through the training data) on the remaining non-test sequences of that same subject. We found that overfitting did occur for these small training sets, and that the optimum results required tailoring to the size of the training set rather than a fixed number of iterations.
+Additionally we present subject fine tuned results where each of these trained networks is further trained for 10 epochs (10 times through the training data) on the remaining non-test sequences of that same subject. We found that overfitting did occur for these small training sets. The optimum results required tailoring to the size of the training set rather than a fixed number of iterations. 
 
-In both cases we use the adaptive learning rate method AdaGrad~\cite{Duchi2011} which scales the learning rate for each parameter based off the size of its previous updates. We found in practise that this method achieved a lower loss than manually tuned learning rate algorithms SGD+momentum and Nesterov's accelerated gradient. We also apply a weight decay of 0.005. We found that altering this had no effect on the accuracy of the network. We choose to keep it at this commonly used value.
+In both cases we use the adaptive learning rate method AdaGrad~\cite{Duchi2011} which scales the learning rate for each parameter based off the size of its previous updates. We found in practise that this method achieved a roughly equal loss to that of stochastic gradient descent with momentum and to Nesterov's accelerated gradient method. AdaGrad has the benefit of removing the need to tune for hyper parameters such as the learning rate and momentum. We also apply a weight decay of 0.005. We found that altering this had a negligible effect on the accuracy of the network so choose to keep it at this commonly used value.
 
 For each subject we present results for their longest sequence since longer sequences make the SPHERE software's gait cycle time analysis more accurate. In the case of subjects 9, 11, and 12 we test one normal and one abnormal sequence taking the longest one of each. 
 
 \section{Results}
 
 
-We measure the network's accuracy by the same loss used to train the network i.e. the distance (L2 norm) between the predicted pose vectors and the ground truth. 
+We measure the accuracy by the same loss used to train the network i.e. the distance (L2 norm) between the predicted pose vectors, always shown in blue, and the ground truth labels shown in red. 
 
 For the first 6 subjects we present only accuracy data, shown in figure \ref{fig:s1-6}, since these sequences are used by the SPHERE software to build the normality model.
 
 For subjects 7-12 we present both accuracy data and pose and dynamics quality scores, shown in figure \ref{fig:s7-12}. These quality scores were computed for us by the authors of~\cite{Paiement} using the same methods and models (trained from the skeleton data) of that work. 
 
-Across all tested sequences we find an average error of 0.1565 for the non subject fine tuned models which is reduced to 0.1129 after fine tuning. It is difficult to accurately assess the precision of the network as the ground truth skeleton data is inaccurate itself. For example the frames of largest loss...
 
+\subsection{Fine Tuning}
+
+Across all tested sequences we find an average error of 0.1565 for the non subject fine tuned models which is reduced to 0.1129 after fine tuning. For 13 of the 15 tested sequences fine tuning improved the mean error. For two sequences: Subject1\_Normal1 and Subject8\_StopX2 the error increased.
+
+
+However It is difficult to assess wether this really reflects the precision of the network as the ground truth skeleton data is inaccurate itself.
+
+For e
+
+ For example the frames of largest loss...
 
 The pose quality is an estimate of the likelihood of a instantaneous pose vector being a normal pose, given those normal poses used to train the model. For all sequences normal, and abnormal the pose quality is generally expected to remain roughly within normal limits since the abnormality of these sequences is in the dynamics e.g. freezing of gait rather than in the pose. 
 
-Generally the lower the loss is, the better the pose quality tracks that of the lables. There are however some poses 
+Generally the lower the loss is, the better the pose quality tracks that of the labels. There are however some poses 
 
 For the movement quality score, each sequence is separated into gait cycles and each frame is assigned a coordinate equal to its position in the estimated cycle. A statistical model of normal dynamics provides an estimate of the likelihood of the measured pose given its stage in the movement cycle. This likelihood is displayed on a heat map in figure \ref{fig:qualityHeatMap} as a function of movement stage for each of the manifold coordinates. In some areas, such as around $Y[0]=-1,X=0.3$  the likelihood can fall sharply with $Y[0]$  
 
  is estimated  is an estimate of the
 
 qualityS9n1Fig2.pdf
+
+
+Analysis of time 
+
 
 \begin{figure}
 \centering
