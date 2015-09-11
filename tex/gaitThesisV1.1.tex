@@ -219,7 +219,20 @@ Rosales et al \cite{Rosales2000,Rosales2001} used 3D joint position data from a 
 
 Challenging aspects of RGB HPE such as the variability in human appearance and scene lighting were greatly simplified with the advent of low cost commodity depth sensors. RGB-D also provides richer data for inferring 3D structure; human poses which could appear identical when projected onto the 2D image plane can be distinguished. Full body HPE methods from single depth images are reviewed in \cite{Helten2013}. With the Kinect/Xtion sensor and software packages (Kinect SDK or alternatively the open source OpenNI) low cost, flexible and reasonably accurate HPE is now available and has been employed in a huge variety of scientific applications~\cite{Han2013,Giovanni}.
 
-The Kinect SDK and OpenNI skeleton trackers apply some inter-frame tracking algorithms to the single frame pose measurements of~\cite{Shotton2011}. In this work Shotton et al. leveraged a large mocap 3D joint position dataset which they re-targetted onto a variety of synthetic body models before rendering as if captured from a Kinect, simulating sensor noise, camera pose, and crop position. Producing synthetic depth images data is far simpler than in RGB since depth is far more invariant to subject clothing and appearance changes. Using these generated depth images and a ground truth labelling of each pixel as one of 31 body parts they trained a randomised regression forrest to perform this body part classification at each pixel using simple and computationally efficient pixel wise features. They then use these classifications to infer actual joint position through a simple averaging and mean shift procedure. The whole algorithm operates in real time on the computational resources allowed to them on the Xbox gaming consoles GPU. \cite{Shotton2013a} adapts this work by allowing pixel classifications of a number of surrounding joints to be used when estimating the joint position, rather than the single corresponding body part pixels as in~\cite{Shotton2011}. This is shown to improve the quality of the prediction for occluded joints. A similar use of mocap joint position data for rendering synthetic images from multiple views is suggested as an ideal way for increasing the view angle and subject invariance of our system.
+The Kinect SDK and OpenNI skeleton trackers apply some inter-frame tracking algorithms to the single frame pose measurements of~\cite{Shotton2011}. In this work Shotton et al. leveraged a large mocap 3D joint position dataset which they re-targetted onto a variety of synthetic body models before rendering as if captured from a Kinect, simulating sensor noise, camera pose, and crop position. Producing synthetic depth images data is far simpler than in RGB since depth is far more invariant to subject clothing and appearance changes. Using these generated depth images and a ground truth labelling of each pixel as one of 31 body parts they trained a randomised regression forrest to perform this body part classification at each pixel using simple and computationally efficient pixel wise depth comparison features 
+\begin{equation}
+f(\boldsymbol{u} \mid \boldsymbol{\phi}) = z(\boldsymbol{u}+\frac{\boldsymbol{\delta}_1}{z(\boldsymbol{u})})-z(\boldsymbol{u}+\frac{\boldsymbol{\delta}_2}{z(\boldsymbol{u})})
+\label{eq:dcf}
+\end{equation}
+where $\boldsymbol{u}$ is a pixel location, $\boldsymbol{\phi}$ is two randomly generated 2D offsets $\boldsymbol{\delta}_1$, $\boldsymbol{\delta}_2$ , $z(x,y)$ is a function which returns the depth the input location. An example of these features are shown in figure \ref{fig:dcf}.
+
+\begin{figure}
+\centering
+\includegraphics*[width=0.6\linewidth,clip]{kinectFeature}
+\caption{An example the depth comparison features from equation \ref{eq:dcf} used in \cite{Shotton2011} to perform per pixel body part classification. The yellow crosses indicate the image pixel $\boldsymbol{u}$ being classified. The red circles indicate the offset pixels as defined in equation \ref{eq:dcf}. They use random forrests which combine many such features to give a strong discriminative signal. From~\cite{Shotton2011} \label{fig:dcf}  } 
+\end{figure}
+
+They then use these classifications to infer actual joint position through a simple averaging and mean shift procedure. The whole algorithm operates in real time on the computational resources allowed to them on the Xbox gaming consoles GPU. \cite{Shotton2013a} adapts this work by allowing pixel classifications of a number of surrounding joints to be used when estimating the joint position, rather than the single corresponding body part pixels as in~\cite{Shotton2011}. This is shown to improve the quality of the prediction for occluded joints. A similar use of mocap joint position data for rendering synthetic images from multiple views is suggested as an ideal way for increasing the view angle and subject invariance of our system.
 
 Another discriminative method is \cite{Plagemann2010} where they find geodesic extrema (which are expected to correspond to the feet, hands and head) from Dijkstra’s algorithm on a graph produced by connecting all depth pixels in the image into a map. These points are identified (as hands feet or head) by applying local shape descriptors around the area. 
 
@@ -295,7 +308,9 @@ Recently Belagiannis et al.~\cite{Belagiannis} showed that convergence times and
 \subsection{Data Preprocessing}
 \label{sec:preprocessing}
 
-The dataset used in this project (SPHERE-staircase2014~dataset~\cite{Paiement}) includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position. It contains three types of abnormal gaits with lower-extremity musculoskeletal conditions, including freezing of gait and using a leading leg, left or right, in going up the stairs. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking. The dataset contains a reasonable variation in body shape and appearance as can be seen in figure \ref{fig:subjects}.
+The dataset used in this project (SPHERE-staircase2014~dataset~\cite{Paiement}) includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position.
+
+It contains three types of abnormal gaits typical of lower-extremity musculoskeletal conditions. These include: freezing of gait refered to as stop $\times n$ where $n$ is the number of freezes. Using a leading leg, left or right, in going up the stairs, refered to as LL and RL. All frames have been manually labelled as normal or abnormal by a qualified physiotherapist. There are 17 sequences of normal walking from 6 individuals and 31 sequences from the remaining 6 subjects with both normal and abnormal walking. The dataset contains a reasonable variation in body shape and appearance as can be seen in figure \ref{fig:subjects}.
 
 
 
@@ -403,6 +418,7 @@ The dataset used in this project (SPHERE-staircase2014~dataset~\cite{Paiement}) 
 Each example consists of the RGB image, the depth image and 3D joint position / skeleton data. Preprocessing is applied to each of these separately.
 
 \subsubsection{Skeleton Preprocessing}
+\label{sec:skelPreproc}
 
 These processes were developed by the authors of~\cite{Paiement} and are a pre-requisite for the manifold learning stage of that work and this. First the Skeleton data is smoothed over time to reduce the large amount of noise. Each skeleton is scaled to the same height, rotated to face forwards and translated to the origin. Each skeleton is compared with a neutral reference pose;  a dissimilarity measure is computed  using the sum of squared distances between corresponding joints, standardised by a measure of the scale of the reference shape. Any frames where this dissimilarity is greater than 0.1 are discarded. These are generally frames from the beginning and end of sequences, where the subject is outside the sensors optimum range, and any particularly noisy periods in the middle. 
 
@@ -675,52 +691,12 @@ For each subject we present results for their longest sequence since longer sequ
 \section{Results}
 
 
-We measure the accuracy by the same loss used to train the network i.e. the distance (L2 norm) between the predicted pose vectors, always shown in blue, and the ground truth labels shown in red. 
+We measure the accuracy/error by the same loss function used to train the network i.e. the distance (L2 norm) between the predicted pose vectors, always shown in blue, and the ground truth labels shown in red. Across all tested sequences we find an average error of 0.1565 for the non subject fine tuned models which is reduced to 0.1129 after fine tuning. 
+
 
 For the first 6 subjects we present only accuracy data, shown in figure \ref{fig:s1-6}, since these sequences are used by the SPHERE software to build the normality model.
 
 For subjects 7-12 we present both accuracy data and pose and dynamics quality scores, shown in figure \ref{fig:s7-12}. These quality scores were computed for us by the authors of~\cite{Paiement} using the same methods and models (trained from the skeleton data) of that work. 
-
-
-\subsection{Fine Tuning}
-
-Across all tested sequences we find an average error of 0.1565 for the non subject fine tuned models which is reduced to 0.1129 after fine tuning. For 13 of the 15 tested sequences fine tuning improved the mean error. For two sequences: Subject1\_Normal1 and Subject8\_StopX2 the error increased.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Movement Quality}
-
-The pose quality is an estimate of the likelihood of a instantaneous pose vector being a normal pose, given those normal poses used to train the model. For all sequences normal, and abnormal the pose quality is generally expected to remain roughly within normal limits since the abnormality of these sequences is in the dynamics e.g. freezing of gait rather than in the pose. 
-
-Generally the lower the loss is, the better the pose quality tracks that of the labels. There are however some poses 
-
-For the movement quality score, each sequence is separated into gait cycles and each frame is assigned a coordinate equal to its position in the estimated cycle. A statistical model of normal dynamics provides an estimate of the likelihood of the measured pose given its stage in the movement cycle. This likelihood is displayed on a heat map in figure \ref{fig:qualityHeatMap} as a function of movement stage for each of the manifold coordinates. In some areas, such as around $Y[0]=-1,X=0.3$  the likelihood can fall sharply with $Y[0]$  
-
-
-\begin{figure}
-\centering
-\subfloat[mean loss~=~0.1207, std~=~0.1604.\label{fig:s1} ]{{
-\includegraphics*[width=0.53\linewidth,trim={0cm 7.5cm 0cm 6.7cm},clip]{quality_s9n1_FT_labels.pdf}}}%
-\qquad
-\subfloat[mean loss~=~0.1227 std~=~0.1497.	\label{fig:s1FT} ]{{
-\includegraphics*[width=0.39\linewidth,trim={2.5cm 6.5cm 3cm 6.7cm},clip]{qualityS9n1Fig2.pdf} }}%
-\caption{Shows an example of movement quality analysis }
-\label{fig:qualityHeatMap}
-\end{figure}
-
-Analysis of time 
 
 
 
@@ -869,20 +845,197 @@ Analysis of time
 
 
 
-\subsection{Failure cases}
+\subsection{Fine Tuning}
+\label{sec:finetuning}
+For 13 of the 15 tested sequences fine tuning reduced the mean error. 
+
+
+The greatest decrease was seen in that of subject 2 (figures \ref{fig:s2} and \ref{fig:s2FT}) with the error decreasing by 0.1579. In the non fine tuned case the predicted $Y[2]$ component appears to follow the form of the labels but with a slight offset producing a large and consistent error across the sequence. Looking at plots of the label data for these sequences in figure \ref{fig:ftS2} we see that the tested sequence Normal3 contains the minimum $Y[2]$ points in the whole training set. This explains why the network was not able to measure this low $Y[2]$, since it has not been trained with any points with these values of $Y[2]$. The other subject 2 sequences used for fine tuning also have paths below the mean $Y[2]$ of the rest of the training data which explains why the fine tuning helps to reduce the predicted $Y[2]$.
+
+This same explanation also seems to apply to the second most effective fine tuning results, shown in \ref{fig:ftS6}; that of subject 6 for which the error was reduced by 0.1079.
+
+These results suggest that with a more even spread of training data we could expect improved accuracy, with or without fine tuning.
+
+\begin{figure}
+\centering
+\subfloat[Subject 2. Fine tuning on Normal 1 and 2 produced a decrease in error of 0.1579 in 3.\label{fig:ftS2} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 6cm 2.3cm 7.2cm},clip]{finetuning_s2.pdf}}}%
+\qquad%FT
+\subfloat[Subject 6. Fine tuning on Normal 1 and 2 produced a decrease in error of 0.1079 in 3.	\label{fig:ftS6} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={2cm 6.9cm 2.8cm 7.2cm},clip]{finetuning_s6.pdf} }}%
+\caption{Shows a plot of the skeleton/label data for each sequence of the subjects in which fine tuning produced the greatest decrease in the error of the network's predictions. }
+\end{figure}
+
+For two sequences: Subject1\_Normal1 and Subject8\_StopX2 the error increased after fine tuning.
+
+For subject 8 (figures \ref{fig:s2} and \ref{fig:s2FT}) fine tuning produced a decrease in the predicted $Y[2]$ and an increase in $Y[0]$ particularly for the first frozen pose (the tested sequence was a Stop x2). Both these changes took the predictions away from the ground truth, increasing the error. Looking at a plot of the training/label data, shown in figure \ref{fig:ftS8} it seems the spread in $Y[2]$ for this subject was larger than for most other subjects. However the accuracy both before an after fine tuning was well below the mean of the rest of the data.
+
+In the case of subject 1 its seems the error is actually coming from a miss-measured skeleton in the label data meaning improved network accuracy actually increases the measured error. The results plots (figures \ref{fig:s1} and \ref{fig:s1FT}) show that the label data, particularly the $Y[0]$ component, changes sharply at the points of greatest error. Figure \ref{fig:ftS1_257skelAndIm} shows the image and labelled skeleton for frame 257 of this sequence which is the position of the second peak in the loss graph. We see that the Kinect's algorithm has been confused by the occlusion of the left leg causing it to measure the left foot in front of the right which we see from the depth image is not the case. The network is not fooled by this occlusion, predicting a point near the maximum $Y[0]$, the skeleton nearest to this point shows the right foot correctly in front of the left. This was also the case around 213 and 303 where we have other peak in loss. 
+
+\begin{figure}
+\centering
+%s12rl
+\includegraphics*[width=0.65\linewidth,trim={0.5cm 7.5cm 2.3cm 8.2cm},clip]{finetuning_s8.pdf} 
+\caption{Shows a 3D plot of the skeleton data for Subject 8. Fine tuning on Normal 1 and 2 produced an increase in error of 0.0338 in the Stop x2 sequence.}
+\label{fig:ftS8}
+\end{figure}
+
+\begin{figure}
+\centering
+\subfloat[Labelled skeleton.\label{fig:ftS1_257Skel} ]{{
+\includegraphics*[width=0.34\linewidth,trim={3.5cm 7.5cm 3.5cm 9.7cm},clip]{s1_frame257Skel.pdf}}}%
+\qquad%FT
+\subfloat[Depth image.	\label{fig:ftS1_257} ]{{%done
+\includegraphics*[width=0.12\linewidth,trim={6.5cm 2.5cm 6.5cm 0.7cm},clip]{s1n1_frame257.png} }}%
+\qquad%FT
+\subfloat[Skeleton nearest to network's prediction.	\label{fig:ftS1_257} ]{{%done
+\includegraphics*[width=0.34\linewidth,trim={3.5cm 7.5cm 3.5cm 9.7cm},clip]{s1_frame257Pred.pdf} }}%
+\caption{Shows the image label and prediction for frame 257 of subject 1 normal 1. The results (figure \ref{fig:s1FT}) showed a large error at this frame. However we see that the Kinect skeleton has been confused by the occlusion of the left leg causing the skeleton to think that the left foot is in front of the right which we see from the depth image is not the case. The network is not fooled by this occlusion, predicting a point near the maximum $Y[0]$, the skeleton nearest to this point shows the right foot correctly in front of the left.}
+\label{fig:ftS1_257skelAndIm}
+\end{figure}
+
+
+\subsection{Network Errors Vs. Label Errors Vs. Image Errors}
+
+Erroneous skeletons in the labels for tested data are common. The largest losses across all the tested data occur at the beginning of sequences Subject2\_Normal3 (results figure \ref{fig:s2}, skeleton example figure \ref{fig:badSkel1}), Subject3\_Normal1 (results figure \ref{fig:s3}, skeleton example figure \ref{fig:badSkel2}), Subject7\_RL (results figure \ref{fig:s7}, skeleton example figure \ref{fig:badSkel3}) and Subject10\_LL (results figure \ref{fig:s10}, skeleton example figure \ref{fig:badSkel4}). As mentioned in section \ref{sec:skelPreproc} skeleton data which is too dissimilar from a skeleton with neutral pose are discarded, which typically removes the frames at the beginning and end of the sequence where the subject is out of the optimum range of the sensor. However this cut can not be too stringent without excluding potential valid but abnormal poses from the data. Also poses that are well within this cut, but still far from the true pose are not excluded. 
+
+The examples displayed in \ref{fig:badSkel1}, \ref{fig:badSkel2} and \ref{fig:badSkel4} prove that the network can be accurate at distances greater than the Kinect algorithm, provided that the pose in the image is similar to some in the rest of the training data which do have accurate skeletons. This could be due to the difference in methods of the Kinect Skeleton algorithm~\cite{Shotton2012} and the network. We believe that the depth comparison features (presented in equation \ref{eq:dcf} and figure \ref{fig:dcf}) used for pixel body part classification in that work are are sensitive to range from the sensor. At increased range the values of these features must change since the width of body parts in pixels will be smaller producing different values for the same body location at different ranges. Additionally, at longer range there will be fewer body pixels meaning that the statistics become noisier and any errors have a larger effect on the final joint position estimation. This would seem to make their trained random forests become inaccurate with range.  Although this is not discussed in their work. In contrast our method scales the subject's body to a fixed size. At increased ranges we merely have less information due to the reduction in depth precision at longer ranges and due to pixelation on upscaling. These effects will likely cause a loss in precision, put poses should still be reasonably accurate provided there are similar poses represented in the training data.
+
+
+\begin{figure}
+\centering
+\subfloat[Subject 2 Normal 3 frame 117 loss = 1.13. Labelled skeleton has legs at a similiar depth, network's prediction has right leg far in front of left.\label{fig:badSkel1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{badSkels1.pdf}}}%
+\qquad%FT
+\subfloat[Subject 3 Normal 1 frame 162 loss = 1.30. Labelled skeleton has right leg in front of left, network measures the opposite which is correct.\label{fig:badSkel2} ]{{
+\includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{badSkels2.pdf}}}%
+\qquad%FT
+\subfloat[Subject 7 RL frame 75 loss = 0.97. Labelled skeleton is not accurate. The network also fails since this is a strange pose where the subject appears to be turning on to the stairs. Since there are few examples of poses of this kind in the training data, and the ones that are have bad skeletons we can not expect better performance. \label{fig:badSkel3} ]{{
+\includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{badSkels3.pdf}}}%
+\qquad%FT
+\subfloat[Subject 10 LL frame 165 loss = 2.63. Labelled skeleton legs crossed over right above left, network measures left leg forward correctly.\label{fig:badSkel3} ]{{
+\includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{badSkels4.pdf}}}%
+\caption{Out of range skeleton errors: shows labelled skeletons in red and the skeletons nearest to the network's predicted pose vector in blue for each of the images. These are some of the tested images which produced the greatest errors, occuring at the begining of sequences where the subject is outside of the Kinects optimum range. We find that these errors can be attributed to poor ground truth with the network able to produce a more accurate measure provided that similar poses with correct labels do exist in the training data. }
+\label{fig:badSkels}
+\end{figure}
+
+Whilst these erroneous skeletons are particularly common at the beginning of sequences they can also occur mid sequence when the Kinect algorithm is fooled by a challenging pose/image, particularly occlusions. This is the case in the Subject1\_Normal1 sequence as discussed in section \ref{sec:finetuning} with an example shown in figure \ref{fig:ftS1_257skelAndIm}. Other examples are displayed figure \ref{fig:skelErrs}.
+
+\begin{figure}
+\centering
+\subfloat[Subject 2 Normal 3 frame 275. Loss = 0.5178. The skeleton of this frame is determined to be inaccurate since relative leg positions disagree considerably with the depth image. \label{fig:skelErr1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{skelErr_s2n3_275_loss0-5178}}}
+\qquad%FT
+\subfloat[Subject 4 Normal 1 frame 205. Loss = 0.5738. The skeleton of this frame is determined to be inaccurate since there is a clear error in the left foot position being measured at the same position as the right due to occlusion. \label{fig:skelErr2} ]{{
+\includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{skelErr_s4n1_205_loss0-5738.pdf}}}%
+\caption{Skeleton errors: shows labelled skeletons and corresponding pose vector in circled in red and the network's prediction in blue. }
+\label{fig:skelErrs}
+\end{figure}
+
+
+There are also frames with large error where the skeletons do appear accurate. Some examples of these are shown in figure \ref{fig:netErrs}.
+
+\begin{figure}
+\centering
+\subfloat[Subject 2\_Normal3 frame 143. Loss = 0.4268. The cause of errors in this sequence is discussed in section \ref{sec:finetuning}. \label{fig:netErr1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{netErr_s2n3_143_loss0-4268.pdf}}}
+\qquad%FT
+\subfloat[label{fig:badIm2} ]{{
+\includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{netErr_s12RL_244.pdf}}}%
+\caption{Network Errors: shows labelled skeletons in red and the skeletons nearest to the network's predicted pose vector in blue for each of the images. }
+\label{fig:netErrs}
+\end{figure}
+
+
+Another, rarer, type of error is caused by bad images where the back ground subtraction failed, which were not removed during preprocessing. An example of such is shown in figure \ref{fig:badImage}
+
+\begin{figure}
+\centering
+\subfloat[Subject 12 Normal 1 frame 239 loss = 1.06. A poor foreground mask slipped through the cuts due to its roughtly human shape and size. \label{fig:badIm1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{badImage.pdf}}}
+\qquad%FT
+\subfloat[Subject 10 LL frame 444 loss = 0.77. Subject is too close to the sensor; legs are not visible. \label{fig:badIm2} ]{{
+\includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{badImage3.pdf}}}%
+\caption{Image Errors: shows labelled skeletons in red and the skeletons nearest to the network's predicted pose vector in blue for each of the images. These are some of the tested images which produced the greatest errors. These errors can be attributed to images which were meant to be removed during preprocessing, either because of bad masks or because the subject was too close to the camera or because they were not fully turned towards the camera.}
+\label{fig:badImages}
+\end{figure}
+
+In figure REF HERE we analyse every error further than the 1$\sigma$ from the mean for all fine tuned sequences. Each of these 255 frames is assigned 1 of 5 classes: a network error (red), a skeleton error (green), an error by both (yellow), an image error (magenta) or too difficult to tell (cyan).
+
+In each frame we studied the images and then examined the Kinect skeleton and compared the position of the prediction and label on the manifold. Only If the skeleton is clearly inaccurate is a skeleton error is assigned. This has generally been determined when a one leg is measured in front of the other and the depth values of the image tell us otherwise. In this case If the network's prediction in $Y[0]$ agrees with the image; i.e. right leg forwards positive $Y[0]$,  left leg forwards negative $Y[0]$, legs at equal depth $Y[0]\sim 0$, then we deem the network accurate otherwise we determine that both network and skeletons are erroneous. We do not use the nearest skeleton method to determine network accuracy because it is not particularly robust; some noisy skeletons can exist close to other skeletons which would appear a reasonable prediction. 
 
 
 
 \begin{figure}
 \centering
-%s12rl
-\subfloat[mean loss~=~0.1611, std~=~0.1334.\label{fig:s12rl} ]{{
-\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12rl.pdf} }}%
-\qquad%FT
-\subfloat[mean loss~=~0.1097 std~=~0.1040	\label{fig:s12rlFT} ]{{%done
-\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{s12rlFT.pdf} }}%
-\caption{Accuracy and quality results for subjects 7-12. }
+%s7
+\subfloat[adjusted mean loss~=~0.0738 std~=~0.0698. \label{fig:s1err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s1n1_m0-0738_d0-0698.pdf} }}%
+\qquad
+\subfloat[adjusted mean loss~=~0.1932 std~=~0.2126.	\label{fig:s2err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s2n3_m0-1932_d0-2126.pdf} }}%done
+%s8
+\qquad
+\subfloat[adjusted mean loss~=~0.0650 std~=~0.0902.	\label{fig:s3err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s3n1_m0-0650_d0-0902} }}%
+\qquad
+\subfloat[adjusted mean loss~=~0.0669 std~=~0.0617.	\label{fig:s4err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s4n1_m0-0669_d0-0617.pdf} }}%
+\qquad
+\subfloat[adjusted mean loss~=~0.1214 std~=~0.1167.	\label{fig:s5err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s5n3_m0-1214_d0-1167.pdf} }}%done
+%s8
+\qquad
+\subfloat[adjusted mean loss~=~0.0817 std~=~0.0895.	\label{fig:s6err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s6n3_m0-0817_d0-0895} }}%
+\qquad
+\subfloat[adjusted mean loss~=~0.0669 std~=~0.0617.	\label{fig:s7err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s4n1_m0-0669_d0-0617.pdf} }}%
+\qquad
+\subfloat[adjusted mean loss~=~0.1932 std~=~0.2126.	\label{fig:s8err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s2n3_m0-1932_d0-2126.pdf} }}%done
+%s8
+\qquad
+\subfloat[adjusted mean loss~=~0.0650 std~=~0.0902.	\label{fig:s9err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s3n1_m0-0650_d0-0902} }}%
+\qquad
+\subfloat[adjusted mean loss~=~0.0669 std~=~0.0617.	\label{fig:s9-2err} ]{{
+\includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s4n1_m0-0669_d0-0617.pdf} }}%
 \end{figure}
+
+
+
+
+
+
+
+
+
+\subsection{Movement Quality}
+
+The pose quality is an estimate of the likelihood of a instantaneous pose vector being a normal pose, given those normal poses used to train the model. For all sequences normal, and abnormal the pose quality is generally expected to remain roughly within normal limits since the abnormality of these sequences is in the dynamics e.g. freezing of gait rather than in the pose. 
+
+Generally the lower the loss is, the better the pose quality tracks that of the labels. There are however some poses 
+
+For the movement quality score, each sequence is separated into gait cycles and each frame is assigned a coordinate equal to its position in the estimated cycle. A statistical model of normal dynamics provides an estimate of the likelihood of the measured pose given its stage in the movement cycle. This likelihood is displayed on a heat map in figure \ref{fig:qualityHeatMap} as a function of movement stage for each of the manifold coordinates. In some areas, such as around $Y[0]=-1,X=0.3$  the likelihood can fall sharply with $Y[0]$  
+
+
+\begin{figure}
+\centering
+\subfloat[mean loss~=~0.1207, std~=~0.1604.\label{fig:s1} ]{{
+\includegraphics*[width=0.53\linewidth,trim={0cm 7.5cm 0cm 6.7cm},clip]{quality_s9n1_FT_labels.pdf}}}%
+\qquad
+\subfloat[mean loss~=~0.1227 std~=~0.1497.	\label{fig:s1FT} ]{{
+\includegraphics*[width=0.39\linewidth,trim={2.5cm 6.5cm 3cm 6.7cm},clip]{qualityS9n1Fig2.pdf} }}%
+\caption{Shows an example of movement quality analysis }
+\label{fig:qualityHeatMap}
+\end{figure}
+
+Analysis of time 
+
+
+
+
 
 
 

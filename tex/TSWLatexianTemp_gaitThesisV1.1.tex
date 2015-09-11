@@ -675,48 +675,15 @@ For each subject we present results for their longest sequence since longer sequ
 \section{Results}
 
 
-We measure the accuracy by the same loss used to train the network i.e. the distance (L2 norm) between the predicted pose vectors, always shown in blue, and the ground truth labels shown in red. 
+We measure the accuracy/error by the same loss function used to train the network i.e. the distance (L2 norm) between the predicted pose vectors, always shown in blue, and the ground truth labels shown in red. Across all tested sequences we find an average error of 0.1565 for the non subject fine tuned models which is reduced to 0.1129 after fine tuning. 
+
 
 For the first 6 subjects we present only accuracy data, shown in figure \ref{fig:s1-6}, since these sequences are used by the SPHERE software to build the normality model.
 
 For subjects 7-12 we present both accuracy data and pose and dynamics quality scores, shown in figure \ref{fig:s7-12}. These quality scores were computed for us by the authors of~\cite{Paiement} using the same methods and models (trained from the skeleton data) of that work. 
 
 
-\subsection{Fine Tuning}
 
-Across all tested sequences we find an average error of 0.1565 for the non subject fine tuned models which is reduced to 0.1129 after fine tuning. For 13 of the 15 tested sequences fine tuning improved the mean error. For two sequences: Subject1\_Normal1 and Subject8\_StopX2 the error increased.
-
-
-However It is difficult to assess wether this really reflects the precision of the network as the ground truth skeleton data is inaccurate itself.
-
-For e
-
- For example the frames of largest loss...
-
-The pose quality is an estimate of the likelihood of a instantaneous pose vector being a normal pose, given those normal poses used to train the model. For all sequences normal, and abnormal the pose quality is generally expected to remain roughly within normal limits since the abnormality of these sequences is in the dynamics e.g. freezing of gait rather than in the pose. 
-
-Generally the lower the loss is, the better the pose quality tracks that of the labels. There are however some poses 
-
-For the movement quality score, each sequence is separated into gait cycles and each frame is assigned a coordinate equal to its position in the estimated cycle. A statistical model of normal dynamics provides an estimate of the likelihood of the measured pose given its stage in the movement cycle. This likelihood is displayed on a heat map in figure \ref{fig:qualityHeatMap} as a function of movement stage for each of the manifold coordinates. In some areas, such as around $Y[0]=-1,X=0.3$  the likelihood can fall sharply with $Y[0]$  
-
- is estimated  is an estimate of the
-
-qualityS9n1Fig2.pdf
-
-
-Analysis of time 
-
-
-\begin{figure}
-\centering
-\subfloat[mean loss~=~0.1207, std~=~0.1604.\label{fig:s1} ]{{
-\includegraphics*[width=0.53\linewidth,trim={0cm 7.5cm 0cm 6.7cm},clip]{quality_s9n1_FT_labels.pdf}}}%
-\qquad
-\subfloat[mean loss~=~0.1227 std~=~0.1497.	\label{fig:s1FT} ]{{
-\includegraphics*[width=0.39\linewidth,trim={2.5cm 6.5cm 3cm 6.7cm},clip]{qualityS9n1Fig2.pdf} }}%
-\caption{Shows an example of movement quality analysis }
-\label{fig:qualityHeatMap}
-\end{figure}
 
 \begin{figure}
 \centering
@@ -857,6 +824,76 @@ Analysis of time
 \caption{Accuracy and quality results for subjects 7-12. }
 \label{fig:s7-12}
 \end{figure}
+
+
+
+
+
+\subsection{Fine Tuning}
+
+For 13 of the 15 tested sequences fine tuning reduced the mean error. 
+
+
+The greatest decrease was seen in those of Subject 2
+
+\begin{figure}
+\centering
+\subfloat[Subject 2. Fine tuning produced a decrease in error of 0.1579.\label{fig:ftS1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{finetuning_s2.pdf}}}%
+\qquad%FT
+\subfloat[Subject 6. Fine tuning produced a decrease in error of 0.1579.	\label{fig:ftS6} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{finetuning_s6.pdf} }}%
+
+\caption{Shows a plot of the skeleton data for each sequence of the subjects in which fine tuning produced the largest decrease in the error of the network's predictions. }
+\end{figure}
+
+For two sequences: Subject1\_Normal1 and Subject8\_StopX2 the error increased.
+
+
+
+\begin{figure}
+\centering
+%s12rl
+\subfloat[\label{fig:ftS1} ]{{
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{finetuning_s1.pdf} }}%
+\qquad%FT
+\subfloat[	\label{fig:ftS8} ]{{%done
+\includegraphics*[width=0.45\linewidth,trim={0.5cm 4.5cm 2.3cm 3.7cm},clip]{finetuning_s8.pdf} }}%
+\caption{Shows a 3D plot of the skeleton data for each sequence of the subjects in which fine tuning increased the error of the network's predictions. }
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Movement Quality}
+
+The pose quality is an estimate of the likelihood of a instantaneous pose vector being a normal pose, given those normal poses used to train the model. For all sequences normal, and abnormal the pose quality is generally expected to remain roughly within normal limits since the abnormality of these sequences is in the dynamics e.g. freezing of gait rather than in the pose. 
+
+Generally the lower the loss is, the better the pose quality tracks that of the labels. There are however some poses 
+
+For the movement quality score, each sequence is separated into gait cycles and each frame is assigned a coordinate equal to its position in the estimated cycle. A statistical model of normal dynamics provides an estimate of the likelihood of the measured pose given its stage in the movement cycle. This likelihood is displayed on a heat map in figure \ref{fig:qualityHeatMap} as a function of movement stage for each of the manifold coordinates. In some areas, such as around $Y[0]=-1,X=0.3$  the likelihood can fall sharply with $Y[0]$  
+
+
+\begin{figure}
+\centering
+\subfloat[mean loss~=~0.1207, std~=~0.1604.\label{fig:s1} ]{{
+\includegraphics*[width=0.53\linewidth,trim={0cm 7.5cm 0cm 6.7cm},clip]{quality_s9n1_FT_labels.pdf}}}%
+\qquad
+\subfloat[mean loss~=~0.1227 std~=~0.1497.	\label{fig:s1FT} ]{{
+\includegraphics*[width=0.39\linewidth,trim={2.5cm 6.5cm 3cm 6.7cm},clip]{qualityS9n1Fig2.pdf} }}%
+\caption{Shows an example of movement quality analysis }
+\label{fig:qualityHeatMap}
+\end{figure}
+
+Analysis of time 
 
 
 
