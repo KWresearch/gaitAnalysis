@@ -18,10 +18,10 @@
 \contentsline {subsection}{\numberline {3.4}Training Details}{35}{subsection.3.4}
 \contentsline {section}{\numberline {4}Results}{36}{section.4}
 \contentsline {subsection}{\numberline {4.1}Fine Tuning}{36}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Movement Quality}{36}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Failure cases}{46}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Abnormal Poses}{46}{subsection.4.4}
-\contentsline {section}{Appendices}{46}{section*.32}
-\contentsline {section}{\numberline {A}Pre-existing SPHERE System For Movement Quality Analysis}{46}{Appendix.1.A}
-\contentsline {section}{\numberline {B}Networks}{48}{Appendix.1.B}
-\contentsline {subsection}{\numberline {B.1}AlexNet}{48}{subsection.1.B.1}
+\contentsline {subsection}{\numberline {4.2}Network Errors Vs. Label Errors Vs. Image Errors}{44}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Movement Quality}{50}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Abnormal Poses}{52}{subsection.4.4}
+\contentsline {section}{Appendices}{52}{section*.38}
+\contentsline {section}{\numberline {A}Pre-existing SPHERE System For Movement Quality Analysis}{52}{Appendix.1.A}
+\contentsline {section}{\numberline {B}Networks}{54}{Appendix.1.B}
+\contentsline {subsection}{\numberline {B.1}AlexNet}{54}{subsection.1.B.1}
