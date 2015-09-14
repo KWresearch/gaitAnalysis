@@ -63,10 +63,13 @@ Feature Descriptors for Gait Analysis From Depth Sensors}
 \makeatother
 
 \usepackage{bibentry}
+\usepackage{pdfpages}
 
 \newcommand{\comment}[1]{}
 \begin{document}
-\maketitle
+\includepdf[pages={1,2}]{frontcover}
+
+%/maketitle
 \tableofcontents
 \comment{
 
@@ -98,13 +101,7 @@ Suggestions on possible improvements and/or further work.
 
 }
 
-\title{Feature Descriptors for Gait Analysis from Depth Sensors}
 
-
-
-\author{Ben Crabbe}
-
-\date{\today}
 
 
 
@@ -122,37 +119,26 @@ Suggestions on possible improvements and/or further work.
 Gait analysis plays an important part in the treatment and assessment of a number of medical conditions. At present gait analysis is usually performed through a combination of visual assessment by an experienced physiotherapist, automated methods such as marker based motion capture, pressure sensitive walkways or accelerometers. It requires patients to travel to a gait assessment laboratory which is far from ideal for patients who have difficulty walking. 
 
 %Solution - Sphere gait analysis pipeline
-This problem, and a range of other healthcare challenges, is being tackled through research and development by the SPHERE (a Sensor Platform for Healthcare in a Residential Environment) group in Bristol. An automatic, in home, gait analysis pipeline has been designed~\cite{Paiement,Tao} which assesses the quality of a subjects movement using inexpensive RGB-D cameras such as the Microsoft Kinect.
+This problem, and a range of other healthcare challenges, is being tackled through research and development by the SPHERE (a Sensor Platform for Healthcare in a Residential Environment) group in Bristol. An automatic, in home, gait analysis pipeline has been designed~\cite{Paiement,Tao} which assesses the quality of a subjects movement using data captured by the human pose estimation (skeleton/joint tracking) systems implemented by RGB-D cameras such as the Microsoft Kinect.
 
-Currently this system uses joint position information captured by the OpenNI skeleton tracking software, based on the algorithm of~\cite{Shotton2011}. This skeleton tracking software infers the 3D coordinates of each of the body's relevant joints producing a $n_{joints} \times 3$ dimensional vector. This data is then processed using a manifold learning method, Diffusion maps~\cite{Coifman2006}, to reduce the dimensionality of the data. This method builds up a 3D representation of the types of body configurations displayed in a training dataset containing footage of the motion being measured. New skeleton data is then projected onto this manifold. This effectively parameterises the motion, removing the redundant information contained in the skeleton data, and enabling simple comparison of poses. \footnote{We will refer to the projected points in this space as the pose vector, and to the skeleton data as the body configuration or joint position vector.} Finally, a statistical model of normal gait is built up from the training data using these pose vectors. New data is compared with this model producing a quality score for both pose and dynamics on a frame-by-frame basis.
+The system uses data driven, machine learning methods to learn both a low dimensional representation of pose \footnote{The points in this space are referred to as the pose vector, and the Kinect skeleton data as the body configuration or joint position vector.} and models of normal motion from which it quantifies the quality of movement. Because of this, it can be applied naturally to other types of movement quality assessment such a sports movement optimisation or physiotherapy exercise coaching. The system has been applied to a sitting-standing motion, to punching motions in boxing~\cite{SPHEREweb} and to people walking upstairs. 
 
-Since this system uses data driven, machine learning methods to learn both the manifold representation of pose and the model of normal motion, it can be applied to other types of movement quality assessment such a sports movement optimisation or physiotherapy exercise coaching. The system has been applied to a sitting-standing motion, to punching motions in boxing $^{how to site http://www.irc-sphere.ac.uk/work-package-2/movement-quality ?}$ and to people walking upstairs. 
-%Limitation - doesn't work well in realisitic senarios
+One issue currently limiting the effectiveness of this system is the fragility of the skeleton tracking software. This software was designed for controlling entertainment/gaming systems with the user viewed frontally, within a range of 1-4m and at a pitch angle near 0$\degree$. Outside of these conditions skeletons become noisy and unreliable. Typically only a small fraction of data recorded from a camera attached to the ceiling above the stairs is fit for use with the system. Increasing amount of usable data requires more intrusive camera placement which is to be avoided. The skeleton tracker also performs poorly when props are involved, for example grasping a banister or a ball often leads to erroneous joint positions for that arm. It also struggles to accurately record sitting/standing motions which is a key motion hoping to be analysed in SPHERE homes.
 
-One issue currently limiting the effectiveness of this system is the fragility of the skeleton tracking software. This software was designed for controlling entertainment/gaming systems with the user viewed frontally, within a range of 1-4m and at a pitch angle near 0$\degree$. Outside of these conditions skeletons become noisy and unreliable. Typically only a small fraction of data recorded from a camera attached to the ceiling above the stairs is fit for use with the system. Increasing amount of usable data requires more intrusive camera placement which is to be avoided. The skeleton trackers also perform poorly when props are involved in the scene, for example grasping a banister or a ball often leads to erroneous joint positions for that arm. It also struggles to accurately record sitting/standing motions.
-%Aims
-
-The aim of this project is to develop a tailor made system for determining the reduced pose vector directly from RGB-D footage. To enable the flexibility of the rest of the system we require this new component to exhibit the same flexibility as the rest of the system by being able to record a wide range of motions. It should also work with an effective accuracy under the kinds of viewing angles produced by practical, unobtrusive, in home camera placements. This requires a data driven approach since the pose representation we wish to infer is not fixed, differing based on the body configurations presented in training data. %Simply we require a system that can be trained to regress from RGB-D image data to a point in a continuous 3d space.
-
-The methodology we find most suited to this task is a convolutional neural network (CNN). CNN's are a supervised learning method for extracting features, e.g. the pose vector, from images. Given training images labelled with the expected output the network extracts progressively higher level features representations leading to the final pose vector. Following training the network is then able to generalise to unseen data, producing an output inferred from the examples it has seen. 
-
-CNNs have been effectively applied to 2D~human~pose estimation from RGB images~\cite{Toshev,Pfister,Li2014,Jain2013a,Jain2014,Tompson,Tompson2014} where the positions of joints in the image plane were inferred. In~\cite{Accv2014} they were also applied to 3D joint position estimation from RGB, where they were shown to have reasonable accuracy from a range of viewing angles when trained with data captured by 4 cameras placed around the subjects. They have also been shown to benefit from depth depth data in the tasks of object detection~\cite{Gupta2014}, object pose estimation~\cite{Schwarz2015} and object recognition~\cite{Alexandre2013}. %However this will be the first work, to our knowledge, that attempts a form of human pose estimation using depth data. 
-
-For assessing the effectiveness of our solution we focus on the staircase ascent motion, as this is the motion for which we possess the largest dataset. Refered to as the SPHERE staircase 2014 dataset~\cite{Paiement}, this includes 48 sequences of 12 individuals walking up stairs, captured by a Asus Xtion depth sensor placed at the top of the stairs in a frontal and downward-looking position. Each Frame provides RGB, depth and 3D joint position data. The accuracy of our predicted pose vectors are measured by computing the mean squared error (MSE) of the networks predicted pose vectors against the label values. We also measure the change in overall system performance (how well the measured gait quality score matches the score labelled by a trained physiotherapist). 
+The aim of this project was to develop a system for determining the low dimensional pose representation used in~\cite{Paiement} directly from RGB-D footage, with the additional aim that this system should be naturally applicable to a range of motions and maintain reasonable accuracy at a range of viewing angles. The methodology we found most suited to this task was a convolutional neural network (CNN). CNN's are a supervised learning method for extracting features, e.g. the pose vector, from images. After training the network is able to generalise to unseen data, producing an output inferred from the examples it has seen. This method effectively learns the feature representations that produce the most accurate regression. The advantage of this over traditional hand crafted feature extraction is that when applied to new motions the type of features extracted will be re-tuned to better fit the data of the new motion.
 
 
+One restriction of CNN's is that they require a large amount of data to be trained effectively. Therefore, in this project we have been restricted to an analysis of the stair ascent motion contained in the SPHERE staircase 2014 dataset~\cite{Paiement} with the Kinect skeletons used to produce the pose ground truth. The Kinect skeletons are not ideal ground truth; by using them we are restricted to only motions which the Kinect is able to capture. Also, their errors and imprecision produce an inconsistent mapping between similar images and labelled pose vectors which can confuse the network. Despite this we find that in a majority of cases the CNN is able to match the Kinect measurement to a high degree, and in some cases predict poses which correspond better to what is seen in the images than was produced by the Kinect. The accuracy of the CNN is measured by the distance (euclidean/L2 norm) between its predicted point and the ground truth. This is used during training as a objective/loss function and in the analysis of the final performance. The effect of using the CNN's pose measurements for the movement quality analysis of~\cite{Paiement,Tao} is also examined. Comparing it to that of the ground truth we find that in some cases the network predictions are actually more adept at producing the correct abnormality than the Kinect skeletons.
 
-%State in general terms whether your project is more of Type I, II or III.
-%Generally the project can be seen as type I since it 
+In Section \ref{sec:bg} we present an introduction to depth imaging, human pose estimation and convolutional neural networks. In Section \ref{sec:methods} we detail the steps used to achieve our results. In Section \ref{sec:results} we present and analyse our results. In Section \ref{sec:discussion} we evaluate the suitibilty of our chosen method and present suggested directions of future work.
 
-%Explain the main novelty and added value.
-To the best of our knowledge this project will be the first time that CNNs will be applied to a 3D human pose estimation task on RGB-D images. It will also be a novel combination of CNNs and manifold learning methods. We find that this makes the CNN easier to train and more effective overall since it has far less outputs to specify. If this is proved to be the case it could potentially be applied to other tasks that have been attempted with CNNs such as human action recognition.
+
 
 
 
 
 \section{Background and Related Work}
-
+\label{sec:bg}
 \subsection{Depth Imaging}
 \label{sec:Depth}
 
@@ -311,6 +297,7 @@ Recently Belagiannis et al.~\cite{Belagiannis} showed that convergence rates and
 
 
 \section{Methods}
+\label{sec:methods}
 
 \subsection{Data Preprocessing}
 \label{sec:preprocessing}
@@ -517,7 +504,7 @@ As described in section \ref{sec:senPerf} depth images are generally incomplete 
 \subfloat[Typical image before hole filling.		\label{fig:depthWithHoles} ]{{
 \includegraphics*[width=0.4\linewidth,clip]{depth_334.png} }}%
 \qquad
-\subfloat[Filter and filled using a simplifed version of~\cite{Camplani2012a}. \label{fig:camplaniCleaned} ]{{
+\subfloat[Filtered and filled using a simplifed version of~\cite{Camplani2012a}. \label{fig:camplaniCleaned} ]{{
 \includegraphics*[width=0.4\linewidth,clip]{clean_depth_334.png} }}%
 \qquad
 \subfloat[Filled using max fill method.   \label{fig:quickFilled} ]{{
@@ -632,7 +619,7 @@ The architecture used, shown in figure \ref{fig:alexNet}, is a version of that w
 
 
 
-This network also features Local Response Normalisation (LRN) layers after the 1st 2nd and 5th convolution layers. These normalise the values of each filter's activation with respect to the others in the same spatial position. Each activation is divided by
+This network also features Local Response Normalisation (LRN) layers after the 1st and 2nd convolution layers. These normalise the values of each filter's activation with respect to the others in the same spatial position. Each activation is divided by
 \begin{equation}
 (1 + \frac{\alpha}{n} \sum_i^n x_i^2)^\beta
 \end{equation}
@@ -689,7 +676,7 @@ Inspired by the results of Li and Chan~\cite{Li2014} who found that regression a
 
 Following skeleton selection and depth pre-processing we are left with 6228 distinct examples, plus their horizontal flips. So as to best utilise our data we cross validate training 6 networks with pairs of adjacent subjects withheld for testing in each i.e. 1 and 2, 3 and 4, 5 and 6 etc. 
 
-Each of these networks was trained for 50000 iterations with a batch size of 25 examples on a GTX 750 GPU taking almost 7 hours each. We observed no overfitting effects even after 700000 iterations. However results did not improve beyond 50000 iterations. The batch size was dictated by the 2GB memory limit of the GPU however it seemed reasonably suitable with only a small amount of noise in the loss curves as seen in figure \ref{fig:alexNetpre}.
+Each of these networks was trained for 50000 iterations with a batch size of 25 examples on a GeForce GTX 750 GPU taking almost 7 hours each. We observed no overfitting effects even after 700000 iterations. However results did not improve beyond 50000 iterations. The batch size was dictated by the 2GB memory limit of the GPU however it seemed reasonably suitable with only a small amount of noise in the loss curves as seen in figure \ref{fig:alexNetpre}.
 
 Additionally we present subject fine tuned results where each of these trained networks is further trained for 10 epochs (10 times through the training data) on the remaining non-test sequences of that same subject. We found that overfitting did occur for these small training sets. The optimum results required tailoring to the size of the training set rather than a fixed number of iterations. 
 
@@ -698,7 +685,7 @@ In both cases we use the adaptive learning rate method AdaGrad~\cite{Duchi2011} 
 For each subject we present results for their longest sequence since longer sequences make the SPHERE software's gait cycle time analysis more accurate. In the case of subjects 9, 11, and 12 we test one normal and one abnormal sequence taking the longest one of each. 
 
 \section{Results}
-
+\label{sec:results}
 
 We measure the accuracy/error by the same loss function used to train the network i.e. the distance (L2 norm) between the predicted pose vectors, always shown in blue, and the ground truth labels shown in red. Across all tested sequences we find an average error of 0.1565 for the non subject fine tuned models which is reduced to 0.1129 after fine tuning. 
 
@@ -879,7 +866,7 @@ For two sequences: Subject1\_Normal1 and Subject8\_StopX2 the error increased af
 
 For subject 8 (figures \ref{fig:s2} and \ref{fig:s2FT}) fine tuning produced a decrease in the predicted $Y[2]$ and an increase in $Y[0]$ particularly for the first frozen pose (the tested sequence was a Stop x2). Both these changes took the predictions away from the ground truth, increasing the error. Looking at a plot of the training/label data, shown in figure \ref{fig:ftS8} it seems the spread in $Y[2]$ for this subject was larger than for most other subjects. However the accuracy both before an after fine tuning was well below the mean of the rest of the data.
 
-In the case of subject 1 its seems the error is actually coming from a miss-measured skeleton in the label data meaning improved network accuracy actually increases the measured error. The results plots (figures \ref{fig:s1} and \ref{fig:s1FT}) show that the label data, particularly the $Y[0]$ component, changes sharply at the points of greatest error. Figure \ref{fig:ftS1_257skelAndIm} shows the image and labelled skeleton for frame 257 of this sequence which is the position of the second peak in the loss graph. We see that the Kinect's algorithm has been confused by the occlusion of the left leg causing it to measure the left foot in front of the right which we see from the depth image is not the case. The network is not fooled by this occlusion, predicting a point near the maximum $Y[0]$, the skeleton nearest to this point shows the right foot correctly in front of the left. This was also the case around 213 and 303 where we have other peak in loss. 
+In the case of subject 1 its seems the error is actually coming from a miss-measured skeleton in the label data meaning improved network accuracy actually increases the measured error. The results plots (figures \ref{fig:s1} and \ref{fig:s1FT}) show that the label data, particularly the $Y[0]$ component, changes sharply at the points of greatest error which indicates a jump in the Kinect skeleton. Figure \ref{fig:ftS1_257skelAndIm} shows the image and labelled skeleton for frame 257 of this sequence which is the position of the second peak in the loss graph. We see that the Kinect's algorithm has been confused by the occlusion of the left leg causing it to measure the left foot in front of the right which we see from the depth image is not the case. The network is not fooled by this occlusion, predicting a point near the maximum $Y[0]$, the skeleton nearest to this point shows the right foot correctly in front of the left. This was also the case around 213 and 303 where we have other peak in loss. 
 
 \begin{figure}
 \centering
@@ -906,9 +893,9 @@ In the case of subject 1 its seems the error is actually coming from a miss-meas
 
 \subsection{Network Errors Vs. Label Errors Vs. Image Errors}
 
-Erroneous skeletons in the labels for tested data are common. The largest losses across all the tested data occur at the beginning of sequences Subject2\_Normal3 (results figure \ref{fig:s2}, skeleton example figure \ref{fig:badSkel1}), Subject3\_Normal1 (results figure \ref{fig:s3}, skeleton example figure \ref{fig:badSkel2}), Subject7\_RL (results figure \ref{fig:s7}, skeleton example figure \ref{fig:badSkel3}) and Subject10\_LL (results figure \ref{fig:s10}, skeleton example figure \ref{fig:badSkel4}). As mentioned in section \ref{sec:skelPreproc} skeleton data which is too dissimilar from a skeleton with neutral pose are discarded, which typically removes the frames at the beginning and end of the sequence where the subject is out of the optimum range of the sensor. However this cut can not be too stringent without excluding potential valid but abnormal poses from the data. Also poses that are well within this cut, but still far from the true pose are not excluded. 
+Erroneous skeletons in the labels for tested data are common. The largest losses across all the tested data occur at the beginning of sequences Subject 2 Normal 3 (results figure \ref{fig:s2}, skeleton example figure \ref{fig:badSkel1}), Subject 3 Normal 1 (results figure \ref{fig:s3}, skeleton example figure \ref{fig:badSkel2}), Subject 7 RL (results figure \ref{fig:s7}, skeleton example figure \ref{fig:badSkel3}) and Subject 10 LL (results figure \ref{fig:s10}, skeleton example figure \ref{fig:badSkel4}). As mentioned in section \ref{sec:skelPreproc} skeleton data which is too dissimilar from a skeleton with neutral pose are discarded, which typically removes the frames at the beginning and end of the sequence where the subject is out of the optimum range of the sensor. However this cut can not be too stringent without excluding potential valid but abnormal poses from the data. Also poses that are well within this cut, but still far from the true pose are not excluded. 
 
-The examples displayed in \ref{fig:badSkel1}, \ref{fig:badSkel2} and \ref{fig:badSkel4} prove that the network can be accurate at distances greater than the Kinect algorithm, provided that the pose in the image is similar to some in the rest of the training data which do have accurate skeletons. This could be due to the difference in methods of the Kinect Skeleton algorithm~\cite{Shotton2012} and the network. We believe that the depth comparison features (presented in equation \ref{eq:dcf} and figure \ref{fig:dcf}) used for pixel body part classification in that work are are sensitive to range from the sensor. At increased range the values of these features must change since the width of body parts in pixels will be smaller producing different values for the same body location and offsets at different ranges. Additionally, at longer range there will be fewer body pixels meaning that the statistics become noisier and any errors have a larger effect on the final joint position estimation. This would seem to make their trained random forests become inaccurate with range. Although this is not discussed in their work. In contrast our method scales the subject's body to a fixed size. At increased ranges we merely have less information due to the reduction in depth precision at longer ranges and due to pixelation on upscaling. These effects will likely cause a loss in precision, put poses should still be reasonably accurate provided there are similar poses represented in the training data.
+The examples displayed in \ref{fig:badSkel1}, \ref{fig:badSkel2} and \ref{fig:badSkel4} prove that the network can be accurate at distances greater than the Kinect algorithm, provided that the pose in the image is similar to some in the rest of the training data which do have accurate skeletons. This could be due to the difference in methods of the Kinect skeleton algorithm~\cite{Shotton2012} and the network. We believe that the depth comparison features (presented in equation \ref{eq:dcf} and figure \ref{fig:dcf}) used for pixel body part classification in that work are are sensitive to range from the sensor. At increased range the values of these features must change since the width of body parts in pixels will be smaller producing different values for the same body location and offsets at different ranges. Additionally, at longer range there will be fewer body pixels meaning that the statistics become noisier and any errors have a larger effect on the final joint position estimation. Although this is not discussed in their work, this would seem to make their trained random forests become inaccurate with range. In contrast our method scales the subject's body to a fixed size. At increased ranges we merely have less information due to the reduction in depth precision at longer ranges and due to pixelation on upscaling. These effects will likely cause a loss in precision, put poses should still be reasonably accurate provided there are similar poses represented in the training data.
 
 
 \begin{figure}
@@ -922,7 +909,7 @@ The examples displayed in \ref{fig:badSkel1}, \ref{fig:badSkel2} and \ref{fig:ba
 \subfloat[Subject 7 RL frame 75 loss = 0.97. Labelled skeleton is not accurate. The network also fails since this is a strange pose where the subject appears to be turning on to the stairs. Since there are few examples of poses of this kind in the training data, and the ones that are have bad skeletons we can not expect better performance. \label{fig:badSkel3} ]{{
 \includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{badSkels3.pdf}}}%
 \qquad%FT
-\subfloat[Subject 10 LL frame 165 loss = 2.63. Labelled skeleton legs crossed over right above left, network measures left leg forward correctly.\label{fig:badSkel3} ]{{
+\subfloat[Subject 10 LL frame 165 loss = 2.63. Labelled skeleton legs crossed over right above left, network measures left leg forward correctly.\label{fig:badSkel4} ]{{
 \includegraphics*[width=0.45\linewidth,trim={6.5cm 11.3cm 5.2cm 11.3cm},clip]{badSkels4.pdf}}}%
 \caption{Out of range skeleton errors: shows labelled skeletons in red and the skeletons nearest to the network's predicted pose vector in blue for each of the images. These are some of the tested images which produced the greatest errors, occuring at the begining of sequences where the subject is outside of the Kinects optimum range. We find that these errors can be attributed to poor ground truth with the network able to produce a more accurate measure provided that similar poses with correct labels do exist in the training data. }
 \label{fig:badSkels}
@@ -937,7 +924,7 @@ Whilst these erroneous skeletons are particularly common at the beginning of seq
 \qquad%FT
 \subfloat[Subject 4 Normal 1 frame 205. Loss = 0.5738. The skeleton of this frame is determined to be inaccurate since there is a clear error in the left foot position being measured at the same position as the right due to occlusion. \label{fig:skelErr2} ]{{
 \includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{skelErr_s4n1_205_loss0-5738.pdf}}}%
-\caption{Skeleton errors: shows labelled skeletons and corresponding pose vector in circled in red and the network's prediction in blue. }
+\caption{Skeleton errors: shows for each image the labelled skeleton and corresponding pose vector circled in red, and the network's prediction in blue. }
 \label{fig:skelErrs}
 \end{figure}
 
@@ -949,19 +936,19 @@ There are also frames with large error where the skeletons do appear accurate. S
 \subfloat[Subject 2 Normal 3 frame 143 loss = 0.4268. The cause of errors in this sequence is discussed in section \ref{sec:finetuning}. \label{fig:netErr1} ]{{
 \includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{netErr_s2n3_143_loss0-4268.pdf}}}
 \qquad%FT
-\subfloat[Subject 12  RL frame 167 loss = 0.3274.  \label{fig:netErr2} ]{{
+\subfloat[Subject 12  RL frame 167 loss = 0.3274. \label{fig:netErr2} ]{{
 \includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{netErr_s12rl_167_loss0-3274}}}%
 \qquad%FT
-\subfloat[Subject 12  Normal 1 frame 253 loss = 0.3105. \label{fig:netErr3} ]{{
+\subfloat[Subject 12  Normal 1 frame 253 loss = 0.3105.  \label{fig:netErr3} ]{{
 \includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{netErr_s12n1_253_loss0-3105.pdf}}}%
 \qquad%FT
 \subfloat[Subject 11 Stop x2 frame 311 loss = 0.2779. \label{fig:netErr4} ]{{
 \includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{netErr_s11sx2_311_loss0-2779.pdf}}}%
-\caption{Network Errors: shows labelled skeletons in red and the skeletons nearest to the network's predicted pose vector in blue for each of the images. }
+\caption{Network Errors: shows label skeleton and corresponding pose vector in red and the network's predicted pose vector in blue for each of the images. In these cases the Kinect skeletons are deemed accurate. By design, the network predicts a pose vector typical of images similar to those it has seen in training. Network errors are caused by under represented pose vectors as in (a), or by inconsistencies with the training data as in (b) and (c).}
 \label{fig:netErrs}
 \end{figure}
 
-Another type of error is caused by bad images which were not removed during preprocessing. Typically these are when the back ground subtraction failed, the subject had not fully faced the sensor or the subject is too close to the sensor. Examples are shown in figure \ref{fig:badImage}
+Another type of error is caused by bad images which were not removed during preprocessing. Typically these are when the back ground subtraction failed, the subject had not fully faced the sensor or the subject is too close to the sensor. They should have been removed during pre-processing but were missed. Examples are shown in figure \ref{fig:badImage}
 
 \begin{figure}
 \centering
@@ -976,9 +963,9 @@ Another type of error is caused by bad images which were not removed during prep
 
 In figure \ref{fig:classedErr} we analyse every error further than the 1$\sigma$ from the mean for all fine tuned sequences. Each of these 255 frames is assigned 1 of 5 classes: a network error (red), a skeleton error (green) or an image error (magenta).
 
-In each frame we studied the images and then examined the Kinect skeleton and compared the position of the prediction and label on the manifold. Only If the skeleton is clearly inaccurate is a skeleton error is assigned. This has generally only been determined when a one leg is measured in front of the other and the depth values of the image tell us otherwise or there is a clear double measurement of one foot as in figure \ref{fig:skelErrs}. In this case If the network's prediction in $Y[0]$ agrees with the image; i.e. right leg forwards positive $Y[0]$,  left leg forwards negative $Y[0]$, legs at equal depth $Y[0]\sim 0$, then we deem the network accurate otherwise we determine that both network and skeletons are erroneous. We do not use the nearest skeleton method to determine network accuracy because it is not particularly robust; some noisy skeletons can exist close to other skeletons which would appear a reasonable prediction. We try to give an objective classification however this can be difficult; figure~\ref{fig:diffCases}~presents some~borderline~cases. 
+In each frame we studied the images and then examined the Kinect skeleton and compared the position of the prediction and label on the manifold. Only If the skeleton is clearly inaccurate is a skeleton error is assigned. This has generally only been determined when a one leg is measured in front of the other and the depth values of the image tell us otherwise or there is a clear double measurement of one foot as in figure \ref{fig:skelErrs}. In this case If the network's prediction in $Y[0]$ agrees with the image; i.e. right leg forwards positive $Y[0]$,  left leg forwards negative $Y[0]$, legs at equal depth $Y[0]\sim 0$, then we deem the network accurate otherwise we determine that both network and skeletons are erroneous. We do not use the nearest skeleton method to determine network accuracy because it is not particularly robust; by nature of the skeleton to manifold mapping some noisy skeletons can exist close to other skeletons which would appear a reasonable prediction. We try to give an objective classification however this can be difficult; figure~\ref{fig:diffCases}~presents some~borderline~cases. 
 
-
+If we exclude skeleton and image errors the mean error on the tested sequences drops to 0.0786, with a standard deviation of 0.0693.
 
 \begin{figure}
 \centering
@@ -1032,9 +1019,9 @@ In each frame we studied the images and then examined the Kinect skeleton and co
 \subfloat[adjusted mean loss~=~0.0815 std~=~0.0821. \label{fig:s12err} ]{{
 \includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s12n1_m0-0815_d0-0821.pdf} }}%
 \qquad
-\subfloat[adjusted mean loss~=~0.0874 std~=~0.1030.	\label{fig:s12-2err} ]{{
+\subfloat[adjusted mean loss~=~0.0784 std~=~0.0819.	\label{fig:s12-2err} ]{{
 \includegraphics*[width=0.45\linewidth,trim={1.5cm 10.5cm 2.3cm 11.2cm},clip]{classifiedErrs_s12rl_m0-0874_d0-1030} }}%done
-\caption{Plots of the loss i.e. the distance between the labelled pose vector and the network's predicted pose vector for the subject fine tuned models. Every frame with loss greater than $1\sigma$ from the total mean is categorised as either a network error (red), an image error (magenta) or a skeleton error (green). Examples of each of these errors are shown in figures \ref{fig:netErrs}, \ref{fig:badImages} and \ref{fig:skelErrs} respectively. The mean for each sequence is recomputed after excluding skeleton and image errors to give a more reliable estimate of the network's true precision. }
+\caption{Plots of the loss i.e. the distance between the labelled pose vector and the network's predicted pose vector for the subject fine tuned models. Every frame with loss greater than $1\sigma$ from the total mean is categorised as either a network error (red), an image error (magenta) or a skeleton error (green). Examples of each of these errors are shown in figures \ref{fig:netErrs}, \ref{fig:badImages} and \ref{fig:skelErrs} respectively. The mean for each sequence is recomputed after excluding skeleton and image errors to give a more reliable estimate of the network's true precision. The collective mean after excluding these errors drops from 0.1565 to 0.0874. }
 \label{fig:classedErr}
 \end{figure}
 
@@ -1046,7 +1033,7 @@ In each frame we studied the images and then examined the Kinect skeleton and co
 \qquad%FT
 \subfloat[Subject 12 Normal 1 frame 256 loss = 0.3511. Here the skeleton says the right knee is behind the left. Image seems to show them at equal depth so we assign a network error. \label{fig:diffCase2} ]{{
 \includegraphics*[width=0.45\linewidth,trim={4.1cm 7.3cm 5.2cm 8.3cm},clip]{difCase_s12n1_256_loss0-3511_skelErr.pdf}}}%
-\caption{Shows some borderline cases when attributing the causes for errors in figure \ref{fig:classedErr}.}
+\caption{Shows some borderline cases when attributing the causes for errors in figure \ref{fig:classedErr}. We try to be as objective as possible only ascribing a skeleton error if there is a clear error with the ground truth. These cases are determined to not be clear enough so we assign network errors in both cases.}
 \label{fig:diffCases}
 \end{figure}
 
@@ -1059,15 +1046,13 @@ In each frame we studied the images and then examined the Kinect skeleton and co
 
 The pose quality is an estimate of the likelihood of a instantaneous pose vector being a normal pose. It is a probability density function of pose vector learnt form those normal poses used to train the model. In this case these models are trained for the labels of the 17 normal sequences of subjects 1-6. For all sequences normal, and abnormal the pose quality is generally expected to remain roughly within normal limits since the abnormality of these sequences is in the dynamics e.g. freezing of gait rather than in the pose. A threshold for abnormality was determined empirically at -5, this is shown in figures \ref{fig:s7-12} as a dashed magenta line.
 
-Generally the lower the loss is, the better the pose quality tracks that of the labels. There are however some regions around the edges of the manifold where small changes in pose vector produce large changes in quality. For example around frame 100 in Subject 7 RL (figure \ref{fig:s7FT}) we find a discrepancy of the pose quality between labels and predictions of ~-7 despite the loss being only ~0.02. A similar case occurs in Subject 11 Stop x2 around frame 160. We believe that ideally such small changes in pose should not being producing such large differences in quality. Given a greater collection of normal pose training data the model my be more robust and this effect could be lessened. Alternatively some sort of smoothing may need to be applied to the model. 
+Generally the lower the loss is, the better the pose quality tracks that of the labels. There are however some regions around the edges of the manifold where small changes in pose vector produce large changes in quality. For example around frame 100 in Subject 7 RL (figure \ref{fig:s7FT}) we find a discrepancy of the pose quality between labels and predictions of $\sim$-7 despite the loss being only $\sim$0.02. A similar case occurs in Subject 11 Stop x2 around frame 160. We believe that ideally such small changes in pose should not being producing such large differences in quality. Given a greater collection of normal pose training data the model my be more robust and this effect could be lessened. Alternatively some sort of smoothing may need to be applied to the model. 
 
-For the movement quality score, each sequence is separated into gait cycles and each frame is assigned a coordinate equal to its position in the cycle. Again a probability density function on pose vector and its stage of the movement cycle is learnt from the normal sequences of subjects 1-6. This is displayed on a heat map in figure \ref{fig:qualityHeatMap}. As with pose quality there are some areas, such as around $Y[0]=-1,X=0.3$ the likelihood can fall sharply with $Y[0]$ which can be seen on this figure. Again an empirically determined threshold of -10 is used to define abnormality. Generally it is expected that normal sequences should remain above this threshold, left/right leg lead (L/RL) sequences should dip below every cycle and freeze (Stop xN) sequences should go below at every freeze of gait. However even for the labels there is a tendency for normal sequences to produce abnormal scores in places when stride times are not completely consistent as in the case of those presented in figure \ref{fig:s7-12}. As with pose quality smaller loss in the networks predictions should produce a better agreement with label dynamics quality scores. However small mis-measurement can again produce large differences in the score. 
+For the movement quality score, each sequence is separated into gait cycles and each frame is assigned a coordinate equal to its position in the cycle. Again a probability density function on pose vector and its stage of the movement cycle is learnt from the normal sequences of subjects 1-6. This is displayed on a heat map in figure \ref{fig:qualityHeatMap}. As with pose quality there are some areas, such as around $Y[0]=-1,X=0.3$ the likelihood can fall sharply with $Y[0]$ which can be seen on this figure. The range of $Y[2]$ values which are deemed normal is much broader than that of $Y[0]$ or $Y[1]$ which means that the fact the network tends to measure this with lower accuracy should have less effect on the final results. Again an empirically determined threshold of -10 is used to define abnormality. Generally it is expected that normal sequences should remain above this threshold, left/right leg lead (L/RL) sequences should dip below every cycle and freeze (Stop $\times$ N) sequences should go below at every freeze of gait. However even for the labels there is a tendency for normal sequences to produce abnormal scores in places when stride times are not completely consistent as in the case of those presented in figure \ref{fig:s7-12}. As with pose quality smaller loss in the networks predictions should produce a better agreement with label dynamics quality scores. However small mis-measurement can again produce large differences in the score. 
 
 In the R/LL sequences (figures \ref{fig:s10llFT} and \ref{fig:s7FT}) we find that the network predictions tend to produce greater abnormality in the correct places than the labels did. For these sequences dynamics abnormality is increased considerably when the pose vector does not go beyond $Y[0]=0$ for the frames where both legs are on the same step. When this occurs the path for the gait cycle enters the dark blue regions of the normality model for this component (shown in figure \ref{fig:qualityHeatMap}). Looking at the sequences Subject 10 LL and Subject 7 RL (\ref{fig:s10llFT} and \ref{fig:s7FT}) its seems that the network tends to measure $Y[0]$ below the label value at this point in the gait cycles. Comparing the predicted pose vectors, the images and the skeletons in for frame 116 of Subject 7 RL in figure \ref{fig:lrlom7} it does seem that the Kinect has over-measured the position of the left knee. This leads it to produce a pose vector in the negative region of $Y[0]$ which in turn produces a normal dynamics quality score, where as the network's prediction is much closer to $Y[0]=0$ producing an abnormal dynamics score. We find the same situation in the Subject 10 LL sequence with the right foot measured slightly in front of the left in these frames as shown in figure \ref{fig:lrlom10}. 
 
-However, the other tested L/RL sequence Subject 9 RL (figure \ref{fig:s9rlFT}) exhibits the opposite behaviour at some of these cycle points i.e. predicts slightly negative $Y[0]$ when both feet should be on the same step. Looking at the images for these frames (frame 256 shown in figure \ref{fig:lrlom9}) a reason for this may be that the subject's left arm swings down across his knee which the network may be mistaking for a knee at increased depth. In the other same step points, where the network prediction's $Y[0]$ is equal or less than the skeleton's we find that the arm does not cover the knee as seen in figure \ref{fig:lrlom92}.
- 
-
+However, the other tested L/RL sequence Subject 9 RL (figure \ref{fig:s9rlFT}) exhibits the opposite behaviour at some of these cycle points i.e. predicts slightly negative $Y[0]$ when both feet should be on the same step. Looking at the images for these frames (frame 256 shown in figure \ref{fig:lrlom9}) a reason for this may be that the subject's left arm swings down across his knee which the network may be mistaking for a knee at increased depth. In the other points of this kind, where the network prediction's $Y[0]$ is equal or less than the skeleton's we find that the arm does not cover the knee as seen in figure \ref{fig:lrlom92}. This is an understandable error for the network to make. There were probably too few training examples where the arm covered the knee/hip in this manner for the network to learn to gauge this. 
 
 \begin{figure}
 \centering
@@ -1084,29 +1069,34 @@ However, the other tested L/RL sequence Subject 9 RL (figure \ref{fig:s9rlFT}) e
 \subfloat[Subject 10 LL frame 365. Kinect skeleton measures right foot slightly in front of the left. \label{fig:lrlom10} ]{{
 \includegraphics*[width=0.45\linewidth,trim={2cm 6.5cm 2cm 6.7cm},clip]{LRLovermeasure_s10ll_365.pdf}}}
 \qquad%FT
-\subfloat[Subject 9 RL frame 256. \label{fig:lrlom9} ]{{
+\subfloat[Subject 9 RL frame 256. In this frame the network measurement is worse than the Kinect's. We think the presence of the subject's arm over the left knee causes the network to think the knee is raised. \label{fig:lrlom9}]{{
 \includegraphics*[width=0.45\linewidth,trim={2cm 6.5cm 2cm 6.7cm},clip]{LRLovermeasure_s9rl_256.pdf}}}
 \qquad%FT
-\subfloat[Subject 9 RL frame 188. \label{fig:lrlom92} ]{{
+\subfloat[Subject 9 RL frame 188. In the same sequence when the arm is not covering the knee the network measurement is in line with the other R/LL sequences.\label{fig:lrlom92} ]{{
 \includegraphics*[width=0.45\linewidth,trim={2cm 6.5cm 2cm 6.7cm},clip]{LRLovermeasure_s9rl_188.pdf}}}
-\caption{}
+\caption{Shows the images, label skeletons and their corresponding points on the pose manifold (red) and the networks prediction (blue) for frames in the 3 tested L/RL sequneces where both feet are on the same step. In LL sequences we expect the pose vectors to remain in the negative $Y[0]$ region of the manifold and RL sequences the positive. We find the Kinect tends to over measure this phase of the movement which causes these sequences not not always be properly classified as abnormal. In the majority of cases the network measurements do a better job at identifying the abnormality. }
 \label{fig:lrlOverMeasure}
 \end{figure}
 
 
-\subsection{Processing Time}
+\subsection{Processing Time and Memory Requirements.}
 
-Analysis of time 
+On the GeForce GTX 750 GPU the average forward pass time is 9.68827 ms. This is the time required to pass one image through the network and produce the pose vector. Even allowing some additional time for the image pre-processing on such hardware this system could operate in realtime at around 100 fps. On a single CPU the average forward pass time is 265.556 ms, a frame rate of around 4. This is comparable to the speed of Shotton et al.'s algorithm~\cite{Shotton2011} which runs at $\sim$200 fps on the Xbox 360 GPU.
 
-
-
+ A single image and its activations require 8.68 MB of memory. The network's weights require 227.5 MB. 
 
 \section{Discussion}
 
+Due to inaccuracy of the Kinect skeletons there is not a completely consistent mapping between image and the pose vector. 
 
+\subsection{Limitations}
 
-\subsection{Abnormal Poses}
+\subsubsection{Abnormal Poses}
 \label{sec:abnormals}
+
+\subsubsection{Reconstruction of Full Pose}
+
+\subsection{Directions of Future Work}
 
 
 \section{Conclusion}
@@ -1174,761 +1164,6 @@ The system is 'online' in that it measures abnormality on a frame-by-frame basis
 \label{sec:networkCodes}
 
 \subsection{AlexNet}
-name: "gaitAlexNet"
-%layer {
-%  name: "data"
-%  type: "HDF5Data"
-%  top: "data"
-%  top: "label"
-%  include {
-%    phase: TRAIN
-%  }
-%  hdf5_data_param {
-%    source: "/media/EA8EC36A8EC32DBF/ben/trainingOnlyManifold/train.txt"
-%    batch_size: 25
-%  }
-%}
-%layer {
-%  name: "data"
-%  type: "HDF5Data"
-%  top: "data"
-%  top: "label"
-%  include {
-%    phase: TEST
-%  }
-%  
-%  hdf5_data_param {
-%    source: "/media/EA8EC36A8EC32DBF/ben/trainingOnlyManifold/val.txt"
-%    batch_size: 25
-%  }
-%}
-%layer {
-%  name: "concat"
-%  bottom: "data"
-%  bottom: "data"
-%  bottom: "data"
-%  top: "out"
-%  type: "Concat"
-%  concat_param {
-%    axis: 1
-%  }
-%}
-%
-%
-%layer {
-%  name: "conv1"
-%  type: "Convolution"
-%  bottom: "out"
-%  top: "conv1"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 96
-%    kernel_size: 11
-%    stride: 4
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0
-%    }
-%  }
-%}
-%layer {
-%  name: "relu1"
-%  type: "ReLU"
-%  bottom: "conv1"
-%  top: "conv1"
-%}
-%layer {
-%  name: "norm1"
-%  type: "LRN"
-%  bottom: "conv1"
-%  top: "norm1"
-%  lrn_param {
-%    local_size: 5
-%    alpha: 0.0001
-%    beta: 0.75
-%  }
-%}
-%layer {
-%  name: "pool1"
-%  type: "Pooling"
-%  bottom: "norm1"
-%  top: "pool1"
-%  pooling_param {
-%    pool: MAX
-%    kernel_size: 3
-%    stride: 2
-%  }
-%}
-%layer {
-%  name: "conv2"
-%  type: "Convolution"
-%  bottom: "pool1"
-%  top: "conv2"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 256
-%    pad: 2
-%    kernel_size: 5
-%    group: 2
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu2"
-%  type: "ReLU"
-%  bottom: "conv2"
-%  top: "conv2"
-%}
-%layer {
-%  name: "norm2"
-%  type: "LRN"
-%  bottom: "conv2"
-%  top: "norm2"
-%  lrn_param {
-%    local_size: 5
-%    alpha: 0.0001
-%    beta: 0.75
-%  }
-%}
-%layer {
-%  name: "pool2"
-%  type: "Pooling"
-%  bottom: "norm2"
-%  top: "pool2"
-%  pooling_param {
-%    pool: MAX
-%    kernel_size: 3
-%    stride: 2
-%  }
-%}
-%layer {
-%  name: "conv3"
-%  type: "Convolution"
-%  bottom: "pool2"
-%  top: "conv3"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 384
-%    pad: 1
-%    kernel_size: 3
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0
-%    }
-%  }
-%}
-%layer {
-%  name: "relu3"
-%  type: "ReLU"
-%  bottom: "conv3"
-%  top: "conv3"
-%}
-%layer {
-%  name: "conv4"
-%  type: "Convolution"
-%  bottom: "conv3"
-%  top: "conv4"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 384
-%    pad: 1
-%    kernel_size: 3
-%    group: 2
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu4"
-%  type: "ReLU"
-%  bottom: "conv4"
-%  top: "conv4"
-%}
-%layer {
-%  name: "conv5"
-%  type: "Convolution"
-%  bottom: "conv4"
-%  top: "conv5"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 256
-%    pad: 1
-%    kernel_size: 3
-%    group: 2
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu5"
-%  type: "ReLU"
-%  bottom: "conv5"
-%  top: "conv5"
-%}
-%layer {
-%  name: "pool5"
-%  type: "Pooling"
-%  bottom: "conv5"
-%  top: "pool5"
-%  pooling_param {
-%    pool: MAX
-%    kernel_size: 3
-%    stride: 2
-%  }
-%}
-%layer {
-%  name: "fc6"
-%  type: "InnerProduct"
-%  bottom: "pool5"
-%  top: "fc6"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  inner_product_param {
-%    num_output: 4096
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.005
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu6"
-%  type: "ReLU"
-%  bottom: "fc6"
-%  top: "fc6"
-%}
-%layer {
-%  name: "drop6"
-%  type: "Dropout"
-%  bottom: "fc6"
-%  top: "fc6"
-%  dropout_param {
-%    dropout_ratio: 0.5
-%  }
-%}
-%layer {
-%  name: "fc7"
-%  type: "InnerProduct"
-%  bottom: "fc6"
-%  top: "fc7"
-%  param {
-%name: "gaitAlexNet"
-%layer {
-%  name: "data"
-%  type: "HDF5Data"
-%  top: "data"
-%  top: "label"
-%  include {
-%    phase: TRAIN
-%  }
-%  hdf5_data_param {
-%    source: "/media/EA8EC36A8EC32DBF/ben/trainingOnlyManifold/train.txt"
-%    batch_size: 25
-%  }
-%}
-%layer {
-%  name: "data"
-%  type: "HDF5Data"
-%  top: "data"
-%  top: "label"
-%  include {
-%    phase: TEST
-%  }
-%  
-%  hdf5_data_param {
-%    source: "/media/EA8EC36A8EC32DBF/ben/trainingOnlyManifold/val.txt"
-%    batch_size: 25
-%  }
-%}
-%layer {
-%  name: "concat"
-%  bottom: "data"
-%  bottom: "data"
-%  bottom: "data"
-%  top: "out"
-%  type: "Concat"
-%  concat_param {
-%    axis: 1
-%  }
-%}
-%
-%
-%layer {
-%  name: "conv1"
-%  type: "Convolution"
-%  bottom: "out"
-%  top: "conv1"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  convolution_param {
-%    num_output: 96
-%    kernel_size: 11
-%    stride: 4
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0
-%    }
-%  }
-%}
-%layer {
-%  name: "relu1"
-%  type: "ReLU"
-%  bottom: "conv1"
-%  top: "conv1"
-%}
-%layer {
-%  name: "norm1"
-%  type: "LRN"
-%  bottom: "conv1"
-%  top: "norm1"
-%  lrn_param {
-%    local_size: 5
-%    alpha: 0.0001
-%%    beta: 0.75
-%%  }
-%%}
-%%layer {
-%%  name: "pool1"
-%%  type: "Pooling"
-%%  bottom: "norm1"
-%%  top: "pool1"
-%%  pooling_param {
-%%    pool: MAX
-%%    kernel_size: 3
-%%    stride: 2
-%%  }
-%%}
-%%layer {
-%%  name: "conv2"
-%%  type: "Convolution"
-%%  bottom: "pool1"
-%%  top: "conv2"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  convolution_param {
-%%    num_output: 256
-%%    pad: 2
-%%    kernel_size: 5
-%%    group: 2
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu2"
-%%  type: "ReLU"
-%%  bottom: "conv2"
-%%  top: "conv2"
-%%}
-%%layer {
-%%  name: "norm2"
-%%  type: "LRN"
-%%  bottom: "conv2"
-%%  top: "norm2"
-%%  lrn_param {
-%%    local_size: 5
-%%    alpha: 0.0001
-%%    beta: 0.75
-%%  }
-%%}
-%%layer {
-%%  name: "pool2"
-%%  type: "Pooling"
-%%  bottom: "norm2"
-%%  top: "pool2"
-%%  pooling_param {
-%%    pool: MAX
-%%    kernel_size: 3
-%%    stride: 2
-%%  }
-%%}
-%%layer {
-%%  name: "conv3"
-%%  type: "Convolution"
-%%  bottom: "pool2"
-%%  top: "conv3"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  convolution_param {
-%%    num_output: 384
-%%    pad: 1
-%%    kernel_size: 3
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu3"
-%%  type: "ReLU"
-%%  bottom: "conv3"
-%%  top: "conv3"
-%%}
-%%layer {
-%%  name: "conv4"
-%%  type: "Convolution"
-%%  bottom: "conv3"
-%%  top: "conv4"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  convolution_param {
-%%    num_output: 384
-%%    pad: 1
-%%    kernel_size: 3
-%%    group: 2
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu4"
-%%  type: "ReLU"
-%%  bottom: "conv4"
-%%  top: "conv4"
-%%}
-%%layer {
-%%  name: "conv5"
-%%  type: "Convolution"
-%%  bottom: "conv4"
-%%  top: "conv5"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  convolution_param {
-%%    num_output: 256
-%%    pad: 1
-%%    kernel_size: 3
-%%    group: 2
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu5"
-%%  type: "ReLU"
-%%  bottom: "conv5"
-%%  top: "conv5"
-%%}
-%%layer {
-%%  name: "pool5"
-%%  type: "Pooling"
-%%  bottom: "conv5"
-%%  top: "pool5"
-%%  pooling_param {
-%%    pool: MAX
-%%    kernel_size: 3
-%%    stride: 2
-%%  }
-%%}
-%%layer {
-%%  name: "fc6"
-%%  type: "InnerProduct"
-%%  bottom: "pool5"
-%%  top: "fc6"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  inner_product_param {
-%%    num_output: 4096
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.005
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu6"
-%%  type: "ReLU"
-%%  bottom: "fc6"
-%%  top: "fc6"
-%%}
-%%layer {
-%%  name: "drop6"
-%%  type: "Dropout"
-%%  bottom: "fc6"
-%%  top: "fc6"
-%%  dropout_param {
-%%    dropout_ratio: 0.5
-%%  }
-%%}
-%%layer {
-%%  name: "fc7"
-%%  type: "InnerProduct"
-%%  bottom: "fc6"
-%%  top: "fc7"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  inner_product_param {
-%%    num_output: 4096
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.005
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0.1
-%%    }
-%%  }
-%%}
-%%layer {
-%%  name: "relu7"
-%%  type: "ReLU"
-%%  bottom: "fc7"
-%%  top: "fc7"
-%%}
-%%layer {
-%%  name: "drop7"
-%%  type: "Dropout"
-%%  bottom: "fc7"
-%%  top: "fc7"
-%%  dropout_param {
-%%    dropout_ratio: 0.5
-%%  }
-%%}
-%%
-%%layer {
-%%  name: "new-fc8"
-%%  type: "InnerProduct"
-%%  bottom: "fc7"
-%%  top: "fc8"
-%%  param {
-%%    lr_mult: 1
-%%    decay_mult: 1
-%%  }
-%%  param {
-%%    lr_mult: 2
-%%    decay_mult: 0
-%%  }
-%%  inner_product_param {
-%%    num_output: 3
-%%    weight_filler {
-%%      type: "gaussian"
-%%      std: 0.01
-%%    }
-%%    bias_filler {
-%%      type: "constant"
-%%      value: 0
-%%    }
-%%  }
-%%}
-%%
-%%layer {
-%%  name: "loss"
-%%  type: "EuclideanLoss"
-%%  bottom: "fc8"
-%%  bottom: "label"
-%%  top: "loss"
-%%}    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  inner_product_param {
-%    num_output: 4096
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.005
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0.1
-%    }
-%  }
-%}
-%layer {
-%  name: "relu7"
-%  type: "ReLU"
-%  bottom: "fc7"
-%  top: "fc7"
-%}
-%layer {
-%  name: "drop7"
-%  type: "Dropout"
-%  bottom: "fc7"
-%  top: "fc7"
-%  dropout_param {
-%    dropout_ratio: 0.5
-%  }
-%}
-%
-%layer {
-%  name: "new-fc8"
-%  type: "InnerProduct"
-%  bottom: "fc7"
-%  top: "fc8"
-%  param {
-%    lr_mult: 1
-%    decay_mult: 1
-%  }
-%  param {
-%    lr_mult: 2
-%    decay_mult: 0
-%  }
-%  inner_product_param {
-%    num_output: 3
-%    weight_filler {
-%      type: "gaussian"
-%      std: 0.01
-%    }
-%    bias_filler {
-%      type: "constant"
-%      value: 0
-%    }
-%  }
-%}
-%
-%layer {
-%  name: "loss"
-%  type: "EuclideanLoss"
-%  bottom: "fc8"
-%  bottom: "label"
-%  top: "loss"
-%}
 
 \end{appendices}
 
