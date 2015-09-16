@@ -1,0 +1,33 @@
+\contentsline {section}{\numberline {1}Summary}{3}{section.1}
+\contentsline {section}{\numberline {2}Acknowledgements}{4}{section.2}
+\contentsline {section}{\numberline {3}Introduction}{5}{section.3}
+\contentsline {section}{\numberline {4}Background and Related Work}{7}{section.4}
+\contentsline {subsection}{\numberline {4.1}Depth Imaging}{7}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Sensor Performance}{7}{subsubsection.4.1.1}
+\contentsline {subsection}{\numberline {4.2}Human Pose Estimation}{9}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Human Pose Estimation Using Dimensionality Reduction}{10}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Human Pose Estimation From Depth Images}{13}{subsubsection.4.2.2}
+\contentsline {subsection}{\numberline {4.3}Convolutional Neural Networks}{14}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Human Pose Estimation Using CNNs}{18}{subsubsection.4.3.1}
+\contentsline {section}{\numberline {5}Methods}{19}{section.5}
+\contentsline {subsection}{\numberline {5.1}Dataset}{19}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Data Preprocessing}{21}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Skeleton Preprocessing}{21}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}Depth Preprocessing}{22}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}RGB Pre-processing}{32}{subsubsection.5.2.3}
+\contentsline {subsection}{\numberline {5.3}CNN Library}{34}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Network Architecture}{34}{subsection.5.4}
+\contentsline {subsubsection}{\numberline {5.4.1}Regression Vs. Classification}{37}{subsubsection.5.4.1}
+\contentsline {subsection}{\numberline {5.5}Training Details}{38}{subsection.5.5}
+\contentsline {section}{\numberline {6}Results}{39}{section.6}
+\contentsline {subsection}{\numberline {6.1}Fine-Tuning}{39}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Network Errors Vs. Label Errors Vs. Image Errors}{48}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Movement Quality}{54}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Processing Time and Memory Requirements.}{61}{subsection.6.4}
+\contentsline {section}{\numberline {7}Discussion}{61}{section.7}
+\contentsline {subsection}{\numberline {7.1}Data Limitations}{61}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Measuring accuracy}{62}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Subject Specific Networks}{63}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Abnormal Poses}{64}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.5}Directions of Future Work}{66}{subsection.7.5}
+\contentsline {section}{\numberline {8}Conclusion}{67}{section.8}
